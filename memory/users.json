@@ -1,0 +1,122 @@
+{
+  "users": {
+    "arjun": {
+      "password": "arjun123",
+      "name": "Arjun Sharma",
+      "avatar": "🧑‍💼",
+      "memory": {
+        "preferred_transport": "Metro",
+        "food_preference": "Vegetarian",
+        "avoid": [
+          "highway",
+          "peak",
+          "traffic"
+        ],
+        "budget_range": "500",
+        "accommodation_type": "Budget Hotel",
+        "past_trips": [
+          {
+            "date": "2025-04-01 09:00",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute."
+          },
+          {
+            "date": "2025-04-03 08:30",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Guindy. Purpose: Office Commute."
+          },
+          {
+            "date": "2026-04-09 21:41",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
+          },
+          {
+            "date": "2026-04-09 21:41",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
+          },
+          {
+            "date": "2026-04-09 21:45",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
+          },
+          {
+            "date": "2026-04-09 21:47",
+            "intent": "job_interview",
+            "input": "Travel from Velachery to Siruseri SIPCOT. Purpose: Job Interview. Budget: ₹500–₹"
+          },
+          {
+            "date": "2026-04-09 21:49",
+            "intent": "job_interview",
+            "input": "Travel from Velachery to Siruseri SIPCOT. Purpose: Job Interview. Budget: ₹500–₹"
+          }
+        ],
+        "feedback_notes": [
+          "Needs AC options",
+          "Prefers window seats on bus"
+        ]
+      }
+    },
+    "priya": {
+      "password": "priya456",
+      "name": "Priya Nair",
+      "avatar": "👩‍💻",
+      "memory": {
+        "preferred_transport": "Cab",
+        "food_preference": "Non-Vegetarian",
+        "avoid": [
+          "crowd"
+        ],
+        "budget_range": "1500-3000",
+        "accommodation_type": "Budget Hotel",
+        "past_trips": [
+          {
+            "date": "2025-03-28 10:00",
+            "intent": "leisure_trip",
+            "input": "Travel from Chennai to Mahabalipuram. Purpose: Leisure / Tourism."
+          },
+          {
+            "date": "2025-04-05 11:00",
+            "intent": "business_trip",
+            "input": "Travel from Anna Nagar to Guindy. Purpose: Business Meeting."
+          },
+          {
+            "date": "2026-04-09 21:41",
+            "intent": "leisure_trip",
+            "input": "Travel from Chennai to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 1500-3"
+          }
+        ],
+        "feedback_notes": [
+          "Loves seafood spots",
+          "Prefers 4-star hotels"
+        ]
+      }
+    },
+    "vikram": {
+      "password": "vikram789",
+      "name": "Vikram Rajan",
+      "avatar": "🧑‍🎓",
+      "memory": {
+        "preferred_transport": "MTC Bus",
+        "food_preference": "Vegetarian",
+        "avoid": [
+          "toll",
+          "traffic"
+        ],
+        "budget_range": "₹100–₹300",
+        "accommodation_type": "Hostel",
+        "past_trips": [
+          {
+            "date": "2025-04-02 07:45",
+            "intent": "job_interview",
+            "input": "Travel from Velachery to Siruseri SIPCOT. Purpose: Job Interview."
+          }
+        ],
+        "feedback_notes": [
+          "Always budget conscious",
+          "Prefers early morning travel"
+        ]
+      }
+    }
+  }
+}

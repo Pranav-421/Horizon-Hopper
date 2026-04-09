@@ -1,0 +1,9 @@
+station_name,line,latitude,longitude,interchange
+Chennai Central,Blue Line,13.0827,80.2785,Yes
+Egmore,Blue Line,13.0785,80.2660,No
+Guindy,Blue Line,13.0069,80.2206,Yes
+Alandur,Blue/Green Line,13.0010,80.2085,Yes
+Airport,Green Line,12.9941,80.1709,No
+Koyambedu,Blue Line,13.0694,80.1948,Yes
+St. Thomas Mount,Green Line,13.0045,80.2044,No
+Little Mount,Green Line,13.0145,80.2144,No

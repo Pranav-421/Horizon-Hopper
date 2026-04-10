@@ -90,12 +90,44 @@ def resolve_location(query: str) -> dict:
             return row
 
     title_query = query.strip().title() or "Unknown"
+    
+    TN_CITIES_COORDS = {
+        "Chennai": (13.0827, 80.2707),
+        "Chengalpattu": (12.6939, 79.9757),
+        "Mahabalipuram": (12.6269, 80.1927),
+        "Kanchipuram": (12.8185, 79.7137),
+        "Coimbatore": (11.0168, 76.9558),
+        "Madurai": (9.9252, 78.1198),
+        "Tiruchirappalli": (10.7905, 78.7047),
+        "Salem": (11.6643, 78.1460),
+        "Tirunelveli": (8.7139, 77.7567),
+        "Tiruppur": (11.1085, 77.3411),
+        "Vellore": (12.9165, 79.1325),
+        "Erode": (11.3410, 77.7172),
+        "Thoothukudi": (8.7642, 78.1348),
+        "Dindigul": (10.3673, 77.9803),
+        "Thanjavur": (10.7870, 79.1378),
+        "Ranipet": (12.9272, 79.3323),
+        "Karur": (10.9601, 78.0766),
+        "Ooty": (11.4100, 76.6950),
+        "Kodaikanal": (10.2381, 77.4892),
+        "Kanyakumari": (8.0883, 77.5385),
+        "Rameswaram": (9.2876, 79.3129),
+        "Tiruvannamalai": (12.2253, 79.0747)
+    }
+
+    lat, lon = 13.0827, 80.2707
+    for city, coords in TN_CITIES_COORDS.items():
+        if city.lower() in query.lower():
+            lat, lon = coords
+            break
+
     return {
         "name": title_query,
         "area": title_query,
         "type": "area",
-        "latitude": 13.0827,
-        "longitude": 80.2707,
+        "latitude": lat,
+        "longitude": lon,
         "nearest_metro": "NA",
     }
 

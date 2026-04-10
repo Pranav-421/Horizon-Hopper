@@ -28,14 +28,14 @@ const TN_CITIES = [
 ];
 
 const TN_IMAGES = [
-  "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1616843413587-9e3a37f7bbd8?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1606298246186-0886ec1dc1ee?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1582824655653-5e9275cb6eb4?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1621831749870-137b01815124?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1610403333336-f00e5726ce73?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1596484552834-6ddc5d506d86?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1625807968565-d602cb11b157?q=80&w=600&auto=format&fit=crop"
+  "/assets/tn_kanyakumari_1775842503202.png",
+  "/assets/tn_nilgiris_1775842577463.png",
+  "/assets/tn_shore_temple_1775842523313.png",
+  "/assets/tn_tea_estate_1775842468607.png",
+  "/assets/tn_temple_1775842404019.png",
+  "/assets/tn_waterfall_1775842541471.png",
+  "/assets/tn_kanyakumari_1775842503202.png",
+  "/assets/tn_shore_temple_1775842523313.png"
 ];
 
 /* ═══════════════════════════════════════ */

@@ -16,16 +16,6 @@
         "accommodation_type": "Budget Hotel",
         "past_trips": [
           {
-            "date": "2026-04-10 21:40",
-            "intent": "office_commute",
-            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
-          },
-          {
-            "date": "2026-04-10 21:41",
-            "intent": "office_commute",
-            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
-          },
-          {
             "date": "2026-04-10 21:42",
             "intent": "office_commute",
             "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
@@ -64,6 +54,16 @@
             "date": "2026-04-10 22:12",
             "intent": "leisure_trip",
             "input": "Travel from tambaram to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 5000."
+          },
+          {
+            "date": "2026-04-10 22:45",
+            "intent": "leisure_trip",
+            "input": "Travel from  to Chengalpattu. Purpose: Leisure / Tourism. Budget: 5000. Time: . "
+          },
+          {
+            "date": "2026-04-10 22:45",
+            "intent": "leisure_trip",
+            "input": "Travel from Kanchipuram to Chengalpattu. Purpose: Leisure / Tourism. Budget: 500"
           }
         ],
         "feedback_notes": [

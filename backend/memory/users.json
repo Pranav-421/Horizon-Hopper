@@ -198,6 +198,11 @@
             "date": "2026-04-10 22:26",
             "intent": "business_trip",
             "input": "Travel from tambaram to Mahabalipuram. Purpose: Business Meeting. Budget: 5000. "
+          },
+          {
+            "date": "2026-04-10 22:43",
+            "intent": "leisure_trip",
+            "input": "Travel from  to Chengalpattu. Purpose: Leisure / Tourism. Budget: 5000. Time: . "
           }
         ],
         "feedback_notes": [

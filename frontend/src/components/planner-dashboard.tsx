@@ -33,7 +33,9 @@ const TN_IMAGES = [
   "https://images.unsplash.com/photo-1606298246186-0886ec1dc1ee?q=80&w=600&auto=format&fit=crop", 
   "https://images.unsplash.com/photo-1582824655653-5e9275cb6eb4?q=80&w=600&auto=format&fit=crop", 
   "https://images.unsplash.com/photo-1621831749870-137b01815124?q=80&w=600&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1610403333336-f00e5726ce73?q=80&w=600&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1610403333336-f00e5726ce73?q=80&w=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1596484552834-6ddc5d506d86?q=80&w=600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1625807968565-d602cb11b157?q=80&w=600&auto=format&fit=crop"
 ];
 
 /* ═══════════════════════════════════════ */
@@ -695,12 +697,12 @@ export function PlannerDashboard() {
 
 const S: Record<string, React.CSSProperties> = {
   pageWrapper: { position: "relative", minHeight: "100vh", overflow: "hidden", background: "var(--background)" },
-  filmRollContainer: { position: "fixed", top: 0, bottom: 0, width: "clamp(80px, 10vw, 150px)", zIndex: 0, overflow: "hidden", pointerEvents: "none", boxShadow: "inset 0 0 20px rgba(0,0,0,0.02)" },
-  filmRollInner: { display: "flex", flexDirection: "column", gap: 12, padding: "12px 0" },
-  filmFrame: { width: "100%", padding: "0 12px" },
-  filmImage: { width: "100%", aspectRatio: "3/4", objectFit: "cover", borderRadius: "8px", border: "4px solid rgba(255,255,255,0.7)", boxShadow: "var(--shadow-md)" },
+  filmRollContainer: { position: "fixed", top: 0, bottom: 0, width: "clamp(120px, 15vw, 240px)", zIndex: 0, overflow: "hidden", pointerEvents: "none", boxShadow: "inset 0 0 20px rgba(0,0,0,0.02)" },
+  filmRollInner: { display: "flex", flexDirection: "column", gap: 16, padding: "16px 0" },
+  filmFrame: { width: "100%", padding: "0 16px" },
+  filmImage: { width: "100%", aspectRatio: "3/4", objectFit: "cover", borderRadius: "10px", border: "5px solid rgba(255,255,255,0.7)", boxShadow: "var(--shadow-md)" },
   
-  page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", position: "relative", zIndex: 1, padding: "0 clamp(80px, 10vw, 150px)" },
+  page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", position: "relative", zIndex: 1, padding: "0 clamp(120px, 15vw, 240px)" },
 
   /* header */
   header: {

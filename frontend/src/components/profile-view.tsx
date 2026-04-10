@@ -9,8 +9,14 @@ export function ProfileView() {
   const router = useRouter();
   const session = useMemo(() => readSession(), []);
   const [memory, setMemory] = useState<MemorySummary | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     if (!session) {
       router.replace("/");
       return;
@@ -21,6 +27,7 @@ export function ProfileView() {
       .catch(() => setMemory(session.user.memory));
   }, [session, router]);
 
+  if (!mounted) return null;
   if (!session) return null;
   const user = session.user;
 

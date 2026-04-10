@@ -36,16 +36,6 @@
             "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
           },
           {
-            "date": "2026-04-10 21:42",
-            "intent": "office_commute",
-            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
-          },
-          {
-            "date": "2026-04-10 21:42",
-            "intent": "office_commute",
-            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 200-500. Ti"
-          },
-          {
             "date": "2026-04-10 22:11",
             "intent": "leisure_trip",
             "input": "Travel from tambaram to Chennai, Tamil Nadu. Purpose: Leisure / Tourism. Budget:"
@@ -64,6 +54,16 @@
             "date": "2026-04-10 22:45",
             "intent": "leisure_trip",
             "input": "Travel from Kanchipuram to Chengalpattu. Purpose: Leisure / Tourism. Budget: 500"
+          },
+          {
+            "date": "2026-04-10 23:10",
+            "intent": "leisure_trip",
+            "input": "Travel from  to Vellore. Purpose: Leisure / Tourism. Budget: 5000. Time: . Prefe"
+          },
+          {
+            "date": "2026-04-10 23:11",
+            "intent": "leisure_trip",
+            "input": "Travel from Mahabalipuram to Vellore. Purpose: Leisure / Tourism. Budget: 5000. "
           }
         ],
         "feedback_notes": [

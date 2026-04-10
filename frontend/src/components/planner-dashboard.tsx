@@ -45,10 +45,16 @@ const TN_IMAGES = [
 export function PlannerDashboard() {
   const router = useRouter();
   const session = useMemo(() => readSession(), []);
+  const [mounted, setMounted] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   /* ── redirect if no session ── */
   useEffect(() => {
+    if (!mounted) return;
     if (!session) router.replace("/");
   }, [session, router]);
 
@@ -155,6 +161,7 @@ export function PlannerDashboard() {
     router.replace("/");
   }, [router]);
 
+  if (!mounted) return null;
   if (!session) return null;
 
   return (

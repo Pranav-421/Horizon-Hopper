@@ -118,11 +118,6 @@
             "input": "Travel from Chennai to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 1500-3"
           },
           {
-            "date": "2026-04-10 21:42",
-            "intent": "leisure_trip",
-            "input": "Travel from Chennai to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 1500-3"
-          },
-          {
             "date": "2026-04-10 21:54",
             "intent": "office_commute",
             "input": "Travel from Tambaram to Mahabalipuram. Purpose: Office Commute. Budget: 5000. Ti"
@@ -136,6 +131,11 @@
             "date": "2026-04-10 21:57",
             "intent": "business_trip",
             "input": "Travel from tambaram to Mahabalipuram. Purpose: Business Meeting. Budget: 5000. "
+          },
+          {
+            "date": "2026-04-10 22:27",
+            "intent": "office_commute",
+            "input": "Travel from tambaram  to Mahabalipuram. Purpose: Office Commute. Budget: 5000. T"
           }
         ],
         "feedback_notes": [
@@ -193,6 +193,11 @@
             "date": "2026-04-10 22:10",
             "intent": "leisure_trip",
             "input": "Travel from bihar to Chennai, Tamil Nadu. Purpose: Leisure / Tourism. Budget: 50"
+          },
+          {
+            "date": "2026-04-10 22:26",
+            "intent": "business_trip",
+            "input": "Travel from tambaram to Mahabalipuram. Purpose: Business Meeting. Budget: 5000. "
           }
         ],
         "feedback_notes": [

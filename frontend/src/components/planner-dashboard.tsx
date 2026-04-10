@@ -20,6 +20,22 @@ const HERO_IMG =
 const COAST_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCXbqH6F4SY8LWc3mjUDz_iL3e9hAb3xdJa6fraygZmOj8VT3GYbRZzhEGFOzlxF-vaKYHhrKTksErf16_oSdh7plE92Vyz_-yyiWI8k8OK4dQjQkl6O4dry-ra6eGx7rpYyd6EPvmfURLCIPMlrO104NPZGKcxzj-rJMSLHi5Y_4Z11lJ6NqH2yYgMshM1hlU1OmMXVmWJVycKs6KBkzrcFPROLMc9Xdz8S8Ah6vgNy5OI-ZLxT0jZ_8tcntMY0KU1Zaw7Dcsxy_Bg";
 
+const TN_CITIES = [
+  "Select a city...", "Chennai", "Chengalpattu", "Mahabalipuram", "Kanchipuram", "Coimbatore",
+  "Madurai", "Tiruchirappalli", "Salem", "Tirunelveli", "Tiruppur",
+  "Vellore", "Erode", "Thoothukudi", "Dindigul", "Thanjavur", "Ranipet",
+  "Karur", "Ooty", "Kodaikanal", "Kanyakumari", "Rameswaram", "Tiruvannamalai"
+];
+
+const TN_IMAGES = [
+  "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1616843413587-9e3a37f7bbd8?q=80&w=600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1606298246186-0886ec1dc1ee?q=80&w=600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1582824655653-5e9275cb6eb4?q=80&w=600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1621831749870-137b01815124?q=80&w=600&auto=format&fit=crop", 
+  "https://images.unsplash.com/photo-1610403333336-f00e5726ce73?q=80&w=600&auto=format&fit=crop"
+];
+
 /* ═══════════════════════════════════════ */
 /*  PLANNER DASHBOARD                     */
 /* ═══════════════════════════════════════ */
@@ -140,8 +156,31 @@ export function PlannerDashboard() {
   if (!session) return null;
 
   return (
-    <div style={S.page}>
-      {/* ── HEADER ── */}
+    <div style={S.pageWrapper}>
+      {/* ── FILM ROLL LEFT ── */}
+      <div style={{ ...S.filmRollContainer, left: 0 }}>
+        <div style={{ ...S.filmRollInner, animation: "scrollUp 40s linear infinite" }}>
+          {[...TN_IMAGES, ...TN_IMAGES].map((img, i) => (
+            <div key={`l-${i}`} style={S.filmFrame}>
+              <img src={img} alt="" style={S.filmImage} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── FILM ROLL RIGHT ── */}
+      <div style={{ ...S.filmRollContainer, right: 0 }}>
+        <div style={{ ...S.filmRollInner, animation: "scrollDown 40s linear infinite" }}>
+          {[...TN_IMAGES, ...TN_IMAGES].reverse().map((img, i) => (
+            <div key={`r-${i}`} style={S.filmFrame}>
+              <img src={img} alt="" style={S.filmImage} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={S.page}>
+        {/* ── HEADER ── */}
       <header style={S.header}>
         <div style={S.headerInner}>
           <div style={S.headerLeft}>
@@ -186,13 +225,16 @@ export function PlannerDashboard() {
                 <label style={S.fieldLabel}>Departure Point</label>
                 <div style={S.inputWrap}>
                   <span className="material-symbols-outlined" style={S.inputIcon}>my_location</span>
-                  <input
-                    style={S.inputField}
-                    placeholder="Your current location"
+                  <select
+                    style={{ ...S.inputField, cursor: "pointer", appearance: "none" as const }}
                     value={source}
                     onChange={(e) => setSource(e.target.value)}
                     required
-                  />
+                  >
+                    {TN_CITIES.map((city) => (
+                      <option key={city} value={city} disabled={city.includes("Select")}>{city}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div>
@@ -204,16 +246,9 @@ export function PlannerDashboard() {
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
                   >
-                    <option>Chennai, Tamil Nadu</option>
-                    <option>Chengalpattu, Tamil Nadu</option>
-                    <option>Mahabalipuram</option>
-                    <option>Tambaram</option>
-                    <option>Velachery</option>
-                    <option>Guindy</option>
-                    <option>Tidel Park</option>
-                    <option>OMR</option>
-                    <option>Siruseri SIPCOT</option>
-                    <option>T. Nagar</option>
+                    {TN_CITIES.map((city) => (
+                      <option key={city} value={city} disabled={city.includes("Select")}>{city}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -649,6 +684,7 @@ export function PlannerDashboard() {
           </div>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
@@ -658,7 +694,13 @@ export function PlannerDashboard() {
 /* ═══════════════════════════════════════ */
 
 const S: Record<string, React.CSSProperties> = {
-  page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--background)" },
+  pageWrapper: { position: "relative", minHeight: "100vh", overflow: "hidden", background: "var(--background)" },
+  filmRollContainer: { position: "fixed", top: 0, bottom: 0, width: "clamp(80px, 10vw, 150px)", zIndex: 0, overflow: "hidden", pointerEvents: "none", boxShadow: "inset 0 0 20px rgba(0,0,0,0.02)" },
+  filmRollInner: { display: "flex", flexDirection: "column", gap: 12, padding: "12px 0" },
+  filmFrame: { width: "100%", padding: "0 12px" },
+  filmImage: { width: "100%", aspectRatio: "3/4", objectFit: "cover", borderRadius: "8px", border: "4px solid rgba(255,255,255,0.7)", boxShadow: "var(--shadow-md)" },
+  
+  page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", position: "relative", zIndex: 1, padding: "0 clamp(80px, 10vw, 150px)" },
 
   /* header */
   header: {

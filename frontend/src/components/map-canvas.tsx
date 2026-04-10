@@ -1,6 +1,7 @@
 "use client";
 
 import { divIcon } from "leaflet";
+import { useEffect } from "react";
 import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from "react-leaflet";
 
 const markerPalette: Record<string, string> = {
@@ -20,13 +21,15 @@ function FitBounds({
   };
 }) {
   const map = useMap();
-  map.fitBounds(
-    [
-      [bounds.southWest.lat, bounds.southWest.lng],
-      [bounds.northEast.lat, bounds.northEast.lng],
-    ],
-    { padding: [24, 24] },
-  );
+  useEffect(() => {
+    map.fitBounds(
+      [
+        [bounds.southWest.lat, bounds.southWest.lng],
+        [bounds.northEast.lat, bounds.northEast.lng],
+      ],
+      { padding: [24, 24] },
+    );
+  }, [map, bounds]);
   return null;
 }
 
@@ -60,6 +63,7 @@ export default function MapCanvas({
 }) {
   return (
     <MapContainer
+      key={`${map.center.lat}-${map.center.lng}`}
       center={[map.center.lat, map.center.lng]}
       zoom={11}
       scrollWheelZoom={false}

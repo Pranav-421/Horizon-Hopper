@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException
+import json
+import logging
+from pathlib import Path
+
+from fastapi import APIRouter, HTTPException, Request
 
 from app.agents.feedback_agent import run_feedback_refinement, save_feedback_to_memory
 from app.agents.memory_agent import authenticate, get_all_users, load_user_memory
+from app.core.security import create_token, decode_token
+from app.db.database import save_feedback as db_save_feedback
 from app.models.schemas import (
     FeedbackRequest,
     LoginRequest,
@@ -17,7 +23,22 @@ from app.models.schemas import (
 from app.services.formatter import format_planner_response, _to_memory_summary
 from app.services.orchestrator import run_planner
 
+logger = logging.getLogger("horizon_hopper")
+
 router = APIRouter(prefix="/api")
+
+
+# ── Helper: extract user from JWT ─────────────────────────────
+
+
+def _get_current_user(request: Request) -> str | None:
+    """Extract user_id from Authorization header if present."""
+    auth = request.headers.get("authorization", "")
+    if auth.startswith("Bearer "):
+        payload = decode_token(auth[7:])
+        if payload:
+            return payload.get("sub")
+    return None
 
 
 # ── Auth ──────────────────────────────────────────────────────
@@ -36,7 +57,14 @@ def login(body: LoginRequest):
         avatar=user.get("avatar", "U"),
         memory=_to_memory_summary(memory),
     )
-    return {"user": profile.model_dump()}
+
+    # Generate JWT token
+    token = create_token(user["id"], {"name": user.get("name", user["id"])})
+
+    return {
+        "user": profile.model_dump(),
+        "token": token,
+    }
 
 
 # ── Users ─────────────────────────────────────────────────────
@@ -71,6 +99,7 @@ def get_memory(user_id: str):
 @router.post("/users/{user_id}/feedback")
 def save_feedback(user_id: str, body: FeedbackRequest):
     save_feedback_to_memory(user_id, body.feedback, body.section, body.satisfied)
+    db_save_feedback(user_id, body.feedback, body.section)
     return {"status": "ok"}
 
 
@@ -78,7 +107,11 @@ def save_feedback(user_id: str, body: FeedbackRequest):
 
 
 @router.post("/trips/plan")
-def plan_trip(body: TripPlanRequest):
+def plan_trip(body: TripPlanRequest, request: Request):
+    # Use JWT user if available, else fall back to body.user_id
+    jwt_user = _get_current_user(request)
+    user_id = jwt_user or body.user_id
+
     result = run_planner(
         source=body.source,
         destination=body.destination,
@@ -86,7 +119,7 @@ def plan_trip(body: TripPlanRequest):
         budget=body.budget,
         travel_time=body.travel_time,
         preferences=body.preferences,
-        user_id=body.user_id,
+        user_id=user_id,
         service_mode=body.service_mode,
     )
     return format_planner_response(
@@ -97,7 +130,7 @@ def plan_trip(body: TripPlanRequest):
         budget=body.budget,
         travel_time=body.travel_time,
         preferences=body.preferences,
-        user_id=body.user_id,
+        user_id=user_id,
         service_mode=body.service_mode,
     )
 
@@ -126,3 +159,30 @@ def refine_trip(body: TripRefineRequest):
         service_mode=body.service_mode,
         updated_section=updated.get("_updated_section"),
     )
+
+
+# ── Knowledge Graph (Graphify) ────────────────────────────────
+
+GRAPH_DIR = Path(__file__).resolve().parents[3] / "graphify-out"
+
+
+@router.get("/graph/data")
+def get_graph_data():
+    """Serve the graphify knowledge graph JSON."""
+    graph_json = GRAPH_DIR / "graph.json"
+    if not graph_json.exists():
+        raise HTTPException(
+            status_code=404,
+            detail="Knowledge graph not built yet. Run: graphify .",
+        )
+    with open(graph_json, encoding="utf-8") as f:
+        return json.load(f)
+
+
+@router.get("/graph/report")
+def get_graph_report():
+    """Serve the graphify architecture report."""
+    report_md = GRAPH_DIR / "GRAPH_REPORT.md"
+    if not report_md.exists():
+        raise HTTPException(status_code=404, detail="Graph report not found.")
+    return {"report": report_md.read_text(encoding="utf-8")}

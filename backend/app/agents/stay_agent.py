@@ -1,4 +1,4 @@
-﻿from app.utils.hotel_tool import recommend_hotels
+from app.utils.hotel_tool import recommend_hotels
 
 
 FOOD_HINTS = {
@@ -16,10 +16,15 @@ def get_stay_options(destination, budget, preferences, intent):
 
     lines = []
     for index, hotel in enumerate(picks, start=1):
+        hotel_name = hotel.get("hotel_name") or hotel.get("name") or "Recommended Stay"
+        area = hotel.get("area", destination)
+        price_range = hotel.get("price_range", "NA")
+        rating = hotel.get("rating", "NA")
+        stay_type = hotel.get("type", "General")
         lines.append(
-            f"{index}. {hotel['hotel_name']} | {hotel['area']} | INR {hotel['price_range']} | Rating {hotel['rating']}"
+            f"{index}. {hotel_name} | {area} | INR {price_range} | Rating {rating} | Type {stay_type}"
         )
         lines.append(
-            f"   {hotel['type']} stay with {FOOD_HINTS[veg_only]} and quick access to {destination}."
+            f"   Stay with {FOOD_HINTS[veg_only]} and quick access to {destination}."
         )
     return "\n".join(lines)

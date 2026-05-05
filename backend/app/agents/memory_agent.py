@@ -1,10 +1,23 @@
-import os
-import json
+"""Memory agent — now backed by SQLite instead of flat JSON.
+
+Public interface is unchanged so the rest of the codebase
+(orchestrator, routes, formatter) continues to work.
+"""
+
 import re
 from datetime import datetime
 
-MEMORY_DIR = os.path.join(os.path.dirname(__file__), "../../memory")
-USERS_FILE = os.path.join(MEMORY_DIR, "users.json")
+from app.db.database import (
+    authenticate_user,
+    get_all_users as _db_get_all_users,
+    get_user_memory,
+    save_user_memory,
+    add_trip,
+    save_feedback as _db_save_feedback,
+)
+
+
+# ── Keyword extractors (unchanged) ───────────────────────────
 
 _TRANSPORT_KEYWORDS = {
     "metro": "Metro",
@@ -38,16 +51,6 @@ _STAY_KEYWORDS = {
     "luxury": "Luxury Hotel",
 }
 _AVOID_KEYWORDS = ["highway", "traffic", "toll", "peak", "crowd", "noise"]
-_DEFAULT_MEMORY = {
-    "preferred_transport": None,
-    "food_preference": None,
-    "avoid": [],
-    "budget_range": None,
-    "accommodation_type": None,
-    "past_trips": [],
-    "feedback_notes": [],
-}
-
 
 
 def _extract_preferences(text: str) -> dict:
@@ -78,82 +81,53 @@ def _extract_preferences(text: str) -> dict:
     return result
 
 
-
-def _load_users() -> dict:
-    try:
-        with open(USERS_FILE, encoding="utf-8") as handle:
-            return json.load(handle)
-    except Exception:
-        return {"users": {}}
-
-
-
-def _save_users(data: dict):
-    os.makedirs(MEMORY_DIR, exist_ok=True)
-    with open(USERS_FILE, "w", encoding="utf-8") as handle:
-        json.dump(data, handle, indent=2, ensure_ascii=False)
-
+# ── Public API (same signatures as before) ────────────────────
 
 
 def authenticate(username: str, password: str):
-    users = _load_users()
-    user = users["users"].get(username.lower())
-    if user and user.get("password") == password:
-        return {"id": username.lower(), **user}
-    return None
-
+    """Verify credentials — returns {id, name, avatar} or None."""
+    return authenticate_user(username, password)
 
 
 def get_all_users():
-    return _load_users()["users"]
-
+    """Return {user_id: {name, avatar, memory}} for all users."""
+    return _db_get_all_users()
 
 
 def load_user_memory(user_id: str) -> dict:
-    users = _load_users()
-    user = users["users"].get(user_id, {})
-    memory = dict(_DEFAULT_MEMORY)
-    memory.update(user.get("memory", {}))
-    memory.setdefault("past_trips", [])
-    memory.setdefault("feedback_notes", [])
-    memory.setdefault("avoid", [])
-    return memory
+    user_id = (user_id or "guest").lower()
+    return get_user_memory(user_id)
 
 
-
-def save_user_memory(user_id: str, memory: dict):
-    users = _load_users()
-    if user_id not in users["users"]:
-        users["users"][user_id] = {"password": "", "name": user_id, "avatar": "U", "memory": {}}
-    users["users"][user_id]["memory"] = memory
-    _save_users(users)
+def save_user_memory_wrapper(user_id: str, memory: dict):
+    user_id = (user_id or "guest").lower()
+    save_user_memory(user_id, memory)
 
 
-
-def load_memory(user_id: str = "guest") -> dict:
-    return load_user_memory(user_id)
-
+# Aliases for backward compat
+load_memory = load_user_memory
 
 
 def update_memory(user_input: str, preferences: str, intent: str, user_id: str = "guest") -> dict:
     try:
+        user_id = (user_id or "guest").lower()
         new = _extract_preferences(f"{user_input} {preferences}")
-        existing = load_user_memory(user_id)
+        existing = get_user_memory(user_id)
+
         for key in ["preferred_transport", "food_preference", "budget_range", "accommodation_type"]:
             if new.get(key):
                 existing[key] = new[key]
         if new.get("avoid"):
             existing["avoid"] = sorted(set(existing.get("avoid", []) + new["avoid"]))
-        existing.setdefault("past_trips", []).append(
-            {
-                "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
-                "intent": intent,
-                "input": user_input[:80],
-            }
-        )
-        existing["past_trips"] = existing["past_trips"][-10:]
+
+        # Save memory preferences
         save_user_memory(user_id, existing)
-        return existing
+
+        # Record the trip separately
+        add_trip(user_id, intent, user_input[:80])
+
+        # Re-read to include the new trip
+        return get_user_memory(user_id)
     except Exception as exc:
         print(f"Memory error: {exc}")
-        return load_user_memory(user_id)
+        return get_user_memory(user_id)

@@ -1,7 +1,25 @@
-office_name,area,latitude,longitude,nearest_metro
-DLF IT Park,Guindy,13.0075,80.2206,Guindy
-Tidel Park,OMR,12.9899,80.2471,Taramani
-SIPCOT IT Park,Siruseri,12.8409,80.2197,NA
-Ramanujan IT City,Taramani,13.0010,80.2470,Taramani
-SP Infocity,Perungudi,12.9645,80.2435,NA
-RMZ Millenia,Perungudi,12.9700,80.2428,NA
+office_name,area,city,latitude,longitude,nearest_metro,nearest_railway_station,nearest_horizon_hopper_city,bus_available,approximate_commute_from_central_mins,employee_count_approx,source_url,confidence,notes
+DLF IT Park,Guindy,Chennai,13.0075,80.2206,Guindy Metro,Guindy Railway Station,chennai,Yes,25,5000,https://www.dlf.in/,high,Blue Line metro directly accessible
+Tidel Park,OMR,Chennai,12.9899,80.2471,Taramani MRTS,Taramani MRTS,chennai,Yes,40,20000,http://www.tidelpark.com/,high,Largest IT park in Chennai; OMR tech corridor
+SIPCOT IT Park,Siruseri,Chennai,12.8409,80.2197,NA,Chengalpattu Railway Station,chengalpattu,Yes,75,30000,https://www.sipcot.com/,high,Closest horizon hopper city is Chengalpattu; buses from Tambaram
+Ramanujan IT City,Taramani,Chennai,13.0010,80.2470,Taramani MRTS,Taramani MRTS,chennai,Yes,35,15000,https://www.ramanujaniтcity.com/,high,Named after mathematician Ramanujan; major IT hub
+SP Infocity,Perungudi,Chennai,12.9645,80.2435,NA,Taramani MRTS,chennai,Yes,45,8000,NA,medium,OMR corridor; cab/bus needed from nearest MRTS
+RMZ Millenia,Perungudi,Chennai,12.9700,80.2480,Perungudi MRTS,Taramani MRTS,chennai,Yes,40,12000,https://www.rmzcorp.com/rmz-millenia-chennai/,high,Premium office complex on OMR
+DLF Downtown,Tharamani,Chennai,12.9870,80.2450,Taramani MRTS,Taramani MRTS,chennai,Yes,38,10000,https://www.dlf.in/offices/chennai/downtown,high,Co-located with Tidel Park area
+DLF Cybercity Chennai,Manapakkam,Chennai,13.0180,80.1770,Alandur Metro,Guindy Railway Station,chennai,Yes,30,18000,https://www.dlf.in/offices/chennai/cyber-city,high,Blue+Green line interchange at Alandur nearby
+Olympia Tech Park,Guindy,Chennai,13.0140,80.2080,Ekkattuthangal Metro,Guindy Railway Station,chennai,Yes,25,6000,https://www.olympiagroup.in/projects/olympia-tech-park/,high,Near metro; good connectivity
+Ascendas IT Park,Taramani,Chennai,12.9860,80.2470,Thiruvanmiyur MRTS,Taramani MRTS,chennai,Yes,40,9000,https://www.capitaland.com/in/en/find-a-property/global-property-listing/business-park-industrial-and-logistics/International-Tech-Park-Chennai.html,high,Part of OMR IT corridor
+Amazon Development Centre,Perungudi,Chennai,12.9680,80.2480,Perungudi MRTS,Taramani MRTS,chennai,Yes,42,4000,https://www.amazon.jobs/en/locations/chennai-india,high,Major tech employer on OMR
+TCS Siruseri (SIPCOT),Siruseri,Chennai,12.8290,80.2180,NA,Chengalpattu Railway Station,chengalpattu,Yes,80,40000,https://www.tcs.com/,high,Largest single campus in Chennai region; buses from Tambaram & Chengalpattu
+Wipro Technologies,Sholinganallur,Chennai,12.9050,80.2300,NA,Taramani MRTS,chennai,Yes,55,8000,https://www.wipro.com/,high,OMR corridor; company shuttle available
+Infosys Mahindra City,Chengalpattu,Chengalpattu,12.7230,79.9980,NA,Chengalpattu Railway Station,chengalpattu,Yes,90,12000,https://www.infosys.com/,high,Located in Mahindra World City SEZ; nearest horizon hopper city is Chengalpattu
+Cognizant (CTS) MEPZ,Tambaram,Chennai,12.9300,80.1300,NA,Tambaram Railway Station,tambaram,Yes,45,15000,https://www.cognizant.com/,high,Tambaram is the nearest horizon hopper city; good rail connectivity
+Standard Chartered GBS,Taramani,Chennai,12.9850,80.2460,Thiruvanmiyur MRTS,Taramani MRTS,chennai,Yes,38,3000,https://www.sc.com/in/,high,Global Business Services; OMR area
+HCL Technologies,Sholinganallur,Chennai,12.9010,80.2270,NA,Taramani MRTS,chennai,Yes,55,10000,https://www.hcltech.com/,high,Major IT employer on OMR corridor
+Zoho Corporation HQ,Estancia IT Park,Chennai,12.8410,80.2212,NA,Chengalpattu Railway Station,chengalpattu,Yes,80,15000,https://www.zoho.com/,high,India HQ of Zoho; near SIPCOT Siruseri
+Ford India Global Business Services,Chengalpattu,Chengalpattu,12.8100,79.9950,NA,Chengalpattu Railway Station,chengalpattu,Yes,95,3000,https://www.ford.com/,high,Near Mahindra World City
+Hyundai India Manufacturing,Irungattukottai,Chennai,13.1000,80.0200,NA,Thiruvallur Railway Station,chennai,Yes,60,10000,https://www.hyundai.com/in/en.html,high,Manufacturing plant; north Chennai
+Coimbatore IT Park (TIDEL),Coimbatore,Coimbatore,11.0200,76.9700,NA,Coimbatore Junction,coimbatore,Yes,15,5000,NA,medium,Emerging IT hub in Coimbatore
+ELCOT SEZ Madurai,Madurai,Madurai,9.9200,78.1200,NA,Madurai Junction,madurai,Yes,20,3000,https://www.elcot.in/,medium,State-run IT SEZ; growing tech hub
+ELCOT IT Park Tirunelveli,Tirunelveli,Tirunelveli,8.7100,77.7600,NA,Tirunelveli Junction,tirunelveli,Yes,15,1500,https://www.elcot.in/,medium,Smaller IT presence in Tirunelveli
+Vellore Institute of Technology (VIT) Tech Park,Vellore,Vellore,12.9690,79.1550,NA,Katpadi Railway Station,vellore,Yes,10,2000,https://vit.ac.in/,high,Adjacent to VIT University campus

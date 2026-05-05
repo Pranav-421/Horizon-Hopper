@@ -4,343 +4,347 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { MemorySummary } from "@/lib/types";
 import { clearSession, readSession } from "@/lib/session";
+import { SharedHeader } from "@/components/shared-header";
+
+const PROFILE_IMG =
+  "https://lh3.googleusercontent.com/aida/ADBb0uj88jshewUxsNqCCY9GFJCPyKM_IQxTZq-W6-J97E2x7qlYodugp5p4rHscGwSa-Mp4BjhCGQLQbwfQupmsyw4wyBG06fId3gcNBumLiQVjWTn8mP6IO5R_PoMMUgRsQHDz74kyM_qdPGGZjO6k75gp3jDS9LHQdNVbPTuCcarbRz7HxgnIq64necZQJzcf48UjEjkjyazCjRYdv9LXNewRfA2C4K9vKqLXVOZmjSW4mi-F5SZTlk5mGQzbR8Y_Gfmad19T5Fp2";
+const HERO_IMG =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBLwGCQZ_IyLgeoBC-wUSpAOJeOKf6QuMERQ_1b-ZTqePma_i90dXqc_vWYs69TJUwFL_lMYL5laLiB_fqtoXAlTRMVGHSLMBmI3Alyj2cICBNYA0nkGT7gKI6HX40-gy1M4ShrBWksPmw5HHwDUI3iz23HmqKoIuL5izalV5DxHFznRv5v32JM5koJMb7tPXVStH3MXeXWuTI7yZnTpA6YPSio9m_5JFqR2yfFHdRuAbZ7WLByfbZ8Pde7y0dm4RQ2j7-ivFA61rE";
 
 export function ProfileView() {
   const router = useRouter();
   const session = useMemo(() => readSession(), []);
   const [memory, setMemory] = useState<MemorySummary | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Open edit mode if query param is present
+    if (window.location.search.includes("edit=true")) {
+      setIsEditing(true);
+    }
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
-    if (!session) {
-      router.replace("/");
-      return;
-    }
+    if (!session) { router.replace("/"); return; }
     fetch(`/api/users/${session.user.id}/memory`)
       .then((r) => r.json())
-      .then((d) => setMemory(d.memory ?? session.user.memory))
+      .then((d) => {
+        const mem = d?.preferred_transport !== undefined ? d : d?.memory ?? session.user.memory;
+        setMemory(mem);
+      })
       .catch(() => setMemory(session.user.memory));
-  }, [session, router]);
+  }, [session, router, mounted]);
 
-  if (!mounted) return null;
-  if (!session) return null;
+  if (!mounted || !session) return null;
   const user = session.user;
 
-  const dnaCards = [
-    {
-      icon: "train",
-      label: "Transport",
-      value: memory?.preferred_transport || "Not set",
-      desc: "Prioritizing scenic slow-travel and sustainability.",
-    },
-    {
-      icon: "payments",
-      label: "Investment",
-      value: memory?.budget_range || "Not set",
-      desc: "Your preferred daily budget allocation.",
-    },
-    {
-      icon: "restaurant",
-      label: "Cuisine",
-      value: memory?.food_preference || "Not set",
-      desc: "Your dining and food style preferences.",
-    },
+  const dnaItems = [
+    { label: "Preferred Transport", value: memory?.preferred_transport || "Train", pct: 88 },
+    { label: "Food Preference", value: memory?.food_preference || "Vegetarian", pct: 92 },
+    { label: "Budget Range", value: memory?.budget_range || "Mid-range", pct: 65 },
+  ];
+
+  const tags = [
+    memory?.preferred_transport || "Train Travel",
+    memory?.food_preference || "Local Cuisine",
+    memory?.accommodation_type || "Budget Stay",
   ];
 
   return (
-    <div style={S.page}>
-      {/* Header */}
-      <header style={S.header}>
-        <div style={S.headerInner}>
-          <div style={S.headerLeft}>
-            <span style={S.logo} onClick={() => router.push("/planner")}>
-              Horizon Hopper
-            </span>
-            <nav style={S.nav}>
-              <span style={S.navItem} onClick={() => router.push("/planner")}>Journeys</span>
-              <span style={{ ...S.navItem, borderBottom: "2px solid var(--primary)", paddingBottom: 4 }}>Profile</span>
-            </nav>
+    <div style={{ minHeight: "100vh", background: "var(--background)" }}>
+      <SharedHeader active="profile" />
+
+      <main style={{ paddingTop: 112, paddingBottom: 96, maxWidth: 1280, margin: "0 auto", padding: "112px 24px 96px" }}>
+        {/* ── Profile Header ── */}
+        <section style={S.profileHeader} className="animate-fade-in">
+          <div style={{ position: "relative" }}>
+            <div style={S.avatarWrap}>
+              <img src={PROFILE_IMG} alt={user.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+            <div style={S.premiumBadge}>
+              <span className="material-symbols-outlined" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>verified</span>
+              Premium
+            </div>
           </div>
-          <div style={S.headerRight}>
-            <div style={S.avatarCircle}>{user.avatar}</div>
-            <button style={S.logoutBtn} onClick={() => { clearSession(); router.replace("/"); }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 20 }}>logout</span>
-            </button>
+          <div style={{ textAlign: "center" }}>
+            <h1 style={{ fontSize: "3rem", fontWeight: 700, letterSpacing: "-0.04em", marginBottom: 8 }}>{user.name}</h1>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16, alignItems: "center" }}>
+              <span style={{ fontSize: "1.125rem", color: "var(--tertiary)", fontWeight: 500 }}>{memory?.trip_count ?? 0} Trips</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--outline-variant)" }} />
+              <span style={{ fontSize: "1.125rem", color: "var(--tertiary)", fontWeight: 500 }}>Explorer</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--outline-variant)" }} />
+              <span style={{ display: "flex", alignItems: "center", gap: 4, color: "var(--primary)", fontWeight: 600 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>location_on</span>
+                Tamil Nadu
+              </span>
+            </div>
+          </div>
+          <button style={S.editBtn} onClick={() => setIsEditing(true)}>
+            <span className="material-symbols-outlined">edit</span>
+            Edit Profile
+          </button>
+        </section>
+
+        {/* ── Bento Grid ── */}
+        <div style={S.bentoGrid}>
+          {/* Travel DNA Card */}
+          <div style={S.dnaCard}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+              <h3 style={{ fontSize: "1.5rem", fontWeight: 600 }}>Travel DNA</h3>
+              <span className="material-symbols-outlined" style={{ color: "var(--primary)" }}>analytics</span>
+            </div>
+            <p style={{ color: "var(--on-surface-variant)", marginBottom: 32 }}>Your core preferences analyzed from past journeys.</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {dnaItems.map(item => (
+                <div key={item.label} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", fontWeight: 600 }}>
+                    <span style={{ color: "var(--on-surface-variant)" }}>{item.label}</span>
+                    <span style={{ color: "var(--primary)", fontWeight: 700 }}>{item.pct}% Match</span>
+                  </div>
+                  <div style={{ width: "100%", height: 8, background: "var(--surface-container)", borderRadius: 9999, overflow: "hidden" }}>
+                    <div style={{ width: `${item.pct}%`, height: "100%", background: "var(--primary)", borderRadius: 9999 }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 32 }}>
+              {tags.map(tag => (
+                <span key={tag} style={S.tagChip}>{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Memory Notes Card */}
+          <div style={S.memoryCard}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+              <h3 style={{ fontSize: "1.5rem", fontWeight: 600 }}>Memory Notes</h3>
+              <div style={S.aiBadge}>
+                <span className="material-symbols-outlined" style={{ fontSize: 14 }}>auto_awesome</span>
+                AI Personalization
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {(memory?.avoid ?? []).concat(memory?.feedback_notes ?? []).slice(0, 4).map((note, i) => (
+                <div key={i} style={S.noteItem}>
+                  <p style={{ fontSize: "1rem", color: "var(--on-surface-variant)", fontStyle: "italic", lineHeight: 1.6 }}>
+                    &ldquo;{note}&rdquo;
+                  </p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16 }}>
+                    <span style={{ fontSize: "0.75rem", color: "var(--outline)" }}>Learned from trips</span>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 16, color: "var(--outline)", cursor: "pointer" }}>toggle_on</span>
+                      <span className="material-symbols-outlined" style={{ fontSize: 16, color: "var(--outline)", cursor: "pointer" }}>delete</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {(memory?.avoid ?? []).length === 0 && (memory?.feedback_notes ?? []).length === 0 && (
+                <div style={{ ...S.noteItem, gridColumn: "1 / -1", textAlign: "center" }}>
+                  <p style={{ color: "var(--outline)", fontStyle: "italic" }}>No memory notes yet. Start planning trips to build your AI profile!</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Trip History */}
+          <div style={S.historyCard}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+              <h3 style={{ fontSize: "1.5rem", fontWeight: 600 }}>Recent Itineraries</h3>
+              <button style={{ color: "var(--primary)", fontWeight: 700, fontSize: "0.875rem", cursor: "pointer" }}>View All History</button>
+            </div>
+            {memory?.past_trips && memory.past_trips.length > 0 ? (
+              <table style={{ width: "100%", textAlign: "left", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid var(--surface-container)" }}>
+                    <th style={S.th}>DESTINATION</th>
+                    <th style={S.th}>DATE</th>
+                    <th style={S.th}>TYPE</th>
+                    <th style={S.th}>RATING</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {memory.past_trips.slice(0, 5).map((trip, i) => (
+                    <tr key={i} style={{ borderBottom: "1px solid var(--surface-container-low)" }}>
+                      <td style={S.td}>
+                        <div style={{ fontWeight: 700, color: "var(--on-surface)" }}>{trip.input || "Trip"}</div>
+                        <div style={{ fontSize: "0.75rem", color: "var(--outline)" }}>{trip.intent?.replace(/_/g, " ")}</div>
+                      </td>
+                      <td style={S.td}>{trip.date}</td>
+                      <td style={S.td}>
+                        <span style={S.statusBadge}>Completed</span>
+                      </td>
+                      <td style={S.td}>
+                        <div style={{ display: "flex", color: "var(--primary)" }}>
+                          {[1,2,3,4,5].map(s => (
+                            <span key={s} className="material-symbols-outlined" style={{ fontSize: 16, fontVariationSettings: s <= 4 ? "'FILL' 1" : "'FILL' 0" }}>star</span>
+                          ))}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p style={{ color: "var(--outline)", textAlign: "center", padding: 32 }}>No past trips yet. Start exploring!</p>
+            )}
+          </div>
+
+          {/* CTA Banner */}
+          <div style={S.ctaBanner}>
+            <div style={S.ctaBannerBg}>
+              <img src={HERO_IMG} alt="Travel" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.6), transparent)" }} />
+            </div>
+            <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 48px", color: "#fff" }}>
+              <h2 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: 8 }}>Ready for your next trip?</h2>
+              <p style={{ fontSize: "1.125rem", opacity: 0.9, maxWidth: 500, marginBottom: 24 }}>Our AI has curated recommendations based on your Travel DNA.</p>
+              <button style={S.ctaBtn} onClick={() => router.push("/planner")}>
+                Explore Recommendations
+              </button>
+            </div>
           </div>
         </div>
-      </header>
+      </main>
 
-      <div style={S.layout}>
-        {/* Sidebar */}
-        <aside style={S.sidebar}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={S.sidebarIcon}>
-              <span className="material-symbols-outlined" style={{ color: "var(--background)" }}>map</span>
+      {/* ── Edit Profile Modal ── */}
+      {isEditing && (
+        <div style={S.modalOverlay} onClick={() => setIsEditing(false)}>
+          <div style={S.modalContent} onClick={e => e.stopPropagation()}>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: 24, color: "var(--on-surface)" }}>Edit Profile & Settings</h2>
+            
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)", marginBottom: 8 }}>Name</label>
+                <input type="text" defaultValue={user.name} style={S.input} />
+              </div>
+              
+              <div>
+                <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)", marginBottom: 8 }}>Email</label>
+                <input type="email" defaultValue={user.email} style={S.input} disabled />
+              </div>
+
+              <div>
+                <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)", marginBottom: 8 }}>Preferred Transport</label>
+                <select defaultValue={memory?.preferred_transport} style={S.input}>
+                  <option value="Train">Train</option>
+                  <option value="Flight">Flight</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Car">Car</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)", marginBottom: 8 }}>Food Preference</label>
+                <select defaultValue={memory?.food_preference} style={S.input}>
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Non-Vegetarian">Non-Vegetarian</option>
+                  <option value="Vegan">Vegan</option>
+                  <option value="Any">Any</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <h2 style={{ fontSize: "1.1rem", fontWeight: 800, letterSpacing: "-0.02em" }}>Wayfarer</h2>
-              <p style={{ fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(10,25,49,0.4)" }}>
-                {session.serviceMode === "full_package" ? "Premium Member" : "Solo Navigator"}
-              </p>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 32 }}>
+              <button style={S.cancelBtn} onClick={() => setIsEditing(false)}>Cancel</button>
+              <button style={S.saveBtn} onClick={() => setIsEditing(false)}>Save Changes</button>
             </div>
           </div>
-          <nav style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <a style={S.sideNavItem} onClick={() => router.push("/planner")}>
-              <span className="material-symbols-outlined">map</span>
-              <span style={{ fontSize: "0.85rem" }}>Journeys</span>
-            </a>
-            <a style={{ ...S.sideNavItem, background: "rgba(10,25,49,0.04)", color: "var(--primary)", fontWeight: 700 }}>
-              <span className="material-symbols-outlined">settings</span>
-              <span style={{ fontSize: "0.85rem" }}>Settings</span>
-            </a>
-          </nav>
-          <button style={S.sidebarBtn} onClick={() => router.push("/planner")}>
-            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>add</span>
-            Plan New Trip
-          </button>
-        </aside>
-
-        {/* Main Content */}
-        <main style={S.main}>
-          <div style={S.contentWrap}>
-            {/* Profile Hero */}
-            <section style={S.heroGrid} className="animate-fade-in">
-              {/* User card */}
-              <div style={S.userCard}>
-                <div style={S.avatarBig}>{user.avatar}</div>
-                <h1 style={{ fontSize: "2.2rem", fontWeight: 800, letterSpacing: "-0.02em" }}>{user.name}</h1>
-                <p style={{ color: "rgba(10,25,49,0.4)", fontWeight: 500, fontSize: "0.85rem" }}>
-                  {user.id}@wayfarer.com
-                </p>
-                <div style={S.statsRow}>
-                  <div style={S.stat}>
-                    <p style={S.statValue}>{memory?.trip_count ?? 0}</p>
-                    <p style={S.statLabel}>Trips</p>
-                  </div>
-                  <div style={{ ...S.stat, borderLeft: "1px solid rgba(10,25,49,0.06)", borderRight: "1px solid rgba(10,25,49,0.06)", padding: "0 2.5rem" }}>
-                    <p style={S.statValue}>{memory?.past_trips?.length ?? 0}</p>
-                    <p style={S.statLabel}>Logged</p>
-                  </div>
-                  <div style={S.stat}>
-                    <p style={S.statValue}>4.9</p>
-                    <p style={S.statLabel}>Score</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats dashboard */}
-              <div style={S.statsCol}>
-                <div style={S.darkCard}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 48, opacity: 0.8, marginBottom: 20 }}>travel</span>
-                  <p style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", opacity: 0.5, marginBottom: 4 }}>
-                    Global Reach
-                  </p>
-                  <p style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em" }}>
-                    {((memory?.trip_count ?? 0) * 55).toLocaleString()} km
-                  </p>
-                </div>
-                <div style={S.accentCard}>
-                  <p style={{ fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(10,25,49,0.35)", marginBottom: 8 }}>
-                    Accommodation
-                  </p>
-                  <p style={{ fontSize: "2rem", fontWeight: 900, letterSpacing: "-0.02em" }}>
-                    {memory?.accommodation_type || "Not set"}
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* Travel DNA */}
-            <section style={{ marginTop: 64 }} className="animate-slide-up">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(10,25,49,0.06)", paddingBottom: 20, marginBottom: 32 }}>
-                <div>
-                  <h2 style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.02em" }}>The Travel DNA</h2>
-                  <p style={{ color: "rgba(10,25,49,0.4)", fontSize: "0.85rem", fontWeight: 500, marginTop: 4 }}>
-                    Curated preferences for your next escape
-                  </p>
-                </div>
-              </div>
-              <div style={S.dnaGrid}>
-                {dnaCards.map((card) => (
-                  <div key={card.label} style={S.dnaCard}>
-                    <div style={S.dnaIconBox}>
-                      <span className="material-symbols-outlined" style={{ fontSize: 28, color: "var(--primary)" }}>{card.icon}</span>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(10,25,49,0.25)", marginBottom: 8 }}>
-                        {card.label}
-                      </p>
-                      <p style={{ fontSize: "1.15rem", fontWeight: 800 }}>{card.value}</p>
-                      <p style={{ fontSize: "0.75rem", color: "rgba(10,25,49,0.5)", marginTop: 8, fontWeight: 500 }}>{card.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Avoid List & Feedback */}
-            {memory && (memory.avoid.length > 0 || memory.feedback_notes.length > 0) && (
-              <section style={{ marginTop: 64 }}>
-                <h2 style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 24 }}>
-                  Memory Notes
-                </h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 20 }}>
-                  {memory.avoid.length > 0 && (
-                    <div style={S.noteCard}>
-                      <h4 style={{ fontWeight: 800, fontSize: "0.9rem", color: "var(--primary)", marginBottom: 12 }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: 18, marginRight: 8, verticalAlign: "middle" }}>block</span>
-                        Avoids
-                      </h4>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                        {memory.avoid.map((item, i) => (
-                          <span key={i} style={S.chip}>{item}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {memory.feedback_notes.length > 0 && (
-                    <div style={S.noteCard}>
-                      <h4 style={{ fontWeight: 800, fontSize: "0.9rem", color: "var(--primary)", marginBottom: 12 }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: 18, marginRight: 8, verticalAlign: "middle" }}>rate_review</span>
-                        Past Feedback
-                      </h4>
-                      {memory.feedback_notes.slice(0, 5).map((note, i) => (
-                        <p key={i} style={{ fontSize: "0.85rem", color: "var(--on-surface-variant)", fontWeight: 500, marginBottom: 6, lineHeight: 1.5 }}>
-                          &ldquo;{note}&rdquo;
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </section>
-            )}
-
-            {/* Past trips */}
-            {memory && memory.past_trips.length > 0 && (
-              <section style={{ marginTop: 64 }}>
-                <h2 style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 24 }}>
-                  Past Journeys
-                </h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  {memory.past_trips.map((trip, i) => (
-                    <div key={i} style={S.tripRow}>
-                      <div style={S.tripDot} />
-                      <div>
-                        <p style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--primary)" }}>{trip.input}</p>
-                        <p style={{ fontSize: "0.75rem", color: "var(--secondary)", fontWeight: 500, marginTop: 4 }}>
-                          {trip.intent?.replace(/_/g, " ")} · {trip.date}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-        </main>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
 
 /* ═══ STYLES ═══ */
 const S: Record<string, React.CSSProperties> = {
-  page: { minHeight: "100vh", background: "var(--background)" },
-
-  header: {
-    position: "fixed", top: 0, width: "100%", zIndex: 50, height: 80,
-    background: "rgba(253,251,247,0.8)", backdropFilter: "blur(16px)",
-    borderBottom: "1px solid rgba(10,25,49,0.04)", display: "flex", alignItems: "center", justifyContent: "center",
+  profileHeader: {
+    display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 24, marginBottom: 64,
   },
-  headerInner: { width: "100%", maxWidth: 1440, padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center" },
-  headerLeft: { display: "flex", alignItems: "center", gap: 48 },
-  logo: { fontSize: "1.2rem", fontWeight: 800, color: "var(--primary)", letterSpacing: "-0.02em", cursor: "pointer" },
-  nav: { display: "flex", gap: 32 },
-  navItem: { fontSize: "0.8rem", fontWeight: 600, color: "rgba(10,25,49,0.5)", cursor: "pointer", transition: "color 0.2s" },
-  headerRight: { display: "flex", alignItems: "center", gap: 12 },
-  avatarCircle: { width: 40, height: 40, borderRadius: "50%", background: "var(--primary)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 },
-  logoutBtn: { padding: 8, color: "var(--secondary)", cursor: "pointer" },
-
-  layout: { display: "flex", minHeight: "100vh", paddingTop: 80 },
-
-  sidebar: {
-    display: "flex", flexDirection: "column", padding: 32, gap: 32,
-    width: 280, background: "var(--background)", borderRight: "1px solid rgba(10,25,49,0.04)",
-    position: "sticky", top: 80, height: "calc(100vh - 80px)",
+  avatarWrap: {
+    width: 160, height: 160, borderRadius: "50%", overflow: "hidden",
+    border: "4px solid white", boxShadow: "var(--ambient-shadow)",
   },
-  sidebarIcon: { width: 48, height: 48, borderRadius: "var(--radius-lg)", background: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" },
-  sideNavItem: {
-    display: "flex", alignItems: "center", gap: 12, padding: "12px 16px",
-    color: "rgba(10,25,49,0.5)", fontWeight: 600, borderRadius: "var(--radius-md)",
-    cursor: "pointer", transition: "all 0.2s",
+  premiumBadge: {
+    position: "absolute" as const, bottom: 8, right: 8,
+    background: "var(--secondary-container)", color: "var(--on-secondary-container)",
+    padding: "4px 12px", borderRadius: 9999, fontSize: "0.875rem", fontWeight: 600,
+    display: "flex", alignItems: "center", gap: 4, boxShadow: "var(--shadow-md)",
   },
-  sidebarBtn: {
-    marginTop: "auto", width: "100%", padding: 16, background: "var(--primary)",
-    color: "var(--background)", borderRadius: "var(--radius-lg)", fontWeight: 700,
-    fontSize: "0.85rem", display: "flex", alignItems: "center", justifyContent: "center",
-    gap: 8, boxShadow: "0 8px 24px rgba(10,25,49,0.12)", cursor: "pointer",
+  editBtn: {
+    background: "var(--primary)", color: "#fff", padding: "14px 32px", borderRadius: 12,
+    fontWeight: 600, display: "flex", alignItems: "center", gap: 12,
+    boxShadow: "var(--shadow-md)", cursor: "pointer", transition: "all 0.2s",
   },
 
-  main: { flex: 1, padding: 48 },
-  contentWrap: { maxWidth: 1000, margin: "0 auto" },
-
-  heroGrid: { display: "grid", gridTemplateColumns: "5fr 7fr", gap: 24, alignItems: "stretch" },
-  userCard: {
-    background: "#fff", border: "1px solid rgba(10,25,49,0.06)", padding: 40,
-    borderRadius: "var(--radius-2xl)", display: "flex", flexDirection: "column",
-    alignItems: "center", textAlign: "center", gap: 16,
-  },
-  avatarBig: {
-    width: 128, height: 128, borderRadius: "50%", background: "var(--primary)",
-    color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
-    fontWeight: 800, fontSize: "3rem", boxShadow: "0 0 0 4px rgba(10,25,49,0.06)",
-  },
-  statsRow: { display: "flex", gap: 0, paddingTop: 16 },
-  stat: { textAlign: "center", padding: "0 1.5rem" },
-  statValue: { fontSize: "1.5rem", fontWeight: 900 },
-  statLabel: { fontSize: "0.55rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(10,25,49,0.3)", marginTop: 4 },
-
-  statsCol: { display: "flex", flexDirection: "column", gap: 20 },
-  darkCard: {
-    background: "var(--primary)", color: "#fff", padding: 40,
-    borderRadius: "var(--radius-2xl)", flex: 1, display: "flex", flexDirection: "column",
-    justifyContent: "space-between", position: "relative", overflow: "hidden",
-  },
-  accentCard: {
-    background: "rgba(230,225,211,0.4)", padding: 40, borderRadius: "var(--radius-2xl)",
-    border: "1px solid rgba(10,25,49,0.06)", flex: 1, display: "flex",
-    flexDirection: "column", justifyContent: "space-between",
-  },
-
-  dnaGrid: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 },
+  bentoGrid: { display: "grid", gridTemplateColumns: "5fr 7fr", gap: 24 },
   dnaCard: {
-    aspectRatio: "1", background: "#fff", border: "1px solid rgba(10,25,49,0.06)",
-    borderRadius: "var(--radius-2xl)", padding: 32, display: "flex", flexDirection: "column",
-    justifyContent: "space-between", transition: "box-shadow 0.3s",
+    gridColumn: "1", background: "var(--surface-container-lowest)", borderRadius: 12,
+    padding: 24, boxShadow: "var(--ambient-shadow)", border: "1px solid var(--surface-container)",
   },
-  dnaIconBox: {
-    width: 56, height: 56, borderRadius: "var(--radius-lg)",
-    background: "rgba(230,225,211,0.3)", display: "flex", alignItems: "center", justifyContent: "center",
+  memoryCard: {
+    gridColumn: "2", background: "var(--surface-container-lowest)", borderRadius: 12,
+    padding: 24, boxShadow: "var(--ambient-shadow)", border: "1px solid var(--surface-container)",
   },
+  historyCard: {
+    gridColumn: "1 / -1", background: "var(--surface-container-lowest)", borderRadius: 12,
+    padding: 24, boxShadow: "var(--ambient-shadow)", border: "1px solid var(--surface-container)",
+    overflow: "hidden", marginTop: 0,
+  },
+  ctaBanner: {
+    gridColumn: "1 / -1", position: "relative" as const, height: 256, borderRadius: 12,
+    overflow: "hidden", boxShadow: "var(--ambient-shadow)",
+  },
+  ctaBannerBg: { position: "absolute" as const, inset: 0, zIndex: 0 },
 
-  noteCard: {
-    background: "var(--surface-container-low)", padding: 28, borderRadius: "var(--radius-xl)",
-    border: "1px solid rgba(10,25,49,0.06)",
+  tagChip: {
+    padding: "8px 16px", background: "rgba(0,104,95,0.06)", color: "var(--primary)",
+    fontSize: "0.875rem", fontWeight: 700, borderRadius: 9999,
   },
-  chip: {
-    display: "inline-block", padding: "6px 14px", background: "var(--surface-container-high)",
-    borderRadius: "var(--radius-full)", fontSize: "0.75rem", fontWeight: 700, color: "var(--primary)",
+  aiBadge: {
+    background: "rgba(0,104,95,0.06)", padding: "4px 12px", borderRadius: 9999,
+    fontSize: "0.875rem", fontWeight: 600, color: "var(--primary)",
+    display: "flex", alignItems: "center", gap: 4,
   },
-
-  tripRow: {
-    display: "flex", alignItems: "center", gap: 16, padding: 20,
-    background: "var(--surface-container-low)", borderRadius: "var(--radius-xl)",
-    border: "1px solid rgba(10,25,49,0.06)",
+  noteItem: {
+    padding: 16, background: "var(--surface-container-low)", borderRadius: 8,
+    border: "1px solid var(--surface-container)", display: "flex", flexDirection: "column" as const,
+    justifyContent: "space-between",
   },
-  tripDot: { width: 12, height: 12, borderRadius: "50%", background: "var(--primary)", flexShrink: 0 },
+  th: { paddingBottom: 16, fontWeight: 600, color: "var(--outline)", fontSize: "0.875rem", letterSpacing: "0.05em" },
+  td: { padding: "16px 0", fontSize: "1rem", color: "var(--on-surface-variant)" },
+  statusBadge: {
+    padding: "4px 12px", background: "rgba(16,185,129,0.08)", color: "#059669",
+    fontSize: "0.75rem", fontWeight: 700, borderRadius: 9999, border: "1px solid rgba(16,185,129,0.15)",
+  },
+  ctaBtn: {
+    background: "var(--secondary-container)", color: "var(--on-secondary-container)", padding: "14px 32px",
+    borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.1)", transition: "transform 0.2s",
+    width: "fit-content",
+  },
+  modalOverlay: {
+    position: "fixed" as const, top: 0, left: 0, width: "100%", height: "100%",
+    background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)", zIndex: 100,
+    display: "flex", alignItems: "center", justifyContent: "center",
+  },
+  modalContent: {
+    background: "var(--surface-container-lowest)", padding: 40, borderRadius: 24,
+    width: "100%", maxWidth: 500, boxShadow: "0 24px 48px rgba(0,0,0,0.2)",
+    animation: "fadeSlideDown 0.2s ease-out",
+  },
+  input: {
+    width: "100%", padding: "12px 16px", borderRadius: 12, border: "1px solid var(--surface-container-high)",
+    background: "var(--surface)", color: "var(--on-surface)", fontSize: "1rem", outline: "none",
+  },
+  cancelBtn: {
+    padding: "12px 24px", borderRadius: 12, border: "1px solid var(--surface-container-high)",
+    background: "transparent", color: "var(--on-surface-variant)", fontWeight: 600, cursor: "pointer",
+  },
+  saveBtn: {
+    padding: "12px 24px", borderRadius: 12, border: "none",
+    background: "var(--primary)", color: "#fff", fontWeight: 600, cursor: "pointer",
+  },
 };

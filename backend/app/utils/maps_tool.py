@@ -1,5 +1,8 @@
 import csv
+import json
 import math
+import urllib.parse
+import urllib.request
 from functools import lru_cache
 from pathlib import Path
 
@@ -30,18 +33,21 @@ def _read_csv(path: Path) -> list[dict]:
 
 @lru_cache(maxsize=1)
 def load_place_index() -> list[dict]:
-    rows = _read_csv(PLACES_FILE)
+    try:
+        rows = _read_csv(PLACES_FILE)
+    except Exception:
+        rows = []
     offices = _read_csv(OFFICES_FILE)
     merged = []
 
     for row in rows:
         merged.append(
             {
-                "name": row["place_name"],
-                "area": row["area"],
-                "type": row["type"],
-                "latitude": float(row["latitude"]),
-                "longitude": float(row["longitude"]),
+                "name": row.get("place_name", ""),
+                "area": row.get("area", ""),
+                "type": row.get("type", ""),
+                "latitude": float(row.get("latitude", 0)),
+                "longitude": float(row.get("longitude", 0)),
                 "nearest_metro": row.get("nearest_metro", "") or "NA",
             }
         )
@@ -50,10 +56,10 @@ def load_place_index() -> list[dict]:
         merged.append(
             {
                 "name": row["office_name"],
-                "area": row["area"],
+                "area": row.get("area", ""),
                 "type": "office",
-                "latitude": float(row["latitude"]),
-                "longitude": float(row["longitude"]),
+                "latitude": float(row.get("latitude", 0)),
+                "longitude": float(row.get("longitude", 0)),
                 "nearest_metro": row.get("nearest_metro", "") or "NA",
             }
         )
@@ -93,6 +99,7 @@ def resolve_location(query: str) -> dict:
     
     TN_CITIES_COORDS = {
         "Chennai": (13.0827, 80.2707),
+        "Tambaram": (12.9249, 80.1100),
         "Chengalpattu": (12.6939, 79.9757),
         "Mahabalipuram": (12.6269, 80.1927),
         "Kanchipuram": (12.8185, 79.7137),
@@ -143,6 +150,60 @@ def get_nearby_landmarks(destination_area: str, limit: int = 3) -> list[str]:
         if len(landmarks) >= limit:
             break
     return landmarks
+
+
+@lru_cache(maxsize=512)
+def fetch_wikipedia_nearby(
+    latitude: float, longitude: float, limit: int = 8, radius_m: int = 30000
+) -> list[dict]:
+    """
+    Fetch nearby places using Wikipedia GeoSearch.
+
+    This provides dynamic attractions for destinations outside the bundled
+    Chennai CSV data.
+    """
+    lat = round(float(latitude), 4)
+    lon = round(float(longitude), 4)
+    params = {
+        "action": "query",
+        "list": "geosearch",
+        "gscoord": f"{lat}|{lon}",
+        "gsradius": max(1000, min(int(radius_m), 100000)),
+        "gslimit": max(1, min(int(limit), 50)),
+        "format": "json",
+    }
+    url = "https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params)
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "HorizonHopper/2.0 (travel-planner)",
+            "Accept": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=3) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except Exception:
+        return []
+
+    rows = payload.get("query", {}).get("geosearch", [])
+    nearby = []
+    seen = set()
+    for row in rows:
+        name = (row.get("title") or "").strip()
+        if not name:
+            continue
+        key = _normalize(name)
+        if key in seen:
+            continue
+        seen.add(key)
+        nearby.append(
+            {
+                "name": name,
+                "distance_km": round(float(row.get("dist", 0.0)) / 1000, 1),
+            }
+        )
+    return nearby
 
 
 def get_location_snapshot(source: str, destination: str) -> dict:

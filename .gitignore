@@ -169,3 +169,18 @@ stitch_exports/
 horizon-hopper-before-image-integration.zip
 memory/user_memory.json
 memory/users.json
+
+# Graphify — commit graph outputs, ignore extraction cache
+graphify-out/cache/
+
+# AI agent cache
+.agent/
+
+# SQLite databases
+*.db
+
+# VS Code workspace
+*.code-workspace
+
+# Frontend local env
+frontend/.env.local

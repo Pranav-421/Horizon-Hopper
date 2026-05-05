@@ -3,427 +3,25 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ServiceMode, UserProfile } from "@/lib/types";
-import { writeSession } from "@/lib/session";
+import { writeSession, saveToken } from "@/lib/session";
 
-/* ─── img urls from stitch exports ─── */
-const HERO_TRAVEL =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuCwp0B-0anDdktP_GNnTVBpL5Sh4N81_eL8KyeYKQVZXvOcYuv1UXIDvx5ZIq9B9vJarPBFNBg2IP3ys09N_wloyK5AHN8XC4JizmeT1-gC-kklA1_PRKuCsNrS3RLmRxvFk1GPmXvR5HEsMmg-6BrW1QDG7hxc1ZCT0Eb1Mmn6L_Iw5iCRKi7CfiPAYYxI-8ChbEUZh3Y3VHQPckvuJYeyiJkvi0mox9W0SEQMHuH-4bjXtSAsr9RVnOwRKzuQyYKgsy1ika54bcIh";
-const HERO_FULL =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuAiOT6nGLfsXU4h6kUExBur5e7Vmy3jLeleAO4GZzPwHnSjCyWnmU21f-nT8InjoMXvcQu1akDaAhAtwBShfevpaVor6dkSXOC3d-G9PEyTh4C_jMeUBKqEqDhGFzprkLsxp3Ysfr7lfkV-UEzFcDkfcsSIT1Mspr7HtRe668n3LSY-OpYOXnWxE7O9CJ7pCpYSgs7keapfWZYG-aVXKFyOVRMdQfHCJgNhy1v9VXeofSjU6khz1ViA2V7j6Foz1Wxx_ilOuwJPrJOI";
+/* ─── Stitch Coastal Slate images ─── */
+const HERO_IMG =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBLwGCQZ_IyLgeoBC-wUSpAOJeOKf6QuMERQ_1b-ZTqePma_i90dXqc_vWYs69TJUwFL_lMYL5laLiB_fqtoXAlTRMVGHSLMBmI3Alyj2cICBNYA0nkGT7gKI6HX40-gy1M4ShrBWksPmw5HHwDUI3iz23HmqKoIuL5izalV5DxHFznRv5v32JM5koJMb7tPXVStH3MXeXWuTI7yZnTpA6YPSio9m_5JFqR2yfFHdRuAbZ7WLByfbZ8Pde7y0dm4RQ2j7-ivFA61rE";
 
-/* ─── styles ─── */
-const styles: Record<string, React.CSSProperties> = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    background: "var(--background)",
-  },
 
-  /* ── header ── */
-  header: {
-    position: "fixed",
-    top: 0,
-    width: "100%",
-    zIndex: 50,
-    height: 80,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "rgba(253,251,247,0.8)",
-    backdropFilter: "blur(16px)",
-    WebkitBackdropFilter: "blur(16px)",
-    borderBottom: "1px solid rgba(10,25,49,0.05)",
-  },
-  headerInner: {
-    width: "100%",
-    maxWidth: 1440,
-    padding: "0 2rem",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  logo: {
-    fontSize: "1.4rem",
-    fontWeight: 800,
-    color: "var(--primary)",
-    letterSpacing: "-0.03em",
-  },
-  navLinks: {
-    display: "flex",
-    gap: "2.5rem",
-    alignItems: "center",
-  },
-  navLink: {
-    fontSize: "0.8rem",
-    fontWeight: 700,
-    letterSpacing: "0.05em",
-    color: "var(--secondary)",
-    transition: "color var(--transition-fast)",
-    cursor: "pointer",
-  },
-
-  /* ── main ── */
-  main: {
-    flexGrow: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: "8rem",
-    paddingBottom: "5rem",
-    paddingLeft: "1.5rem",
-    paddingRight: "1.5rem",
-  },
-
-  /* ── hero text ── */
-  heroWrap: {
-    textAlign: "center" as const,
-    marginBottom: "4rem",
-    maxWidth: 680,
-  },
-  heroTitle: {
-    fontSize: "clamp(2.5rem, 5vw, 3.8rem)",
-    fontWeight: 800,
-    lineHeight: 1.08,
-    letterSpacing: "-0.03em",
-    color: "var(--primary)",
-    marginBottom: "1.5rem",
-  },
-  heroSub: {
-    fontSize: "1.15rem",
-    fontWeight: 500,
-    color: "var(--secondary)",
-    opacity: 0.9,
-    lineHeight: 1.6,
-  },
-
-  /* ── card grid ── */
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 480px), 1fr))",
-    gap: "2.5rem",
-    width: "100%",
-    maxWidth: 1100,
-  },
-
-  /* ── service card ── */
-  card: {
-    background: "var(--surface-container-lowest)",
-    borderRadius: "var(--radius-xl)",
-    padding: 12,
-    boxShadow: "var(--shadow-lg)",
-    transition: "transform var(--transition-slow)",
-    display: "flex",
-    flexDirection: "column",
-    cursor: "pointer",
-  },
-  cardImgWrap: {
-    position: "relative" as const,
-    height: 380,
-    width: "100%",
-    overflow: "hidden",
-    borderRadius: "var(--radius-lg)",
-  },
-  cardImg: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover" as const,
-    transition: "transform var(--transition-glacial)",
-  },
-  cardGradient: {
-    position: "absolute" as const,
-    inset: 0,
-    background: "linear-gradient(to top, rgba(10,25,49,0.88) 0%, rgba(10,25,49,0.18) 50%, transparent 100%)",
-  },
-  cardIconBubble: {
-    position: "absolute" as const,
-    top: 24,
-    left: 24,
-    width: 48,
-    height: 48,
-    borderRadius: "var(--radius-full)",
-    background: "rgba(253,251,247,0.7)",
-    backdropFilter: "blur(12px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "var(--primary)",
-  },
-  cardTextOverlay: {
-    position: "absolute" as const,
-    bottom: 28,
-    left: 28,
-    right: 28,
-  },
-  cardLabel: {
-    fontSize: "0.6rem",
-    fontWeight: 800,
-    textTransform: "uppercase" as const,
-    letterSpacing: "0.12em",
-    color: "rgba(255,255,255,0.7)",
-  },
-  cardTitle: {
-    fontWeight: 800,
-    fontSize: "1.75rem",
-    color: "#fff",
-    marginTop: 4,
-    letterSpacing: "-0.02em",
-  },
-  cardBody: {
-    padding: "2rem",
-    display: "flex",
-    flexDirection: "column" as const,
-    flexGrow: 1,
-  },
-  cardDesc: {
-    color: "var(--on-surface-variant)",
-    marginBottom: "2rem",
-    lineHeight: 1.7,
-    fontWeight: 500,
-  },
-  cardFeatures: {
-    listStyle: "none",
-    marginBottom: "2.5rem",
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: "1rem",
-  },
-  cardFeatureItem: {
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
-    fontSize: "0.875rem",
-    fontWeight: 700,
-    color: "var(--primary)",
-  },
-  cardBtn: {
-    marginTop: "auto",
-    width: "100%",
-    height: 56,
-    background: "var(--primary)",
-    color: "#fff",
-    fontWeight: 700,
-    borderRadius: "var(--radius-lg)",
-    border: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    transition: "all var(--transition-base)",
-    fontSize: "0.95rem",
-  },
-
-  /* ── login section ── */
-  loginWrap: {
-    marginTop: "4rem",
-    textAlign: "center" as const,
-  },
-  loginLabel: {
-    fontSize: "0.65rem",
-    fontWeight: 800,
-    letterSpacing: "0.2em",
-    textTransform: "uppercase" as const,
-    color: "var(--outline)",
-    marginBottom: "2rem",
-  },
-  loginRow: {
-    display: "flex",
-    flexDirection: "row" as const,
-    gap: "1.5rem",
-    alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap" as const,
-  },
-  loginBtn: {
-    padding: "0.9rem 3rem",
-    background: "var(--surface-container-high)",
-    color: "var(--primary)",
-    fontWeight: 700,
-    borderRadius: "var(--radius-lg)",
-    border: "none",
-    transition: "all var(--transition-base)",
-    fontSize: "0.9rem",
-  },
-  guestBtn: {
-    padding: "0.75rem 2rem",
-    color: "var(--primary)",
-    fontWeight: 700,
-    borderBottom: "2px solid rgba(10,25,49,0.15)",
-    background: "transparent",
-    transition: "all var(--transition-base)",
-    fontSize: "0.9rem",
-  },
-
-  /* ── modal overlay ── */
-  overlay: {
-    position: "fixed" as const,
-    inset: 0,
-    zIndex: 100,
-    background: "rgba(10,25,49,0.4)",
-    backdropFilter: "blur(8px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "1.5rem",
-  },
-  modal: {
-    background: "var(--surface-container-lowest)",
-    borderRadius: "var(--radius-2xl)",
-    padding: "3rem",
-    width: "100%",
-    maxWidth: 440,
-    boxShadow: "var(--shadow-xl)",
-    animation: "slideUp 0.4s var(--ease-out) both",
-  },
-  modalTitle: {
-    fontSize: "1.75rem",
-    fontWeight: 800,
-    letterSpacing: "-0.02em",
-    color: "var(--primary)",
-    marginBottom: "0.5rem",
-  },
-  modalSub: {
-    color: "var(--secondary)",
-    fontSize: "0.9rem",
-    marginBottom: "2rem",
-    fontWeight: 500,
-  },
-  inputGroup: {
-    marginBottom: "1.25rem",
-  },
-  inputLabel: {
-    display: "block",
-    fontSize: "0.625rem",
-    fontWeight: 800,
-    textTransform: "uppercase" as const,
-    letterSpacing: "0.12em",
-    color: "var(--secondary)",
-    marginBottom: "0.5rem",
-    marginLeft: 4,
-  },
-  input: {
-    width: "100%",
-    background: "var(--surface-container)",
-    border: "2px solid transparent",
-    borderRadius: "var(--radius-lg)",
-    padding: "1rem 1.25rem",
-    fontWeight: 600,
-    fontSize: "0.95rem",
-    color: "var(--on-surface)",
-    transition: "all var(--transition-fast)",
-  },
-  submitBtn: {
-    width: "100%",
-    padding: "1rem",
-    background: "var(--primary)",
-    color: "#fff",
-    fontWeight: 700,
-    borderRadius: "var(--radius-lg)",
-    border: "none",
-    fontSize: "0.9rem",
-    marginTop: "0.5rem",
-    transition: "all var(--transition-base)",
-    cursor: "pointer",
-  },
-  errorText: {
-    color: "var(--error)",
-    fontSize: "0.8rem",
-    fontWeight: 600,
-    marginTop: "0.75rem",
-    textAlign: "center" as const,
-  },
-  userPickerGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "0.75rem",
-    marginBottom: "1.5rem",
-  },
-  userCard: {
-    display: "flex",
-    flexDirection: "column" as const,
-    alignItems: "center",
-    gap: 8,
-    padding: "1rem",
-    borderRadius: "var(--radius-lg)",
-    border: "2px solid transparent",
-    background: "var(--surface-container-low)",
-    cursor: "pointer",
-    transition: "all var(--transition-fast)",
-    textAlign: "center" as const,
-  },
-  userAvatar: {
-    width: 44,
-    height: 44,
-    borderRadius: "var(--radius-full)",
-    background: "var(--primary)",
-    color: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: 800,
-    fontSize: "1rem",
-  },
-  userName: {
-    fontWeight: 700,
-    fontSize: "0.8rem",
-    color: "var(--primary)",
-  },
-
-  /* ── footer ── */
-  footer: {
-    width: "100%",
-    padding: "2.5rem 2rem",
-    background: "var(--surface-container)",
-    borderTop: "1px solid rgba(10,25,49,0.04)",
-    display: "flex",
-    justifyContent: "center",
-  },
-  footerInner: {
-    width: "100%",
-    maxWidth: 1440,
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap" as const,
-    gap: "1rem",
-  },
-  footerText: {
-    fontSize: "0.65rem",
-    fontWeight: 700,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase" as const,
-    color: "var(--on-surface-variant)",
-  },
-  footerLinks: {
-    display: "flex",
-    gap: "2rem",
-  },
-  footerLink: {
-    fontSize: "0.65rem",
-    fontWeight: 800,
-    textTransform: "uppercase" as const,
-    letterSpacing: "0.15em",
-    color: "rgba(10,25,49,0.4)",
-    transition: "color var(--transition-fast)",
-    cursor: "pointer",
-  },
-};
-
-/* ────────────────────────────────────────── */
+/* ════════════════════════════════════════ */
 
 export function LoginScreen() {
   const router = useRouter();
-  const [showLogin, setShowLogin] = useState(false);
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [pendingMode, setPendingMode] = useState<ServiceMode>("full_package");
+  const [authenticatedUser, setAuthenticatedUser] = useState<UserProfile | null>(null);
 
-  /* fetch sample users */
   useEffect(() => {
     fetch("/api/users")
       .then((r) => r.json())
@@ -433,22 +31,12 @@ export function LoginScreen() {
 
   const handleServiceSelect = useCallback(
     (mode: ServiceMode) => {
-      setPendingMode(mode);
-      setShowLogin(true);
+      if (!authenticatedUser) return;
+      writeSession({ serviceMode: mode, user: authenticatedUser });
+      router.push("/planner");
     },
-    [],
+    [authenticatedUser, router],
   );
-
-  const handleGuestContinue = useCallback(() => {
-    const guest: UserProfile = {
-      id: "guest",
-      name: "Guest",
-      avatar: "G",
-      memory: { avoid: [], feedback_notes: [], past_trips: [], trip_count: 0 },
-    };
-    writeSession({ serviceMode: "full_package", user: guest });
-    router.push("/planner");
-  }, [router]);
 
   const handleLogin = useCallback(
     async (e: React.FormEvent) => {
@@ -461,355 +49,327 @@ export function LoginScreen() {
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ username, password }),
         });
-        if (!res.ok) {
-          setError("Invalid username or password.");
-          setLoading(false);
-          return;
-        }
+        if (!res.ok) { setError("Invalid username or password."); setLoading(false); return; }
         const data = await res.json();
-        writeSession({ serviceMode: pendingMode, user: data.user });
-        router.push("/planner");
+        setAuthenticatedUser(data.user);
+        if (data.token) saveToken(data.token);
+        setError("");
       } catch {
         setError("Connection failed. Is the backend running?");
       } finally {
         setLoading(false);
       }
     },
-    [username, password, pendingMode, router],
+    [username, password],
   );
 
-  const pickUser = useCallback(
-    (u: UserProfile) => {
-      setSelectedUser(u);
-      setUsername(u.id);
-      setPassword(u.id === "arjun" ? "arjun123" : u.id === "priya" ? "priya456" : "vikram789");
-    },
-    [],
-  );
+  const pickUser = useCallback((u: UserProfile) => {
+    setSelectedUser(u);
+    setUsername(u.id);
+    setPassword(u.id === "arjun" ? "arjun123" : u.id === "priya" ? "priya456" : "vikram789");
+  }, []);
 
-  /* ── render ── */
-  return (
-    <div style={styles.page}>
-      {/* Header */}
-      <header style={styles.header}>
-        <div style={styles.headerInner}>
-          <span style={styles.logo}>Horizon Hopper</span>
-          <div style={styles.navLinks}>
-            <span style={styles.navLink}>Help</span>
-            <span style={styles.navLink}>Safety</span>
+  /* ── Service Mode Selector (post-login) ── */
+  if (authenticatedUser) {
+    return (
+      <div style={S.page}>
+        <div style={S.bgBlur1} />
+        <div style={S.bgBlur2} />
+        {/* ── Top Nav for Service Mode ── */}
+        <header style={{ position: "absolute", top: 0, left: 0, right: 0, padding: "24px 48px", display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 20 }}>
+          <div style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--on-surface)", letterSpacing: "-0.02em" }}>Horizon Hopper</div>
+          <div style={{ display: "flex", gap: 32, fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)" }}>
+            <span style={{ cursor: "pointer" }}>Help</span>
+            <span style={{ cursor: "pointer" }}>Safety</span>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main */}
-      <main style={styles.main}>
-        {/* Hero */}
-        <div style={styles.heroWrap} className="animate-fade-in">
-          <h1 style={styles.heroTitle}>
-            Your Southern Odyssey
-            <br />
-            Starts Here.
-          </h1>
-          <p style={styles.heroSub}>
-            Select your preferred way to discover the soul of Chennai and
-            beyond.
+        <main style={{ ...S.modeMain, maxWidth: 1000 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 40, color: "var(--primary)" }}>explore</span>
+            <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "var(--primary)", letterSpacing: "-0.04em" }}>Horizon Hopper</h1>
+          </div>
+          <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)", marginBottom: 24, textTransform: "uppercase", letterSpacing: "0.1em" }}>
+            Welcome back, {authenticatedUser.name}
           </p>
-        </div>
+          <h2 style={{ fontSize: "2.5rem", fontWeight: 700, color: "var(--on-surface)", letterSpacing: "-0.03em", marginBottom: 8 }}>
+            Choose Your Experience
+          </h2>
+          <p style={{ fontSize: "1.125rem", color: "var(--on-surface-variant)", marginBottom: 48 }}>
+            Select how you want to travel today.
+          </p>
 
-        {/* Service cards */}
-        <div style={styles.grid} className="stagger-children">
-          {/* Solo Navigator */}
-          <div
-            style={styles.card}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "translateY(-8px)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-            }}
-          >
-            <div style={styles.cardImgWrap}>
-              <img
-                src={HERO_TRAVEL}
-                alt="Solo traveler in Chennai"
-                style={styles.cardImg}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-                }}
-              />
-              <div style={styles.cardGradient} />
-              <div style={styles.cardIconBubble}>
-                <span className="material-symbols-outlined">route</span>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+            {/* One Day Trip Card */}
+            <div style={S.largeCard}>
+              <div style={S.largeCardImgWrap}>
+                <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=80&w=800" alt="City Transit" style={S.largeCardImg} />
+                <div style={S.largeCardGradient} />
+                <div style={S.largeCardIcon}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 20 }}>route</span>
+                </div>
+                <div style={S.largeCardImgText}>
+                  <p style={{ fontSize: "0.625rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255,255,255,0.8)", marginBottom: 4 }}>Transportation</p>
+                  <h3 style={{ fontSize: "1.75rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>One Day Trip</h3>
+                </div>
               </div>
-              <div style={styles.cardTextOverlay}>
-                <span style={styles.cardLabel}>Transportation &amp; Routes</span>
-                <h3 style={styles.cardTitle}>One Day Trip</h3>
+              <div style={S.largeCardContent}>
+                <p style={{ fontSize: "0.9375rem", color: "var(--on-surface-variant)", lineHeight: 1.6, marginBottom: 24, minHeight: 60 }}>
+                  For the independent explorer. Access real-time transport suggestions, optimized walking paths through Mylapore, and local transit schedules across Chennai.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                  <div style={S.featureRow}><span className="material-symbols-outlined" style={S.featureIcon}>directions_bus</span><span style={S.featureText}>Smart Local Transit Sync</span></div>
+                  <div style={S.featureRow}><span className="material-symbols-outlined" style={S.featureIcon}>map</span><span style={S.featureText}>Offline Route Suggestions</span></div>
+                </div>
+                <button style={S.largeCardBtn} onClick={() => handleServiceSelect("travel_only")}>
+                  Begin Journey <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
+                </button>
               </div>
             </div>
-            <div style={styles.cardBody}>
-              <p style={styles.cardDesc}>
-                For the independent explorer. Access real-time transport
-                suggestions, optimized walking paths through Mylapore, and local
-                transit schedules across Chennai.
-              </p>
-              <ul style={styles.cardFeatures}>
-                <li style={styles.cardFeatureItem}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--primary)" }}>
-                    directions_bus
-                  </span>
-                  Smart Local Transit Sync
-                </li>
-                <li style={styles.cardFeatureItem}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--primary)" }}>
-                    map
-                  </span>
-                  Offline Route Suggestions
-                </li>
-              </ul>
-              <button
-                style={styles.cardBtn}
-                onClick={() => handleServiceSelect("travel_only")}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "var(--primary-container)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "var(--primary)";
-                }}
-              >
-                Begin Journey
-                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
-                  arrow_forward
-                </span>
-              </button>
+
+            {/* Full Experience Card */}
+            <div style={S.largeCard}>
+              <div style={S.largeCardImgWrap}>
+                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800" alt="Villa" style={S.largeCardImg} />
+                <div style={S.largeCardGradient} />
+                <div style={S.largeCardIcon}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 20 }}>card_travel</span>
+                </div>
+                <div style={S.largeCardImgText}>
+                  <p style={{ fontSize: "0.625rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255,255,255,0.8)", marginBottom: 4 }}>Full Package Services</p>
+                  <h3 style={{ fontSize: "1.75rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>Full Experience</h3>
+                </div>
+              </div>
+              <div style={S.largeCardContent}>
+                <p style={{ fontSize: "0.9375rem", color: "var(--on-surface-variant)", lineHeight: 1.6, marginBottom: 24, minHeight: 60 }}>
+                  Curated for the premium wayfarer. Includes boutique stays in Chengalpattu, VIP access to heritage landmarks, and a personalized 5-day itinerary.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                  <div style={S.featureRow}><span className="material-symbols-outlined" style={S.featureIcon}>bed</span><span style={S.featureText}>Curated Boutique Stays</span></div>
+                  <div style={S.featureRow}><span className="material-symbols-outlined" style={S.featureIcon}>local_activity</span><span style={S.featureText}>All-access Landmark Pass</span></div>
+                </div>
+                <button style={{ ...S.largeCardBtn, background: "#0a192f" }} onClick={() => handleServiceSelect("full_package")}>
+                  Go Premium <span className="material-symbols-outlined" style={{ fontSize: 18 }}>workspace_premium</span>
+                </button>
+              </div>
             </div>
           </div>
+        </main>
+      </div>
+    );
+  }
 
-          {/* Full Experience */}
-          <div
-            style={styles.card}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "translateY(-8px)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-            }}
-          >
-            <div style={styles.cardImgWrap}>
-              <img
-                src={HERO_FULL}
-                alt="Luxury stay in Chennai"
-                style={styles.cardImg}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-                }}
-              />
-              <div style={styles.cardGradient} />
-              <div style={styles.cardIconBubble}>
-                <span className="material-symbols-outlined">card_travel</span>
-              </div>
-              <div style={styles.cardTextOverlay}>
-                <span style={styles.cardLabel}>Full Package Services</span>
-                <h3 style={styles.cardTitle}>Full Experience</h3>
-              </div>
+  /* ── Login View ── */
+  return (
+    <div style={S.page}>
+      <div style={S.bgBlur1} />
+      <div style={S.bgBlur2} />
+      <main style={S.splitMain}>
+        {/* Brand Side (desktop) */}
+        <div style={S.brandSide}>
+          <div style={S.brandContent}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 40, color: "var(--primary)" }}>explore</span>
+              <h1 style={{ fontSize: "3rem", fontWeight: 700, color: "var(--primary)", letterSpacing: "-0.04em" }}>Horizon Hopper</h1>
             </div>
-            <div style={styles.cardBody}>
-              <p style={styles.cardDesc}>
-                Curated for the premium wayfarer. Includes boutique stays in
-                Chengalpattu, VIP access to heritage landmarks, and a
-                personalized itinerary.
-              </p>
-              <ul style={styles.cardFeatures}>
-                <li style={styles.cardFeatureItem}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--primary)" }}>
-                    hotel
-                  </span>
-                  Curated Boutique Stays
-                </li>
-                <li style={styles.cardFeatureItem}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--primary)" }}>
-                    confirmation_number
-                  </span>
-                  All-access Landmark Pass
-                </li>
-              </ul>
-              <button
-                style={styles.cardBtn}
-                onClick={() => handleServiceSelect("full_package")}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "var(--primary-container)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "var(--primary)";
-                }}
-              >
-                Go Premium
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}
-                >
-                  stars
-                </span>
-              </button>
+            <p style={{ fontSize: "1.125rem", color: "var(--on-surface-variant)", maxWidth: 440, lineHeight: 1.6 }}>
+              Experience the art of effortless travel. Curate your journey with precision and rediscover the joy of exploring Tamil Nadu.
+            </p>
+            <div style={S.heroImgWrap}>
+              <img src={HERO_IMG} alt="Tamil Nadu Coast" style={S.heroImg} />
+              <div style={S.heroImgOverlay} />
+              <div style={S.heroImgText}>
+                <p style={{ fontSize: "1.5rem", fontWeight: 600 }}>Tamil Nadu, India</p>
+                <p style={{ fontSize: "0.875rem", fontWeight: 600, opacity: 0.9, textTransform: "uppercase", letterSpacing: "0.15em" }}>Premium Destination</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Secondary login */}
-        <div style={styles.loginWrap}>
-          <p style={styles.loginLabel}>Already planning with us?</p>
-          <div style={styles.loginRow}>
-            <button
-              style={styles.loginBtn}
-              onClick={() => {
-                setPendingMode("full_package");
-                setShowLogin(true);
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "var(--surface-container-highest)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "var(--surface-container-high)";
-              }}
-            >
-              Sign In
-            </button>
-            <button
-              style={styles.guestBtn}
-              onClick={handleGuestContinue}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderBottomColor = "var(--primary)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderBottomColor = "rgba(10,25,49,0.15)";
-              }}
-            >
-              Guest Preview
-            </button>
+        {/* Login Card Side */}
+        <div style={S.loginSide}>
+          <div className="glass-card" style={S.loginCard}>
+            {/* Mobile logo */}
+            <div style={S.mobileLogo}>
+              <span className="material-symbols-outlined" style={{ fontSize: 32, color: "var(--primary)" }}>explore</span>
+              <span style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--primary)", letterSpacing: "-0.04em" }}>Horizon Hopper</span>
+            </div>
+
+            <div style={{ marginBottom: 40 }}>
+              <h2 style={{ fontSize: "2rem", fontWeight: 700, color: "var(--on-surface)", marginBottom: 8 }}>Welcome back</h2>
+              <p style={{ color: "var(--on-surface-variant)" }}>Choose your traveler profile to continue.</p>
+            </div>
+
+            {/* Profile Selector */}
+            {users.length > 0 && (
+              <div style={S.profileGrid}>
+                {users.map((u, i) => {
+                  const isActive = selectedUser?.id === u.id;
+                  return (
+                    <button key={u.id} style={S.profileBtn} onClick={() => pickUser(u)}>
+                      <div style={{
+                        width: 64, height: 64, borderRadius: 16, overflow: "hidden",
+                        border: isActive ? "2px solid var(--primary)" : "2px solid transparent",
+                        boxShadow: isActive ? "0 0 0 4px rgba(0,104,95,0.1)" : "var(--shadow-sm)",
+                        transform: isActive ? "scale(1.05)" : "scale(1)",
+                        transition: "all 0.2s ease",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        background: isActive ? "var(--primary)" : "var(--surface-container-high)",
+                        color: isActive ? "#fff" : "var(--primary)",
+                        fontSize: "1.5rem", fontWeight: 700
+                      }}>
+                        {u.name.charAt(0)}
+                      </div>
+                      <span style={{ fontSize: "0.6875rem", fontWeight: 600, color: isActive ? "var(--primary)" : "var(--on-surface-variant)", textAlign: "center" }}>
+                        {u.name.split(" ")[0]}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Login Form */}
+            <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <label style={S.label}>Username</label>
+                <div style={S.inputWrap}>
+                  <span className="material-symbols-outlined" style={S.inputIcon}>person</span>
+                  <input style={S.input} placeholder="Enter username" value={username}
+                    onChange={e => setUsername(e.target.value)} />
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 4px" }}>
+                  <label style={S.label}>Password</label>
+                </div>
+                <div style={S.inputWrap}>
+                  <span className="material-symbols-outlined" style={S.inputIcon}>lock</span>
+                  <input type="password" style={S.input} placeholder="••••••••" value={password}
+                    onChange={e => setPassword(e.target.value)} />
+                </div>
+              </div>
+              <button type="submit" disabled={loading} style={{ ...S.submitBtn, opacity: loading ? 0.7 : 1 }}>
+                {loading ? "Signing in…" : "Sign In"}
+                {!loading && <span className="material-symbols-outlined" style={{ fontSize: 20 }}>arrow_forward</span>}
+              </button>
+              {error && <p style={S.errorText}>{error}</p>}
+            </form>
+
+            <p style={{ marginTop: 40, textAlign: "center", fontSize: "0.875rem", color: "var(--on-surface-variant)" }}>
+              Don&apos;t have an account? <span style={{ color: "var(--primary)", fontWeight: 700, cursor: "pointer" }} onClick={() => setError("Registration is currently invite-only. Please use a demo profile above.")}>Join the hopper</span>
+            </p>
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer style={styles.footer}>
-        <div style={styles.footerInner}>
-          <p style={styles.footerText}>
-            © 2025 Horizon Hopper. Experiencing Tamil Nadu.
-          </p>
-          <div style={styles.footerLinks}>
-            <span style={styles.footerLink}>Privacy</span>
-            <span style={styles.footerLink}>Terms</span>
-            <span style={styles.footerLink}>Contact</span>
-          </div>
-        </div>
-      </footer>
-
-      {/* ── Login Modal ── */}
-      {showLogin && (
-        <div
-          style={styles.overlay}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowLogin(false);
-              setError("");
-            }
-          }}
-        >
-          <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2 style={styles.modalTitle}>Authentication</h2>
-            <p style={styles.modalDesc}>
-              {pendingMode === "travel_only"
-                ? "Sign in to access One Day Trip mode."
-                : "Sign in to connect with your Travel Designer."}
-            </p>
-
-            {/* Quick user picker */}
-            {users.length > 0 && (
-              <>
-                <p style={{ ...styles.inputLabel, marginBottom: 12 }}>
-                  Quick Select
-                </p>
-                <div style={styles.userPickerGrid}>
-                  {users.map((u) => (
-                    <div
-                      key={u.id}
-                      style={{
-                        ...styles.userCard,
-                        borderColor:
-                          selectedUser?.id === u.id
-                            ? "var(--primary)"
-                            : "transparent",
-                        background:
-                          selectedUser?.id === u.id
-                            ? "var(--surface-container-lowest)"
-                            : "var(--surface-container-low)",
-                      }}
-                      onClick={() => pickUser(u)}
-                    >
-                      <div style={styles.userAvatar}>{u.avatar}</div>
-                      <span style={styles.userName}>{u.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            <form onSubmit={handleLogin}>
-              <div style={styles.inputGroup}>
-                <label style={styles.inputLabel}>Username</label>
-                <input
-                  style={styles.input}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username"
-                  onFocus={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(10,25,49,0.15)";
-                    (e.currentTarget as HTMLElement).style.background = "#fff";
-                  }}
-                  onBlur={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "transparent";
-                    (e.currentTarget as HTMLElement).style.background = "var(--surface-container)";
-                  }}
-                />
-              </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.inputLabel}>Password</label>
-                <input
-                  type="password"
-                  style={styles.input}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  onFocus={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(10,25,49,0.15)";
-                    (e.currentTarget as HTMLElement).style.background = "#fff";
-                  }}
-                  onBlur={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "transparent";
-                    (e.currentTarget as HTMLElement).style.background = "var(--surface-container)";
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                style={{
-                  ...styles.submitBtn,
-                  opacity: loading ? 0.7 : 1,
-                  pointerEvents: loading ? "none" : "auto",
-                }}
-              >
-                {loading ? "Signing in…" : "Sign In"}
-              </button>
-              {error && <p style={styles.errorText}>{error}</p>}
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
+
+/* ═══ STYLES ═══ */
+const S: Record<string, React.CSSProperties> = {
+  page: {
+    minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+    background: "linear-gradient(135deg, #f7f9fb 0%, #e6f2f1 50%, #d1e8e6 100%)",
+    position: "relative", overflow: "hidden", padding: 24,
+  },
+  bgBlur1: {
+    position: "absolute", top: "-10%", right: "-5%", width: "40vw", height: "40vw",
+    borderRadius: "50%", background: "rgba(0,104,95,0.05)", filter: "blur(120px)",
+  },
+  bgBlur2: {
+    position: "absolute", bottom: "-10%", left: "-5%", width: "35vw", height: "35vw",
+    borderRadius: "50%", background: "rgba(157,67,0,0.05)", filter: "blur(100px)",
+  },
+  splitMain: {
+    width: "100%", maxWidth: 1100, display: "grid", gridTemplateColumns: "1fr 1fr",
+    gap: 64, alignItems: "center", position: "relative", zIndex: 10,
+  },
+  brandSide: { display: "flex", flexDirection: "column", gap: 24, paddingRight: 64 },
+  brandContent: { display: "flex", flexDirection: "column", gap: 24 },
+  heroImgWrap: {
+    marginTop: 16, position: "relative", borderRadius: "2rem", overflow: "hidden",
+    boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15)",
+  },
+  heroImg: { width: "100%", height: 400, objectFit: "cover" as const },
+  heroImgOverlay: {
+    position: "absolute", inset: 0,
+    background: "linear-gradient(to top, rgba(0,0,0,0.4), transparent)",
+  },
+  heroImgText: { position: "absolute", bottom: 24, left: 24, color: "#fff" },
+  loginSide: { display: "flex", justifyContent: "center" },
+  loginCard: {
+    width: "100%", maxWidth: 480, borderRadius: "2rem", padding: 40,
+    boxShadow: "0 32px 64px -16px rgba(0,106,97,0.1)",
+    border: "1px solid rgba(255,255,255,0.5)",
+  },
+  mobileLogo: {
+    display: "none", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 40,
+  },
+  profileGrid: {
+    display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 40,
+  },
+  profileBtn: {
+    display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 8,
+    background: "none", border: "none", cursor: "pointer", transition: "all 0.2s",
+  },
+  label: { fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface-variant)", marginLeft: 4 },
+  inputWrap: { position: "relative" as const },
+  inputIcon: {
+    position: "absolute" as const, left: 16, top: "50%", transform: "translateY(-50%)",
+    color: "var(--outline)", fontSize: 20, transition: "color 0.2s",
+  },
+  input: {
+    width: "100%", height: 56, paddingLeft: 48, paddingRight: 16,
+    background: "rgba(255,255,255,0.5)", border: "1px solid var(--outline-variant)",
+    borderRadius: 12, fontSize: "1rem", fontWeight: 400,
+    color: "var(--on-surface)", transition: "all 0.2s",
+  },
+  submitBtn: {
+    width: "100%", height: 56, background: "var(--primary)", color: "#fff",
+    fontSize: "1.125rem", fontWeight: 600, borderRadius: 12,
+    border: "none", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+    boxShadow: "0 8px 24px rgba(0,104,95,0.2)", cursor: "pointer", transition: "all 0.2s",
+  },
+  errorText: { color: "var(--error)", fontSize: "0.875rem", fontWeight: 600, textAlign: "center" as const },
+
+  /* Mode selector */
+  modeMain: {
+    position: "relative" as const, zIndex: 10, textAlign: "center" as const,
+    maxWidth: 1000, width: "100%", marginTop: 40,
+  },
+  largeCard: {
+    background: "#fff", borderRadius: 24, overflow: "hidden",
+    boxShadow: "0 12px 32px rgba(0,0,0,0.05)", display: "flex", flexDirection: "column" as const,
+    border: "1px solid rgba(0,0,0,0.05)", textAlign: "left" as const,
+  },
+  largeCardImgWrap: {
+    position: "relative" as const, height: 280, width: "100%",
+  },
+  largeCardImg: {
+    width: "100%", height: "100%", objectFit: "cover" as const,
+  },
+  largeCardGradient: {
+    position: "absolute" as const, inset: 0,
+    background: "linear-gradient(to top, rgba(10,25,47,0.9) 0%, rgba(10,25,47,0.2) 50%, transparent 100%)",
+  },
+  largeCardIcon: {
+    position: "absolute" as const, top: 20, left: 20, width: 40, height: 40,
+    borderRadius: "50%", background: "rgba(255,255,255,0.8)", backdropFilter: "blur(4px)",
+    display: "flex", alignItems: "center", justifyContent: "center", color: "var(--on-surface)",
+  },
+  largeCardImgText: {
+    position: "absolute" as const, bottom: 24, left: 24, right: 24,
+  },
+  largeCardContent: {
+    padding: 32, display: "flex", flexDirection: "column" as const, flex: 1,
+  },
+  featureRow: { display: "flex", alignItems: "center", gap: 12 },
+  featureIcon: { fontSize: 20, color: "var(--on-surface-variant)" },
+  featureText: { fontSize: "0.875rem", fontWeight: 600, color: "var(--on-surface)" },
+  largeCardBtn: {
+    width: "100%", padding: "16px", borderRadius: 12, background: "#111827", color: "#fff",
+    fontSize: "1rem", fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+    border: "none", cursor: "pointer", marginTop: "auto",
+  },
+};

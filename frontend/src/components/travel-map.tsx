@@ -8,6 +8,7 @@ const MapCanvas = dynamic(() => import("@/components/map-canvas"), {
 
 export function TravelMap({
   map,
+  transportMode,
 }: {
   map: {
     center: { lat: number; lng: number };
@@ -24,6 +25,7 @@ export function TravelMap({
       lng: number;
     }>;
   };
+  transportMode?: string;
 }) {
-  return <MapCanvas map={map} />;
+  return <MapCanvas map={map} transportMode={transportMode} />;
 }

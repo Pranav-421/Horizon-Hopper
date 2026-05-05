@@ -71,7 +71,7 @@ def _parse_commute(raw: str) -> CommuteSections:
 # ── Stay parser ───────────────────────────────────────────────
 
 _STAY_RE = re.compile(
-    r"^\d+\.\s*(?P<name>[^|]+)\|\s*(?P<area>[^|]+)\|\s*INR\s*(?P<price>[^|]+)\|\s*Rating\s*(?P<rating>[\d.]+)",
+    r"^\d+\.\s*(?P<name>[^|]+)\|\s*(?P<area>[^|]+)\|\s*INR\s*(?P<price>[^|]+)\|\s*Rating\s*(?P<rating>[^|]+)(?:\|\s*Type\s*(?P<type>.+))?",
     re.IGNORECASE,
 )
 
@@ -98,6 +98,7 @@ def _parse_stay(raw: str) -> list[StayItem]:
                     price=m.group("price").strip(),
                     rating=m.group("rating").strip(),
                     details=details,
+                    type=m.group("type").strip() if m.group("type") else "General",
                 )
             )
         i += 1

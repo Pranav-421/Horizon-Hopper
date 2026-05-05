@@ -1,0 +1,217 @@
+{
+  "users": {
+    "arjun": {
+      "password": "arjun123",
+      "name": "Arjun Sharma",
+      "avatar": "🧑‍💼",
+      "memory": {
+        "preferred_transport": "MTC Bus",
+        "food_preference": "Vegetarian",
+        "avoid": [
+          "highway",
+          "peak",
+          "traffic"
+        ],
+        "budget_range": "19500",
+        "accommodation_type": "Budget Hotel",
+        "past_trips": [
+          {
+            "date": "2026-05-01 23:58",
+            "intent": "leisure_trip",
+            "input": "Travel from Vellore to Tirunelveli. Purpose: Leisure / Tourism. Budget: 5000. Ti"
+          },
+          {
+            "date": "2026-05-02 00:05",
+            "intent": "leisure_trip",
+            "input": "Travel from Kanchipuram to Salem. Purpose: Leisure / Tourism. Budget: 30500. Tim"
+          },
+          {
+            "date": "2026-05-02 00:06",
+            "intent": "leisure_trip",
+            "input": "Travel from Kanchipuram to Erode. Purpose: Leisure / Tourism. Budget: 26000. Tim"
+          },
+          {
+            "date": "2026-05-02 00:13",
+            "intent": "leisure_trip",
+            "input": "Travel from Kanchipuram to Erode. Purpose: Leisure / Tourism. Budget: 5000. Time"
+          },
+          {
+            "date": "2026-05-02 00:27",
+            "intent": "leisure_trip",
+            "input": "Travel from Coimbatore to Tiruppur. Purpose: Leisure / Tourism. Budget: 22500. T"
+          },
+          {
+            "date": "2026-05-02 17:28",
+            "intent": "business_trip",
+            "input": "Travel from Chengalpattu to Thoothukudi. Purpose: Business Meeting. Budget: 2550"
+          },
+          {
+            "date": "2026-05-02 17:48",
+            "intent": "business_trip",
+            "input": "Travel from Kanchipuram to Dindigul. Purpose: Business Meeting. Budget: 33500. T"
+          },
+          {
+            "date": "2026-05-02 21:52",
+            "intent": "leisure_trip",
+            "input": "Travel from Madurai to Erode. Purpose: Leisure / Tourism. Budget: 33000. Time: ."
+          },
+          {
+            "date": "2026-05-02 22:07",
+            "intent": "leisure_trip",
+            "input": "Travel from Salem to Tiruchirappalli. Purpose: Leisure / Tourism. Budget: 19500."
+          },
+          {
+            "date": "2026-05-02 22:25",
+            "intent": "office_commute",
+            "input": "Travel from Salem to Tiruchirappalli. Purpose: Office Commute. Budget: 19500. Ti"
+          }
+        ],
+        "feedback_notes": [
+          "[saved] general: Great trip!"
+        ]
+      }
+    },
+    "priya": {
+      "password": "priya456",
+      "name": "Priya Nair",
+      "avatar": "👩‍💻",
+      "memory": {
+        "preferred_transport": "MTC Bus",
+        "food_preference": "Vegetarian",
+        "avoid": [
+          "crowd"
+        ],
+        "budget_range": "12000",
+        "accommodation_type": "Budget Hotel",
+        "past_trips": [
+          {
+            "date": "2026-04-25 01:15",
+            "intent": "business_trip",
+            "input": "Travel from Coimbatore to Tirunelveli. Purpose: Business Meeting. Budget: 22500."
+          },
+          {
+            "date": "2026-04-25 01:16",
+            "intent": "business_trip",
+            "input": "Travel from Salem to Vellore. Purpose: Business Meeting. Budget: 46500. Time: . "
+          },
+          {
+            "date": "2026-04-25 01:16",
+            "intent": "leisure_trip",
+            "input": "Travel from Salem to Vellore. Purpose: Leisure / Tourism. Budget: 46500. Time: ."
+          },
+          {
+            "date": "2026-05-02 17:32",
+            "intent": "leisure_trip",
+            "input": "Travel from Salem to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 13000. T"
+          },
+          {
+            "date": "2026-05-02 22:32",
+            "intent": "leisure_trip",
+            "input": "Travel from  to Thanjavur. Purpose: Leisure / Tourism. Budget: 18000. Time: . Pr"
+          },
+          {
+            "date": "2026-05-02 22:50",
+            "intent": "leisure_trip",
+            "input": "Travel from  to Ooty. Purpose: Leisure / Tourism. Budget: 13500. Time: . Prefere"
+          },
+          {
+            "date": "2026-05-03 01:14",
+            "intent": "leisure_trip",
+            "input": "Travel from Mahabalipuram to Ooty. Purpose: Leisure / Tourism. Budget: 34500. Ti"
+          },
+          {
+            "date": "2026-05-03 01:18",
+            "intent": "leisure_trip",
+            "input": "Travel from Mahabalipuram to Ooty. Purpose: Leisure / Tourism. Budget: 34500. Ti"
+          },
+          {
+            "date": "2026-05-03 01:19",
+            "intent": "leisure_trip",
+            "input": "Travel from Tambaram to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 20000"
+          },
+          {
+            "date": "2026-05-03 02:13",
+            "intent": "business_trip",
+            "input": "Travel from Tirunelveli to Salem. Purpose: Business Meeting. Budget: 12000. Time"
+          }
+        ],
+        "feedback_notes": []
+      }
+    },
+    "vikram": {
+      "password": "vikram789",
+      "name": "Vikram Rajan",
+      "avatar": "🧑‍🎓",
+      "memory": {
+        "preferred_transport": "MTC Bus",
+        "food_preference": "Vegetarian",
+        "avoid": [
+          "toll",
+          "traffic"
+        ],
+        "budget_range": "13500",
+        "accommodation_type": "Budget Hotel",
+        "past_trips": [
+          {
+            "date": "2026-05-03 02:18",
+            "intent": "leisure_trip",
+            "input": "Travel from Coimbatore to Tiruppur. Purpose: Leisure / Tourism. Budget: 5000. Ti"
+          },
+          {
+            "date": "2026-05-03 02:18",
+            "intent": "leisure_trip",
+            "input": "Travel from Coimbatore to Tiruppur. Purpose: Leisure / Tourism. Budget: 13500. T"
+          }
+        ],
+        "feedback_notes": []
+      }
+    },
+    "guest": {
+      "password": "",
+      "name": "guest",
+      "avatar": "U",
+      "memory": {
+        "preferred_transport": "Metro",
+        "food_preference": "Vegetarian",
+        "avoid": [
+          "crowd"
+        ],
+        "budget_range": "500",
+        "accommodation_type": "Budget Hotel",
+        "past_trips": [
+          {
+            "date": "2026-04-25 00:58",
+            "intent": "leisure_trip",
+            "input": "Travel from Tambaram to Guindy. Purpose: Leisure / Tourism. Budget: 5000. Time: "
+          },
+          {
+            "date": "2026-04-25 01:13",
+            "intent": "business_trip",
+            "input": "Travel from Coimbatore to Tirunelveli. Purpose: Business Trip. Budget: 25000. Ti"
+          },
+          {
+            "date": "2026-04-25 01:13",
+            "intent": "leisure_trip",
+            "input": "Travel from Chennai to Mahabalipuram. Purpose: Leisure / Tourism. Budget: 3000. "
+          },
+          {
+            "date": "2026-04-25 02:08",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 500. Time: "
+          },
+          {
+            "date": "2026-04-25 02:08",
+            "intent": "business_trip",
+            "input": "Travel from Coimbatore to Tirunelveli. Purpose: Business Trip. Budget: 25000. Ti"
+          },
+          {
+            "date": "2026-04-25 02:11",
+            "intent": "office_commute",
+            "input": "Travel from Tambaram to Tidel Park. Purpose: Office Commute. Budget: 500. Time: "
+          }
+        ],
+        "feedback_notes": []
+      }
+    }
+  }
+}

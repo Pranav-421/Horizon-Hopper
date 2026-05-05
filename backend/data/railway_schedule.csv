@@ -1,0 +1,154 @@
+from_city,to_city,train_name,train_number,departure_time,arrival_time,duration_hrs,distance_km,sleeper_inr,3ac_inr,2ac_inr,1ac_inr,frequency,direct_train,nearest_station_from,nearest_station_to,notes
+chennai,tambaram,Chennai-Tambaram Local,40601,06:00,06:35,0.58,25,10,NA,NA,NA,Daily,Yes,Chennai Egmore,Tambaram,EMU local train; no class distinction
+chennai,chengalpattu,Chennai-Chengalpattu Local,40701,06:15,07:30,1.25,56,20,NA,NA,NA,Daily,Yes,Chennai Egmore,Chengalpattu,Suburban EMU train
+chennai,mahabalipuram,No Direct Train,N/A,N/A,N/A,N/A,60,NA,NA,NA,NA,N/A,No,Chennai Egmore,Chengalpattu,Take train to Chengalpattu then bus to Mahabalipuram
+chennai,kanchipuram,Chennai-Kanchipuram Express,16181,06:30,08:45,2.25,75,65,200,290,490,Daily,Yes,Chennai Egmore,Kanchipuram,Direct train; limited frequency
+chennai,coimbatore,Shatabdi Express,12243,06:00,11:00,5.0,496,NA,995,1390,NA,Daily,Yes,Chennai Central,Coimbatore,Premium AC only; fastest option
+chennai,madurai,Pandian Express,12637,21:00,05:30,8.5,462,245,670,955,1605,Daily,Yes,Chennai Egmore,Madurai Junction,Overnight; very popular
+chennai,tiruchirappalli,Rock Fort Express,12681,22:15,05:00,6.75,330,185,505,720,1210,Daily,Yes,Chennai Egmore,Tiruchirappalli Junction,Overnight express
+chennai,salem,Salem Express,12661,22:00,04:00,6.0,336,185,505,720,1210,Daily,Yes,Chennai Central,Salem Junction,Overnight train
+chennai,tirunelveli,Nellai Express,12631,19:20,06:10,10.83,630,295,800,1145,1925,Daily,Yes,Chennai Egmore,Tirunelveli Junction,Overnight; one of the longest routes
+chennai,tiruppur,Kovai Express,12675,06:10,12:15,6.08,470,210,570,815,1370,Daily,Yes,Chennai Central,Tiruppur,Day train via Erode
+chennai,vellore,Jolarpet Passenger,56041,06:45,09:30,2.75,130,75,NA,NA,NA,Daily,Yes,Chennai Central,Katpadi (Vellore),Passenger train; slow but cheap
+chennai,erode,Erode Express,12163,22:30,05:00,6.5,398,210,570,815,1370,Daily,Yes,Chennai Central,Erode Junction,Overnight express
+chennai,ooty,Nilgiri Express,12671,21:15,07:00,9.75,530,220,600,860,1445,Daily,Yes,Chennai Central,Mettupalayam,Change to toy train at Mettupalayam
+chennai,kodaikanal,Kodaikanal Express,12673,21:25,09:00,11.58,528,235,640,915,1540,Daily,Yes,Chennai Egmore,Kodaikanal Road,Change to bus from Kodaikanal Road
+chennai,kanyakumari,Cape Express,12661,19:25,11:50,16.42,758,355,965,1380,2320,Daily,Yes,Chennai Egmore,Kanyakumari,Longest route; overnight
+chennai,rameswaram,Sethu Express,12661,08:50,22:00,13.17,659,305,830,1185,1995,3x/week,Yes,Chennai Egmore,Rameswaram,Via Madurai; runs Mon/Wed/Fri
+chennai,thanjavur,Thanjavur Express,12163,22:30,07:00,8.5,350,200,545,780,1310,Daily,Yes,Chennai Egmore,Thanjavur Junction,Overnight express
+tambaram,chengalpattu,Tambaram-Chengalpattu Local,40701,06:45,07:30,0.75,31,15,NA,NA,NA,Daily,Yes,Tambaram,Chengalpattu,EMU local
+tambaram,mahabalipuram,No Direct Train,N/A,N/A,N/A,N/A,35,NA,NA,NA,NA,N/A,No,Tambaram,Chengalpattu,Train to Chengalpattu + bus
+tambaram,kanchipuram,No Direct Train,N/A,N/A,N/A,N/A,52,NA,NA,NA,NA,N/A,No,Tambaram,Kanchipuram,Train to Chennai + train to Kanchipuram
+tambaram,coimbatore,Coimbatore Express,12243,06:30,11:30,5.0,471,NA,960,1360,NA,Daily,Yes,Tambaram,Coimbatore,Stops at Tambaram
+tambaram,madurai,Pandian Express,12637,21:10,05:30,8.33,437,230,630,900,1515,Daily,Yes,Tambaram,Madurai Junction,Stops at Tambaram
+tambaram,tiruchirappalli,Rock Fort Express,12681,22:25,05:00,6.58,305,175,480,685,1150,Daily,Yes,Tambaram,Tiruchirappalli Junction,Stops at Tambaram
+tambaram,salem,Salem Express,12661,22:10,04:00,5.83,311,175,480,685,1150,Daily,Yes,Tambaram,Salem Junction,Stops at Tambaram
+tambaram,tirunelveli,Nellai Express,12631,19:30,06:10,10.67,605,280,760,1085,1825,Daily,Yes,Tambaram,Tirunelveli Junction,Stops at Tambaram
+tambaram,tiruppur,Kovai Express,12675,06:20,12:15,5.92,445,200,545,780,1310,Daily,Yes,Tambaram,Tiruppur,Stops at Tambaram
+tambaram,vellore,Jolarpet Passenger,56041,07:00,09:30,2.5,105,65,NA,NA,NA,Daily,Yes,Tambaram,Katpadi (Vellore),Stops at Tambaram
+tambaram,erode,Erode Express,12163,22:40,05:00,6.33,373,200,545,780,1310,Daily,Yes,Tambaram,Erode Junction,Stops at Tambaram
+tambaram,ooty,Nilgiri Express,12671,21:25,07:00,9.58,505,210,570,815,1370,Daily,Yes,Tambaram,Mettupalayam,Change at Mettupalayam
+tambaram,kodaikanal,Kodaikanal Express,12673,21:35,09:00,11.42,503,220,600,860,1445,Daily,Yes,Tambaram,Kodaikanal Road,Bus from Kodaikanal Road
+tambaram,kanyakumari,Cape Express,12661,19:35,11:50,16.25,733,340,925,1320,2220,Daily,Yes,Tambaram,Kanyakumari,Stops at Tambaram
+tambaram,rameswaram,Sethu Express,12661,09:00,22:00,13.0,634,290,790,1130,1900,3x/week,Yes,Tambaram,Rameswaram,Stops at Tambaram
+tambaram,thanjavur,Thanjavur Express,12163,22:40,07:00,8.33,325,190,520,740,1245,Daily,Yes,Tambaram,Thanjavur Junction,Stops at Tambaram
+chengalpattu,mahabalipuram,No Direct Train,N/A,N/A,N/A,N/A,20,NA,NA,NA,NA,N/A,No,Chengalpattu,Chengalpattu,Bus from Chengalpattu; 45 min
+chengalpattu,kanchipuram,No Direct Train,N/A,N/A,N/A,N/A,40,NA,NA,NA,NA,N/A,No,Chengalpattu,Kanchipuram,Bus recommended; no direct train
+chengalpattu,coimbatore,Coimbatore Express,12243,07:00,11:30,4.5,440,175,480,685,1150,Daily,Yes,Chengalpattu,Coimbatore,Stops at Chengalpattu
+chengalpattu,madurai,Pandian Express,12637,21:30,05:30,8.0,406,220,600,860,1445,Daily,Yes,Chengalpattu,Madurai Junction,Stops at Chengalpattu
+chengalpattu,tiruchirappalli,Rock Fort Express,12681,22:45,05:00,6.25,274,165,450,645,1085,Daily,Yes,Chengalpattu,Tiruchirappalli Junction,Stops at Chengalpattu
+chengalpattu,salem,Salem Express,12661,22:30,04:00,5.5,280,165,450,645,1085,Daily,Yes,Chengalpattu,Salem Junction,Stops at Chengalpattu
+chengalpattu,tirunelveli,Nellai Express,12631,19:50,06:10,10.33,574,265,720,1030,1730,Daily,Yes,Chengalpattu,Tirunelveli Junction,Stops at Chengalpattu
+chengalpattu,tiruppur,Kovai Express,12675,06:40,12:15,5.58,414,185,505,720,1210,Daily,Yes,Chengalpattu,Tiruppur,Stops at Chengalpattu
+chengalpattu,vellore,No Direct Train,N/A,N/A,N/A,N/A,95,NA,NA,NA,NA,N/A,No,Chengalpattu,Katpadi (Vellore),Bus or train via Chennai
+chengalpattu,erode,Erode Express,12163,23:00,05:00,6.0,342,185,505,720,1210,Daily,Yes,Chengalpattu,Erode Junction,Stops at Chengalpattu
+chengalpattu,ooty,Nilgiri Express,12671,21:45,07:00,9.25,474,200,545,780,1310,Daily,Yes,Chengalpattu,Mettupalayam,Change at Mettupalayam for toy train
+chengalpattu,kodaikanal,Kodaikanal Express,12673,21:55,09:00,11.08,472,210,570,815,1370,Daily,Yes,Chengalpattu,Kodaikanal Road,Bus from Kodaikanal Road
+chengalpattu,kanyakumari,Cape Express,12661,19:55,11:50,15.92,702,325,885,1265,2125,Daily,Yes,Chengalpattu,Kanyakumari,Stops at Chengalpattu
+chengalpattu,rameswaram,Sethu Express,12661,09:20,22:00,12.67,603,275,750,1070,1800,3x/week,Yes,Chengalpattu,Rameswaram,Stops at Chengalpattu
+chengalpattu,thanjavur,Thanjavur Express,12163,23:00,07:00,8.0,294,180,490,700,1175,Daily,Yes,Chengalpattu,Thanjavur Junction,Stops at Chengalpattu
+mahabalipuram,kanchipuram,No Direct Train,N/A,N/A,N/A,N/A,55,NA,NA,NA,NA,N/A,No,Chengalpattu,Kanchipuram,No railway at Mahabalipuram; use bus
+mahabalipuram,coimbatore,No Direct Train,N/A,N/A,N/A,N/A,460,NA,NA,NA,NA,N/A,No,Chengalpattu,Coimbatore,Bus to Chengalpattu + train
+mahabalipuram,madurai,No Direct Train,N/A,N/A,N/A,N/A,422,NA,NA,NA,NA,N/A,No,Chengalpattu,Madurai Junction,Bus to Chengalpattu + train
+mahabalipuram,tiruchirappalli,No Direct Train,N/A,N/A,N/A,N/A,290,NA,NA,NA,NA,N/A,No,Chengalpattu,Tiruchirappalli Junction,Bus to Chengalpattu + train
+mahabalipuram,salem,No Direct Train,N/A,N/A,N/A,N/A,296,NA,NA,NA,NA,N/A,No,Chengalpattu,Salem Junction,Bus to Chengalpattu + train
+mahabalipuram,tirunelveli,No Direct Train,N/A,N/A,N/A,N/A,590,NA,NA,NA,NA,N/A,No,Chengalpattu,Tirunelveli Junction,Bus to Chengalpattu + train
+mahabalipuram,tiruppur,No Direct Train,N/A,N/A,N/A,N/A,430,NA,NA,NA,NA,N/A,No,Chengalpattu,Tiruppur,Bus to Chengalpattu + train
+mahabalipuram,vellore,No Direct Train,N/A,N/A,N/A,N/A,110,NA,NA,NA,NA,N/A,No,Chengalpattu,Katpadi (Vellore),No direct; bus recommended
+mahabalipuram,erode,No Direct Train,N/A,N/A,N/A,N/A,358,NA,NA,NA,NA,N/A,No,Chengalpattu,Erode Junction,Bus to Chengalpattu + train
+mahabalipuram,ooty,No Direct Train,N/A,N/A,N/A,N/A,490,NA,NA,NA,NA,N/A,No,Chengalpattu,Mettupalayam,Bus to Chengalpattu + train
+mahabalipuram,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,488,NA,NA,NA,NA,N/A,No,Chengalpattu,Kodaikanal Road,Bus to Chengalpattu + train
+mahabalipuram,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,718,NA,NA,NA,NA,N/A,No,Chengalpattu,Kanyakumari,Bus to Chengalpattu + train
+mahabalipuram,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,619,NA,NA,NA,NA,N/A,No,Chengalpattu,Rameswaram,Bus to Chengalpattu + train
+mahabalipuram,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,310,NA,NA,NA,NA,N/A,No,Chengalpattu,Thanjavur Junction,Bus to Chengalpattu + train
+kanchipuram,coimbatore,No Direct Train,N/A,N/A,N/A,N/A,430,NA,NA,NA,NA,N/A,No,Kanchipuram,Coimbatore,Train to Chennai + Shatabdi/Express
+kanchipuram,madurai,No Direct Train,N/A,N/A,N/A,N/A,390,NA,NA,NA,NA,N/A,No,Kanchipuram,Madurai Junction,Train to Chennai Egmore + Pandian Express
+kanchipuram,tiruchirappalli,No Direct Train,N/A,N/A,N/A,N/A,260,NA,NA,NA,NA,N/A,No,Kanchipuram,Tiruchirappalli Junction,Train to Chennai + Rock Fort Express
+kanchipuram,salem,No Direct Train,N/A,N/A,N/A,N/A,265,NA,NA,NA,NA,N/A,No,Kanchipuram,Salem Junction,Via Chennai or bus recommended
+kanchipuram,tirunelveli,No Direct Train,N/A,N/A,N/A,N/A,558,NA,NA,NA,NA,N/A,No,Kanchipuram,Tirunelveli Junction,Via Chennai Egmore + Nellai Express
+kanchipuram,tiruppur,No Direct Train,N/A,N/A,N/A,N/A,404,NA,NA,NA,NA,N/A,No,Kanchipuram,Tiruppur,Via Chennai or bus
+kanchipuram,vellore,Kanchipuram-Vellore Passenger,56045,08:00,11:00,3.0,97,55,NA,NA,NA,Daily,Yes,Kanchipuram,Katpadi (Vellore),Slow passenger train; only option
+kanchipuram,erode,No Direct Train,N/A,N/A,N/A,N/A,323,NA,NA,NA,NA,N/A,No,Kanchipuram,Erode Junction,Via Chennai + Erode Express
+kanchipuram,ooty,No Direct Train,N/A,N/A,N/A,N/A,460,NA,NA,NA,NA,N/A,No,Kanchipuram,Mettupalayam,Via Chennai + Nilgiri Express
+kanchipuram,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,458,NA,NA,NA,NA,N/A,No,Kanchipuram,Kodaikanal Road,Via Chennai + Kodaikanal Express
+kanchipuram,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,686,NA,NA,NA,NA,N/A,No,Kanchipuram,Kanyakumari,Via Chennai Egmore + Cape Express
+kanchipuram,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,587,NA,NA,NA,NA,N/A,No,Kanchipuram,Rameswaram,Via Chennai + Sethu Express
+kanchipuram,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,278,NA,NA,NA,NA,N/A,No,Kanchipuram,Thanjavur Junction,Via Chennai + Thanjavur Express
+coimbatore,madurai,Coimbatore-Madurai Express,12637,14:30,18:30,4.0,210,130,355,510,855,Daily,Yes,Coimbatore,Madurai Junction,Fast direct connection
+coimbatore,tiruchirappalli,Cheran Express,12673,06:30,11:30,5.0,205,130,355,510,855,Daily,Yes,Coimbatore,Tiruchirappalli Junction,Via Erode
+coimbatore,salem,Shatabdi Express,12243,11:10,13:00,1.83,161,NA,480,685,NA,Daily,Yes,Coimbatore,Salem Junction,AC only; fast
+coimbatore,tirunelveli,Podhigai Express,12631,20:00,04:30,8.5,420,220,600,860,1445,Daily,Yes,Coimbatore,Tirunelveli Junction,Overnight
+coimbatore,tiruppur,Coimbatore-Tiruppur Local,56720,07:00,08:00,1.0,52,30,NA,NA,NA,Daily,Yes,Coimbatore,Tiruppur,Frequent local trains
+coimbatore,vellore,No Direct Train,N/A,N/A,N/A,N/A,335,NA,NA,NA,NA,N/A,No,Coimbatore,Katpadi (Vellore),Via Chennai or Salem
+coimbatore,erode,Coimbatore-Erode Express,12163,08:00,09:30,1.5,102,70,195,280,470,Daily,Yes,Coimbatore,Erode Junction,Multiple trains daily
+coimbatore,ooty,Nilgiri Express,12672,09:15,17:30,8.25,88+46,NA,NA,NA,NA,Daily,Yes,Coimbatore,Ooty (Udhagamandalam),Train to Mettupalayam + toy train to Ooty
+coimbatore,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,175,NA,NA,NA,NA,N/A,No,Coimbatore,Kodaikanal Road,Train to Palani + bus; or direct bus
+coimbatore,kanyakumari,Kanyakumari Express,16381,20:30,10:00,13.5,548,280,760,1085,1825,Daily,Yes,Coimbatore,Kanyakumari,Overnight; via Madurai
+coimbatore,rameswaram,Rameswaram Express,16101,19:45,10:30,14.75,549,285,775,1105,1860,3x/week,Yes,Coimbatore,Rameswaram,Via Madurai; Tue/Thu/Sat
+coimbatore,thanjavur,Cheran Express,12673,06:30,13:30,7.0,307,175,480,685,1150,Daily,Yes,Coimbatore,Thanjavur Junction,Via Tiruchirappalli
+madurai,tiruchirappalli,Vaigai Express,12637,07:00,09:30,2.5,136,95,260,370,625,Daily,Yes,Madurai Junction,Tiruchirappalli Junction,Fast intercity; multiple daily
+madurai,salem,Pearl City Express,12637,20:00,01:00,5.0,256,155,420,600,1010,Daily,Yes,Madurai Junction,Salem Junction,Overnight
+madurai,tirunelveli,Nellai Express,12631,03:50,06:10,2.33,157,100,275,390,660,Daily,Yes,Madurai Junction,Tirunelveli Junction,Multiple trains daily
+madurai,tiruppur,Madurai-Coimbatore Express,12637,14:00,18:00,4.0,158,105,285,410,685,Daily,Yes,Madurai Junction,Tiruppur,Via Dindigul
+madurai,vellore,No Direct Train,N/A,N/A,N/A,N/A,332,NA,NA,NA,NA,N/A,No,Madurai Junction,Katpadi (Vellore),Via Chennai or Trichy
+madurai,erode,Madurai-Erode Express,16609,15:00,20:00,5.0,252,155,420,600,1010,Daily,Yes,Madurai Junction,Erode Junction,Direct intercity
+madurai,ooty,No Direct Train,N/A,N/A,N/A,N/A,318,NA,NA,NA,NA,N/A,No,Madurai Junction,Mettupalayam,Train to Coimbatore + Nilgiri Express
+madurai,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,120,NA,NA,NA,NA,N/A,No,Madurai Junction,Kodaikanal Road,Train to Kodaikanal Road (2.5hr) + bus
+madurai,kanyakumari,Nagercoil Express,16723,21:00,04:30,7.5,338,190,515,740,1245,Daily,Yes,Madurai Junction,Kanyakumari,Overnight; via Tirunelveli
+madurai,rameswaram,Madurai-Rameswaram Express,16101,06:00,10:30,4.5,176,115,315,450,755,Daily,Yes,Madurai Junction,Rameswaram,Morning train
+madurai,thanjavur,Vaigai Express,12637,07:00,10:00,3.0,170,110,300,430,720,Daily,Yes,Madurai Junction,Thanjavur Junction,Via Tiruchirappalli
+tiruchirappalli,salem,Trichy-Salem Express,16855,06:00,10:30,4.5,170,110,300,430,720,Daily,Yes,Tiruchirappalli Junction,Salem Junction,Morning intercity
+tiruchirappalli,tirunelveli,Trichy-Tirunelveli Express,16723,13:00,17:30,4.5,221,135,370,530,890,Daily,Yes,Tiruchirappalli Junction,Tirunelveli Junction,Afternoon train
+tiruchirappalli,tiruppur,No Direct Train,N/A,N/A,N/A,N/A,158,NA,NA,NA,NA,N/A,No,Tiruchirappalli Junction,Tiruppur,Via Erode; change required
+tiruchirappalli,vellore,No Direct Train,N/A,N/A,N/A,N/A,235,NA,NA,NA,NA,N/A,No,Tiruchirappalli Junction,Katpadi (Vellore),Via Chennai or Salem
+tiruchirappalli,erode,Trichy-Erode Express,16856,07:00,10:00,3.0,105,75,205,295,495,Daily,Yes,Tiruchirappalli Junction,Erode Junction,Direct intercity
+tiruchirappalli,ooty,No Direct Train,N/A,N/A,N/A,N/A,213,NA,NA,NA,NA,N/A,No,Tiruchirappalli Junction,Mettupalayam,Via Erode + toy train
+tiruchirappalli,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,125,NA,NA,NA,NA,N/A,No,Tiruchirappalli Junction,Kodaikanal Road,Train to Dindigul + bus; ~4hr total
+tiruchirappalli,kanyakumari,Trichy-Kanyakumari Express,16381,20:00,08:30,12.5,418,215,585,835,1405,Daily,Yes,Tiruchirappalli Junction,Kanyakumari,Overnight
+tiruchirappalli,rameswaram,Rameswaram Express,16101,06:30,11:00,4.5,177,115,315,450,755,Daily,Yes,Tiruchirappalli Junction,Rameswaram,Morning express
+tiruchirappalli,thanjavur,Trichy-Thanjavur Passenger,56811,07:00,08:30,1.5,55,40,NA,NA,NA,Daily,Yes,Tiruchirappalli Junction,Thanjavur Junction,Frequent service; very short route
+salem,tirunelveli,No Direct Train,N/A,N/A,N/A,N/A,390,NA,NA,NA,NA,N/A,No,Salem Junction,Tirunelveli Junction,Via Madurai; change required
+salem,tiruppur,Salem-Coimbatore Express,12674,07:00,09:30,2.5,109,75,205,295,495,Daily,Yes,Salem Junction,Tiruppur,Via Erode
+salem,vellore,Salem-Vellore Passenger,56041,09:00,12:30,3.5,120,70,NA,NA,NA,Daily,Yes,Salem Junction,Katpadi (Vellore),Passenger train
+salem,erode,Salem-Erode Express,12163,10:00,11:30,1.5,57,45,125,180,300,Daily,Yes,Salem Junction,Erode Junction,Very short route; frequent trains
+salem,ooty,No Direct Train,N/A,N/A,N/A,N/A,163,NA,NA,NA,NA,N/A,No,Salem Junction,Mettupalayam,Train to Coimbatore + toy train; or bus
+salem,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,200,NA,NA,NA,NA,N/A,No,Salem Junction,Kodaikanal Road,Bus recommended; no convenient train
+salem,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,558,NA,NA,NA,NA,N/A,No,Salem Junction,Kanyakumari,Via Madurai; long route
+salem,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,425,NA,NA,NA,NA,N/A,No,Salem Junction,Rameswaram,Via Trichy or Madurai
+salem,thanjavur,Salem-Thanjavur Express,16855,06:00,11:30,5.5,175,110,300,430,720,Daily,Yes,Salem Junction,Thanjavur Junction,Via Trichy
+tirunelveli,tiruppur,No Direct Train,N/A,N/A,N/A,N/A,265,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Tiruppur,Via Madurai + Coimbatore
+tirunelveli,vellore,No Direct Train,N/A,N/A,N/A,N/A,490,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Katpadi (Vellore),Via Chennai; very long
+tirunelveli,erode,No Direct Train,N/A,N/A,N/A,N/A,310,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Erode Junction,Via Madurai + change
+tirunelveli,ooty,No Direct Train,N/A,N/A,N/A,N/A,378,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Mettupalayam,Via Coimbatore; very long
+tirunelveli,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,215,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Kodaikanal Road,Via Madurai; train + bus combo
+tirunelveli,kanyakumari,Tirunelveli-Kanyakumari Express,16381,06:00,09:00,3.0,90,65,175,250,420,Daily,Yes,Tirunelveli Junction,Kanyakumari,Short direct route; morning train
+tirunelveli,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,247,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Rameswaram,Via Madurai; change required
+tirunelveli,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,261,NA,NA,NA,NA,N/A,No,Tirunelveli Junction,Thanjavur Junction,Via Trichy; change required
+tiruppur,vellore,No Direct Train,N/A,N/A,N/A,N/A,287,NA,NA,NA,NA,N/A,No,Tiruppur,Katpadi (Vellore),Via Salem or Chennai
+tiruppur,erode,Tiruppur-Erode Passenger,56720,08:30,10:00,1.5,50,35,NA,NA,NA,Daily,Yes,Tiruppur,Erode Junction,Local train; very frequent
+tiruppur,ooty,No Direct Train,N/A,N/A,N/A,N/A,110,NA,NA,NA,NA,N/A,No,Tiruppur,Mettupalayam,Train to Coimbatore + Nilgiri toy train
+tiruppur,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,175,NA,NA,NA,NA,N/A,No,Tiruppur,Kodaikanal Road,Bus recommended; no convenient train
+tiruppur,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,338,NA,NA,NA,NA,N/A,No,Tiruppur,Kanyakumari,Via Madurai or Coimbatore
+tiruppur,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,339,NA,NA,NA,NA,N/A,No,Tiruppur,Rameswaram,Via Madurai; long route
+tiruppur,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,207,NA,NA,NA,NA,N/A,No,Tiruppur,Thanjavur Junction,Via Trichy; change required
+vellore,erode,No Direct Train,N/A,N/A,N/A,N/A,230,NA,NA,NA,NA,N/A,No,Katpadi (Vellore),Erode Junction,Via Salem; change required
+vellore,ooty,No Direct Train,N/A,N/A,N/A,N/A,365,NA,NA,NA,NA,N/A,No,Katpadi (Vellore),Mettupalayam,Via Salem + Coimbatore; very long
+vellore,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,388,NA,NA,NA,NA,N/A,No,Katpadi (Vellore),Kodaikanal Road,Via Chennai + Kodaikanal Express
+vellore,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,618,NA,NA,NA,NA,N/A,No,Katpadi (Vellore),Kanyakumari,Via Chennai Egmore; very long
+vellore,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,519,NA,NA,NA,NA,N/A,No,Katpadi (Vellore),Rameswaram,Via Chennai + Sethu Express
+vellore,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,260,NA,NA,NA,NA,N/A,No,Katpadi (Vellore),Thanjavur Junction,Via Chennai or Trichy; bus faster
+erode,ooty,No Direct Train,N/A,N/A,N/A,N/A,113,NA,NA,NA,NA,N/A,No,Erode Junction,Mettupalayam,Train to Coimbatore + Nilgiri toy train
+erode,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,178,NA,NA,NA,NA,N/A,No,Erode Junction,Kodaikanal Road,Bus recommended; no convenient train
+erode,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,450,NA,NA,NA,NA,N/A,No,Erode Junction,Kanyakumari,Via Madurai or Coimbatore
+erode,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,351,NA,NA,NA,NA,N/A,No,Erode Junction,Rameswaram,Via Trichy or Madurai
+erode,thanjavur,Erode-Thanjavur Express,16856,11:30,16:00,4.5,160,105,285,410,685,Daily,Yes,Erode Junction,Thanjavur Junction,Via Trichy
+ooty,kodaikanal,No Direct Train,N/A,N/A,N/A,N/A,195,NA,NA,NA,NA,N/A,No,Ooty (Udhagamandalam),Kodaikanal Road,Bus recommended; no train connection
+ooty,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,460,NA,NA,NA,NA,N/A,No,Mettupalayam,Kanyakumari,Toy train + train to Coimbatore + Kanyakumari Express
+ooty,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,461,NA,NA,NA,NA,N/A,No,Mettupalayam,Rameswaram,Via Coimbatore + Madurai; very long
+ooty,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,315,NA,NA,NA,NA,N/A,No,Mettupalayam,Thanjavur Junction,Via Coimbatore + Trichy
+kodaikanal,kanyakumari,No Direct Train,N/A,N/A,N/A,N/A,310,NA,NA,NA,NA,N/A,No,Kodaikanal Road,Kanyakumari,Train to Madurai + Nagercoil Express
+kodaikanal,rameswaram,No Direct Train,N/A,N/A,N/A,N/A,290,NA,NA,NA,NA,N/A,No,Kodaikanal Road,Rameswaram,Train to Madurai + Rameswaram Express
+kodaikanal,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,195,NA,NA,NA,NA,N/A,No,Kodaikanal Road,Thanjavur Junction,Bus to Dindigul + train; bus faster
+kanyakumari,rameswaram,Kanyakumari-Rameswaram Express,16723,18:00,06:00,12.0,428,215,585,835,1405,3x/week,Yes,Kanyakumari,Rameswaram,Long coastal route; Mon/Wed/Fri
+kanyakumari,thanjavur,No Direct Train,N/A,N/A,N/A,N/A,320,NA,NA,NA,NA,N/A,No,Kanyakumari,Thanjavur Junction,Via Tirunelveli + Trichy; change required
+rameswaram,thanjavur,Rameswaram-Chennai Express,16102,18:00,23:00,5.0,175,110,300,430,720,Daily,Yes,Rameswaram,Thanjavur Junction,Via Trichy; stops at Thanjavur

@@ -1,0 +1,12 @@
+# .graphifyignore — skip these when building the knowledge graph
+node_modules/
+.next/
+.venv/
+venv/
+__pycache__/
+.git/
+*.zip
+extract_temp/
+.pytest_cache/
+legacy_streamlit/
+stitch_exports/

@@ -98,6 +98,7 @@ class StayItem(BaseModel):
     price: str
     rating: str
     details: str
+    type: str
 
 
 class AttractionItem(BaseModel):

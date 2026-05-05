@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile &amp; Travel DNA - Horizon Hopper</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#341100",
+                      "surface-variant": "#e0e3e5",
+                      "inverse-on-surface": "#eff1f3",
+                      "surface-container-highest": "#e0e3e5",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2d3133",
+                      "on-primary-fixed": "#00201d",
+                      "primary": "#00685f",
+                      "surface-tint": "#006a61",
+                      "on-tertiary-fixed": "#111c2d",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-surface-variant": "#3d4947",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#89f5e7",
+                      "secondary-fixed-dim": "#ffb690",
+                      "on-surface": "#191c1e",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#fd761a",
+                      "tertiary-container": "#6a758a",
+                      "background": "#f7f9fb",
+                      "on-tertiary-fixed-variant": "#3c475a",
+                      "outline": "#6d7a77",
+                      "on-background": "#191c1e",
+                      "on-primary-fixed-variant": "#005049",
+                      "surface-container-high": "#e6e8ea",
+                      "on-tertiary-container": "#fefcff",
+                      "tertiary-fixed": "#d8e3fb",
+                      "outline-variant": "#bcc9c6",
+                      "on-error": "#ffffff",
+                      "secondary": "#9d4300",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#6bd8cb",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#eceef0",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d8dadc",
+                      "surface-container-low": "#f2f4f6",
+                      "tertiary": "#515c71",
+                      "tertiary-fixed-dim": "#bcc7de",
+                      "on-secondary-fixed-variant": "#783200",
+                      "surface-bright": "#f7f9fb",
+                      "on-secondary-container": "#5c2400",
+                      "on-primary-container": "#f4fffc",
+                      "primary-container": "#008378",
+                      "secondary-fixed": "#ffdbca",
+                      "on-primary": "#ffffff",
+                      "surface": "#f7f9fb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "8px",
+                      "lg": "40px",
+                      "base": "4px",
+                      "md": "24px",
+                      "margin": "32px",
+                      "sm": "16px",
+                      "gutter": "24px",
+                      "xl": "64px"
+              },
+              "fontFamily": {
+                      "h1": ["Inter"],
+                      "body-md": ["Inter"],
+                      "h2": ["Inter"],
+                      "h3": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                      "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                      "label-sm": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #F8FAFC; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); }
+        .ambient-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
+<div class="flex justify-between items-center px-6 md:px-12 h-20 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tight text-teal-600">Horizon Hopper</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-slate-500 hover:text-teal-500" href="#">Explore</a>
+<a class="text-slate-500 hover:text-teal-500" href="#">Itinerary</a>
+<a class="text-slate-500 hover:text-teal-500" href="#">Trips</a>
+<a class="text-teal-600 border-b-2 border-teal-600 pb-2 font-semibold" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500 cursor-pointer p-2 rounded-full hover:bg-slate-50/50">dark_mode</span>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer p-2 rounded-full hover:bg-slate-50/50">notifications</span>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="A professional close-up portrait of a sophisticated Italian woman in her early thirties, with expressive eyes and a warm smile. She is captured in soft, natural morning light against a blurred architectural background of a minimalist villa. The image is bright, high-key, and maintains a luxury, effortless travel aesthetic consistent with the teal and white brand palette." src="https://lh3.googleusercontent.com/aida/ADBb0uj88jshewUxsNqCCY9GFJCPyKM_IQxTZq-W6-J97E2x7qlYodugp5p4rHscGwSa-Mp4BjhCGQLQbwfQupmsyw4wyBG06fId3gcNBumLiQVjWTn8mP6IO5R_PoMMUgRsQHDz74kyM_qdPGGZjO6k75gp3jDS9LHQdNVbPTuCcarbRz7HxgnIq64necZQJzcf48UjEjkjyazCjRYdv9LXNewRfA2C4K9vKqLXVOZmjSW4mi-F5SZTlk5mGQzbR8Y_Gfmad19T5Fp2"/>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-24 max-w-7xl mx-auto px-6 md:px-12">
+<!-- Profile Header Section -->
+<section class="flex flex-col md:flex-row items-center gap-8 mb-xl">
+<div class="relative">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white ambient-shadow">
+<img alt="Elena Moretti" class="w-full h-full object-cover" data-alt="Close-up of a stylish woman with olive skin and dark hair, radiating an air of calm sophistication. The lighting is diffused and soft, emphasizing a high-end, bright aesthetic. The background is a clean, neutral tone with hints of teal-colored vegetation. The portrait embodies a restorative, intentional travel lifestyle." src="https://lh3.googleusercontent.com/aida/ADBb0uj88jshewUxsNqCCY9GFJCPyKM_IQxTZq-W6-J97E2x7qlYodugp5p4rHscGwSa-Mp4BjhCGQLQbwfQupmsyw4wyBG06fId3gcNBumLiQVjWTn8mP6IO5R_PoMMUgRsQHDz74kyM_qdPGGZjO6k75gp3jDS9LHQdNVbPTuCcarbRz7HxgnIq64necZQJzcf48UjEjkjyazCjRYdv9LXNewRfA2C4K9vKqLXVOZmjSW4mi-F5SZTlk5mGQzbR8Y_Gfmad19T5Fp2"/>
+</div>
+<div class="absolute bottom-2 right-2 bg-secondary-container text-white px-3 py-1 rounded-full text-label-sm flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                    Premium
+                </div>
+</div>
+<div class="text-center md:text-left">
+<h1 class="font-h1 text-h1 text-on-surface mb-2">Elena Moretti</h1>
+<div class="flex flex-wrap justify-center md:justify-start gap-4 items-center">
+<span class="text-body-lg text-tertiary font-medium">24 Trips</span>
+<span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+<span class="text-body-lg text-tertiary font-medium">Global Explorer</span>
+<span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        Milan, Italy
+                    </span>
+</div>
+</div>
+<div class="md:ml-auto">
+<button class="bg-primary text-on-primary px-8 h-14 rounded-xl font-semibold shadow-lg hover:brightness-110 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined">edit</span>
+                    Edit Profile
+                </button>
+</div>
+</section>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Card 1: Travel DNA -->
+<div class="md:col-span-5 bg-white rounded-xl p-md ambient-shadow flex flex-col justify-between border border-slate-100">
+<div>
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-h3 text-h3 text-on-surface">Travel DNA</h3>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<p class="text-body-md text-slate-500 mb-lg">Your core preferences analyzed from past journeys to personalize your next escape.</p>
+<div class="space-y-sm">
+<!-- Preference 1 -->
+<div class="space-y-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-slate-600">Vegetarian Cuisine</span>
+<span class="text-primary font-bold">92% Match</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="w-[92%] h-full bg-primary"></div>
+</div>
+</div>
+<!-- Preference 2 -->
+<div class="space-y-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-slate-600">Budget-conscious</span>
+<span class="text-primary font-bold">65% Match</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="w-[65%] h-full bg-primary"></div>
+</div>
+</div>
+<!-- Preference 3 -->
+<div class="space-y-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-slate-600">Prefers Train Travel</span>
+<span class="text-primary font-bold">88% Match</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="w-[88%] h-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-lg flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-teal-50 text-primary text-label-sm rounded-full font-bold">Sustainable Travel</span>
+<span class="px-4 py-2 bg-teal-50 text-primary text-label-sm rounded-full font-bold">Hidden Gems</span>
+<span class="px-4 py-2 bg-teal-50 text-primary text-label-sm rounded-full font-bold">Slow Morning</span>
+</div>
+</div>
+<!-- Memory Notes (AI Learnings) -->
+<div class="md:col-span-7 bg-white rounded-xl p-md ambient-shadow border border-slate-100">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-h3 text-h3 text-on-surface">Memory Notes</h3>
+<div class="bg-teal-50 px-3 py-1 rounded-full text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                        AI Personalization
+                    </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-sm">
+<div class="p-sm bg-slate-50 rounded-lg border border-slate-100 flex flex-col justify-between">
+<p class="text-body-md text-slate-700 italic">"Elena consistently avoids early morning departures, preferring hotel check-ins after 2 PM."</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-[12px] text-slate-400">Learned 12 Oct 2023</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer text-sm">toggle_on</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-error cursor-pointer text-sm">delete</span>
+</div>
+</div>
+</div>
+<div class="p-sm bg-slate-50 rounded-lg border border-slate-100 flex flex-col justify-between">
+<p class="text-body-md text-slate-700 italic">"Preference for boutique hotels with artisanal coffee access within 200m."</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-[12px] text-slate-400">Learned 05 Nov 2023</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer text-sm">toggle_on</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-error cursor-pointer text-sm">delete</span>
+</div>
+</div>
+</div>
+<div class="p-sm bg-slate-50 rounded-lg border border-slate-100 flex flex-col justify-between">
+<p class="text-body-md text-slate-700 italic">"Travels mostly with a 15kg carry-on; prioritizes locations with laundry services."</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-[12px] text-slate-400">Learned 18 Dec 2023</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer text-sm">toggle_on</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-error cursor-pointer text-sm">delete</span>
+</div>
+</div>
+</div>
+<div class="p-sm bg-slate-50 rounded-lg border border-slate-100 flex flex-col justify-between">
+<p class="text-body-md text-slate-700 italic">"Focuses on photography spots at Golden Hour. AI adds 1h buffers for sunset."</p>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-[12px] text-slate-400">Learned 12 Jan 2024</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer text-sm">toggle_on</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-error cursor-pointer text-sm">delete</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trip History Table -->
+<div class="md:col-span-12 bg-white rounded-xl p-md ambient-shadow border border-slate-100 overflow-hidden">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-h3 text-h3 text-on-surface">Recent Itineraries</h3>
+<button class="text-primary font-bold text-label-sm hover:underline">View All History</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-slate-100">
+<th class="pb-4 font-semibold text-slate-400 text-label-sm">DESTINATION</th>
+<th class="pb-4 font-semibold text-slate-400 text-label-sm">DATES</th>
+<th class="pb-4 font-semibold text-slate-400 text-label-sm">STATUS</th>
+<th class="pb-4 font-semibold text-slate-400 text-label-sm">RATING</th>
+<th class="pb-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="group hover:bg-slate-50/50 transition-all">
+<td class="py-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-slate-200 overflow-hidden shrink-0">
+<img alt="Tokyo" class="w-full h-full object-cover" data-alt="A serene landscape of Tokyo during cherry blossom season, featuring the iconic skyline in soft pink and white hues. The scene is bright and airy, reflecting a morning of restorative urban exploration. The visual style is minimalist, with a cool-toned color palette and a soft-focus background that highlights the tranquil atmosphere of high-end travel." src="https://lh3.googleusercontent.com/aida/ADBb0uizziXM0kO8XWRPT60HSXKrn1fpoLNPbpuMBGvYNVsoJ1LKrEtOOsho21eyPikZN8OEA1WJtiMidBxOmQ-8TXHcx9giOqREVt0p8F8o5gROhJ9RygwqSKQT91BI9JX6LIJtICdGKkrcByMQa8_uYfS9Mn9KrSwnWgyXUsqDfGT4Ex8acuUV9bZe8AVa-FZL7s-mu3L_9Um_S9ISaj9WFwuX4OFxAULW7ZSUXuhcs3Pif_wW5aimIBe5UtlimwyU3QglqAdMPndsOQ"/>
+</div>
+<div>
+<div class="font-bold text-on-surface">Tokyo, Japan</div>
+<div class="text-[12px] text-slate-400">Urban Exploration</div>
+</div>
+</div>
+</td>
+<td class="py-sm text-body-md text-slate-600">Mar 12 - Mar 22, 2024</td>
+<td class="py-sm">
+<span class="px-3 py-1 bg-green-50 text-green-700 text-[12px] font-bold rounded-full border border-green-100">Completed</span>
+</td>
+<td class="py-sm">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-sm text-right">
+<button class="material-symbols-outlined text-slate-300 hover:text-teal-600">chevron_right</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50/50 transition-all">
+<td class="py-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-slate-200 overflow-hidden shrink-0">
+<img alt="Alps" class="w-full h-full object-cover" data-alt="A breathtaking view of the Swiss Alps in winter, with snow-capped peaks against a crystal-clear blue sky. The lighting is crisp and high-key, creating a feeling of fresh mountain air. The image emphasizes luxury alpine travel with a clean, white-dominant aesthetic and minimalist composition." src="https://lh3.googleusercontent.com/aida/ADBb0uj8ziQII20vD7gHHkGjXCA_-tKLHyeayIASijx52jARH8bwIDwHibke_SEYmkGkMmMZ5xsrTVyFx17oUa3b7pbjUPY2S5DjcXxgGglpfQi5YlWtUK6tvfTwUL8rtZQGS82ZCReX1wssEZggopw-0QULWEF2-x7Fppo84XC-4_WiMAaoIAchZtb25AxZVM1tFsAayLbeQqPH9majEF4L4velpRMfzcUdczg8B3LlHy__ZIvl4OAj7tQR2YvqHC1yLwImEq1T8D4pGQ"/>
+</div>
+<div>
+<div class="font-bold text-on-surface">Zermatt, Switzerland</div>
+<div class="text-[12px] text-slate-400">Ski &amp; Wellness</div>
+</div>
+</div>
+</td>
+<td class="py-sm text-body-md text-slate-600">Jan 05 - Jan 12, 2024</td>
+<td class="py-sm">
+<span class="px-3 py-1 bg-green-50 text-green-700 text-[12px] font-bold rounded-full border border-green-100">Completed</span>
+</td>
+<td class="py-sm">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+</td>
+<td class="py-sm text-right">
+<button class="material-symbols-outlined text-slate-300 hover:text-teal-600">chevron_right</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50/50 transition-all">
+<td class="py-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-slate-200 overflow-hidden shrink-0">
+<img alt="Bali" class="w-full h-full object-cover" data-alt="A lush, tropical villa setting in Bali, surrounded by vibrant green palm trees and a tranquil infinity pool. The lighting is soft and golden, suggesting a late afternoon glow. The scene is incredibly airy and restorative, utilizing a sophisticated palette of deep greens and bright whites to convey high-end retreat travel." src="https://lh3.googleusercontent.com/aida/ADBb0ug9MJ0LGuq4PawgCq30TyBDv27HdN6rM0JoHVXRaA64PDuLRwie96b6qbSgye-sM2z6Yz74zc-LoYV8Dg-8-DZNsSdPOMMvGF9pHIhMWDdfeE5PICQ_crN8t74q-kxOWCQ8Et9vLFzqxafN_PcRm4cF_8GHKy4aBTEyGj1nRD5IjGRD7EPDSsukpBUNTIElsQdb_8Rpl2l-Ldi1tbmcGlZwnjtMoUkv9AV6Arj88HmbDtivZ5tsQKkxwIQ4XhnKZgAEkq7rvCbR"/>
+</div>
+<div>
+<div class="font-bold text-on-surface">Ubud, Bali</div>
+<div class="text-[12px] text-slate-400">Digital Nomad Stay</div>
+</div>
+</div>
+</td>
+<td class="py-sm text-body-md text-slate-600">Nov 18 - Dec 02, 2023</td>
+<td class="py-sm">
+<span class="px-3 py-1 bg-green-50 text-green-700 text-[12px] font-bold rounded-full border border-green-100">Completed</span>
+</td>
+<td class="py-sm">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-sm text-right">
+<button class="material-symbols-outlined text-slate-300 hover:text-teal-600">chevron_right</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Ad-hoc CTA Card -->
+<div class="md:col-span-12 relative h-64 rounded-xl overflow-hidden ambient-shadow mt-gutter">
+<div class="absolute inset-0 z-0">
+<img alt="Tamil Nadu Coastal Landscape" class="w-full h-full object-cover" data-alt="Ultra-high-end travel photography, a serene coastal landscape of Tamil Nadu at sunrise, soft teal ocean water, golden morning light on ancient stone structures, minimalist composition, vast horizon, editorial travel magazine style, 8k resolution, serene and aspirational." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLwGCQZ_IyLgeoBC-wUSpAOJeOKf6QuMERQ_1b-ZTqePma_i90dXqc_vWYs69TJUwFL_lMYL5laLiB_fqtoXAlTRMVGHSLMBmI3Alyj2cICBNYA0nkGT7gKI6HX40-gy1M4ShrBWksPmw5HHwDUI3iz23HmqKoIuL5izalV5DxHFznRv5v32JM5koJMb7tPXVStH3MXeXWuTI7yZnTpA6YPSio9m_5JFqR2yfFHdRuAbZ7WLByfbZ8Pde7y0dm4RQ2j7-ivFA61rE"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+</div>
+<div class="relative z-10 h-full flex flex-col justify-center px-12 text-white">
+<h2 class="text-h2 font-h2 mb-4">Ready for your 25th trip?</h2>
+<p class="text-body-lg mb-6 opacity-90 max-w-md">Our AI has curated three new destinations based on your updated Travel DNA.</p>
+<button class="bg-secondary-container w-fit px-8 h-14 rounded-xl font-bold text-white shadow-xl hover:scale-105 transition-transform">
+                        Explore Recommendations
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 h-16 pb-safe bg-white/80 backdrop-blur-lg border-t border-slate-200/50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50">
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-medium font-['Inter']">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="text-[10px] font-medium font-['Inter']">Itinerary</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">luggage</span>
+<span class="text-[10px] font-medium font-['Inter']">Trips</span>
+</div>
+<div class="flex flex-col items-center justify-center text-teal-600 scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-medium font-['Inter']">Profile</span>
+</div>
+</nav>
+</body></html>

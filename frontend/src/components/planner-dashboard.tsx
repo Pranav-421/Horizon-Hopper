@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PlannerResponse, ServiceMode } from "@/lib/types";
-import { clearSession, readSession } from "@/lib/session";
+import { clearSession, readSession, writeSession, getAuthHeaders } from "@/lib/session";
 import { TravelMap } from "@/components/travel-map";
+import { SharedHeader } from "@/components/shared-header";
 
 /* ─── Stitch destination images ─── */
 /* map frontend purpose → backend-friendly purpose string */
@@ -17,26 +18,51 @@ const PURPOSE_MAP: Record<string, string> = {
 
 const HERO_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuBSxEl1dNwGtsbq49uVkNqUnWzpnp6y9n9TOAwe3S0RKOSNluSCscUqOIMjVDQH2-8K2A8aXRkcho-eqv8k4e0QjCbbcE-L4ntW51xnQnCiByEv_NPGqMIDJq5PCQrLO-VErrzhy6sR4iY-wr_Ba2QZY0l3XRmVaAQuFg3sFueRUX_wPP07IPEgbf6XrZJqswUH5yMOXT5YCBbOvT_yvUlf11ZgTE9l_VaaXLqVFP9TsVmcfBt8qR2GQhu9_kCWlkLiNXzy_G0SWrgg";
-const COAST_IMG =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuCXbqH6F4SY8LWc3mjUDz_iL3e9hAb3xdJa6fraygZmOj8VT3GYbRZzhEGFOzlxF-vaKYHhrKTksErf16_oSdh7plE92Vyz_-yyiWI8k8OK4dQjQkl6O4dry-ra6eGx7rpYyd6EPvmfURLCIPMlrO104NPZGKcxzj-rJMSLHi5Y_4Z11lJ6NqH2yYgMshM1hlU1OmMXVmWJVycKs6KBkzrcFPROLMc9Xdz8S8Ah6vgNy5OI-ZLxT0jZ_8tcntMY0KU1Zaw7Dcsxy_Bg";
+const COAST_IMG = "/assets/cities/chennai_1.jpg";
 
 const TN_CITIES = [
-  "Select a city...", "Chennai", "Chengalpattu", "Mahabalipuram", "Kanchipuram", "Coimbatore",
+  "Select a city...", "Chennai", "Tambaram", "Chengalpattu", "Mahabalipuram", "Kanchipuram", "Coimbatore",
   "Madurai", "Tiruchirappalli", "Salem", "Tirunelveli", "Tiruppur",
   "Vellore", "Erode", "Thoothukudi", "Dindigul", "Thanjavur", "Ranipet",
   "Karur", "Ooty", "Kodaikanal", "Kanyakumari", "Rameswaram", "Tiruvannamalai"
 ];
 
-const TN_IMAGES = [
+/* ── Per-city image maps (5 images each from /assets/cities/) ── */
+const CITY_IMAGES: Record<string, string[]> = {
+  chennai:         Array.from({ length: 5 }, (_, i) => `/assets/cities/chennai_${i + 1}.jpg`),
+  tambaram:        Array.from({ length: 5 }, (_, i) => `/assets/cities/tambaram_${i + 1}.jpg`),
+  chengalpattu:    Array.from({ length: 5 }, (_, i) => `/assets/cities/chengalpattu_${i + 1}.jpg`),
+  mahabalipuram:   Array.from({ length: 5 }, (_, i) => `/assets/cities/mahabalipuram_${i + 1}.jpg`),
+  kanchipuram:     Array.from({ length: 5 }, (_, i) => `/assets/cities/kanchipuram_${i + 1}.jpg`),
+  coimbatore:      Array.from({ length: 5 }, (_, i) => `/assets/cities/coimbatore_${i + 1}.jpg`),
+  madurai:         Array.from({ length: 5 }, (_, i) => `/assets/cities/madurai_${i + 1}.jpg`),
+  tiruchirappalli: Array.from({ length: 5 }, (_, i) => `/assets/cities/tiruchirappalli_${i + 1}.jpg`),
+  salem:           Array.from({ length: 5 }, (_, i) => `/assets/cities/salem_${i + 1}.jpg`),
+  tirunelveli:     Array.from({ length: 5 }, (_, i) => `/assets/cities/tirunelveli_${i + 1}.jpg`),
+  tiruppur:        Array.from({ length: 5 }, (_, i) => `/assets/cities/tiruppur_${i + 1}.jpg`),
+  vellore:         Array.from({ length: 5 }, (_, i) => `/assets/cities/vellore_${i + 1}.jpg`),
+  erode:           Array.from({ length: 5 }, (_, i) => `/assets/cities/erode_${i + 1}.jpg`),
+  ooty:            Array.from({ length: 5 }, (_, i) => `/assets/cities/ooty_${i + 1}.jpg`),
+  kodaikanal:      Array.from({ length: 5 }, (_, i) => `/assets/cities/kodaikanal_${i + 1}.jpg`),
+  kanyakumari:     Array.from({ length: 5 }, (_, i) => `/assets/cities/kanyakumari_${i + 1}.jpg`),
+  rameswaram:      Array.from({ length: 5 }, (_, i) => `/assets/cities/rameswaram_${i + 1}.jpg`),
+  thanjavur:       Array.from({ length: 5 }, (_, i) => `/assets/cities/thanjavur_${i + 1}.jpg`),
+};
+
+/* Fallback images (original generic TN images) */
+const DEFAULT_IMAGES = [
   "/assets/tn_kanyakumari_1775842503202.png",
   "/assets/tn_nilgiris_1775842577463.png",
   "/assets/tn_shore_temple_1775842523313.png",
   "/assets/tn_tea_estate_1775842468607.png",
   "/assets/tn_temple_1775842404019.png",
   "/assets/tn_waterfall_1775842541471.png",
-  "/assets/tn_kanyakumari_1775842503202.png",
-  "/assets/tn_shore_temple_1775842523313.png"
 ];
+
+function getCityImages(destination: string): string[] {
+  const key = destination.split(",")[0].trim().toLowerCase();
+  return CITY_IMAGES[key] ?? DEFAULT_IMAGES;
+}
 
 /* ═══════════════════════════════════════ */
 /*  PLANNER DASHBOARD                     */
@@ -50,7 +76,12 @@ export function PlannerDashboard() {
 
   useEffect(() => {
     setMounted(true);
+    const savedTheme = localStorage.getItem("horizon_theme") as "light" | "dark" | null;
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
   }, []);
+
 
   /* ── redirect if no session ── */
   useEffect(() => {
@@ -60,17 +91,24 @@ export function PlannerDashboard() {
 
   /* ── state ── */
   const [source, setSource] = useState("");
-  const [destination, setDestination] = useState("Chennai, Tamil Nadu");
+  const [destination, setDestination] = useState("Chennai");
   const [purpose, setPurpose] = useState("leisure");
   const [budget, setBudget] = useState("5000");
   const [travelTime, setTravelTime] = useState("");
   const [preferences, setPreferences] = useState("");
   const [planning, setPlanning] = useState(false);
+
+
   const [result, setResult] = useState<PlannerResponse | null>(null);
+
+  /* ── derived city images ── */
+  const cityImages = useMemo(() => getCityImages(destination), [destination]);
 
   /* feedback */
   const [feedbackText, setFeedbackText] = useState("");
   const [refining, setRefining] = useState(false);
+  /* selected commute card — show map when clicked */
+  const [selectedCommuteIdx, setSelectedCommuteIdx] = useState<number | null>(null);
   const [satisfied, setSatisfied] = useState<boolean | null>(null);
 
   const serviceMode: ServiceMode = session?.serviceMode ?? "full_package";
@@ -82,10 +120,11 @@ export function PlannerDashboard() {
       e.preventDefault();
       setPlanning(true);
       setResult(null);
+      setSelectedCommuteIdx(null);
       try {
         const res = await fetch("/api/trips/plan", {
           method: "POST",
-          headers: { "content-type": "application/json" },
+          headers: { "content-type": "application/json", ...getAuthHeaders() },
           body: JSON.stringify({
             user_id: userId,
             source,
@@ -99,6 +138,10 @@ export function PlannerDashboard() {
         });
         const data: PlannerResponse = await res.json();
         setResult(data);
+        // Persist updated memory back to session
+        if (session && data.memory) {
+          writeSession({ ...session, user: { ...session.user, memory: data.memory } });
+        }
         setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 200);
       } catch {
         alert("Failed to generate plan. Ensure the backend is running.");
@@ -126,6 +169,10 @@ export function PlannerDashboard() {
       });
       const data: PlannerResponse = await res.json();
       setResult(data);
+      // Persist updated memory back to session
+      if (session && data.memory) {
+        writeSession({ ...session, user: { ...session.user, memory: data.memory } });
+      }
       setFeedbackText("");
     } catch {
       alert("Refinement failed.");
@@ -166,21 +213,10 @@ export function PlannerDashboard() {
 
   return (
     <div style={S.pageWrapper}>
-      {/* ── FILM ROLL LEFT ── */}
-      <div style={{ ...S.filmRollContainer, left: 0 }}>
-        <div style={{ ...S.filmRollInner, animation: "scrollUp 40s linear infinite" }}>
-          {[...TN_IMAGES, ...TN_IMAGES].map((img, i) => (
-            <div key={`l-${i}`} style={S.filmFrame}>
-              <img src={img} alt="" style={S.filmImage} />
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* ── FILM ROLL RIGHT ── */}
-      <div style={{ ...S.filmRollContainer, right: 0 }}>
+      <div className="film-roll-container" style={{ ...S.filmRollContainer, right: 0 }}>
         <div style={{ ...S.filmRollInner, animation: "scrollDown 40s linear infinite" }}>
-          {[...TN_IMAGES, ...TN_IMAGES].reverse().map((img, i) => (
+          {[...cityImages, ...cityImages].slice().reverse().map((img, i) => (
             <div key={`r-${i}`} style={S.filmFrame}>
               <img src={img} alt="" style={S.filmImage} />
             </div>
@@ -188,29 +224,34 @@ export function PlannerDashboard() {
         </div>
       </div>
 
-      <div style={S.page}>
-        {/* ── HEADER ── */}
-      <header style={S.header}>
-        <div style={S.headerInner}>
-          <div style={S.headerLeft}>
-            <span style={S.logo}>Horizon Hopper</span>
-            <nav style={S.nav}>
-              <span style={{ ...S.navItem, borderBottom: "2px solid var(--primary)", paddingBottom: 4 }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Trips</span>
-              <span style={S.navItem} onClick={() => router.push("/profile")}>Profile</span>
+      <SharedHeader active="explore" />
 
-            </nav>
-          </div>
-          <div style={S.headerRight}>
-            <div style={S.userPill}>
-              <div style={S.avatar}>{session.user.avatar}</div>
-              <span style={{ fontWeight: 700, fontSize: "0.85rem" }}>{session.user.name}</span>
+      <div style={{ display: "flex", minHeight: "100vh" }}>
+        {/* ── SIDEBAR NAV ── */}
+        <aside className="sidebar-nav" style={S.sidebar}>
+          <div style={S.sidebarInner}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {[
+                {icon:"dashboard",label:"Dashboard",active:true, onClick: () => {}},
+                {icon:"map",label:"Itinerary", onClick: () => window.scrollTo({top: 800, behavior: "smooth"})},
+                {icon:"bookmark",label:"Saved", onClick: () => router.push("/profile")},
+                {icon:"settings",label:"Settings", onClick: () => router.push("/profile?edit=true")}
+              ].map(item => (
+                <button key={item.label} onClick={item.onClick} style={{...S.sideNavBtn, ...(item.active ? {background:"rgba(0,104,95,0.08)",color:"var(--primary)",fontWeight:600} : {})}}>
+                  <span className="material-symbols-outlined" style={{fontSize:20}}>{item.icon}</span>
+                  {item.label}
+                </button>
+              ))}
             </div>
-            <button style={S.logoutBtn} onClick={handleLogout}>
-              <span className="material-symbols-outlined" style={{ fontSize: 20 }}>logout</span>
+            <button style={S.sideNewBtn} onClick={() => window.scrollTo({top:0,behavior:"smooth"})}>
+              <span className="material-symbols-outlined" style={{fontSize:18}}>add</span>
+              New Trip
             </button>
           </div>
-        </div>
-      </header>
+        </aside>
+
+      <div className="page-content" style={S.page}>
+        {/* Header rendered by SharedHeader above */}
 
       <main style={S.main}>
         <div style={S.container}>
@@ -241,7 +282,9 @@ export function PlannerDashboard() {
                     required
                   >
                     {TN_CITIES.map((city) => (
-                      <option key={city} value={city} disabled={city.includes("Select")}>{city}</option>
+                      <option key={city} value={city} disabled={city.includes("Select")} style={{ background: "var(--surface-container-highest)", color: "var(--on-surface)" }}>
+                        {city}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -256,7 +299,9 @@ export function PlannerDashboard() {
                     onChange={(e) => setDestination(e.target.value)}
                   >
                     {TN_CITIES.map((city) => (
-                      <option key={city} value={city} disabled={city.includes("Select")}>{city}</option>
+                      <option key={city} value={city} disabled={city.includes("Select")} style={{ background: "var(--surface-container-highest)", color: "var(--on-surface)" }}>
+                        {city}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -267,7 +312,7 @@ export function PlannerDashboard() {
             <div style={S.formGrid2}>
               <div>
                 <label style={S.fieldLabel}>Nature of Trip</label>
-                <div style={{ display: "flex", gap: 16 }}>
+                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                   {(["leisure", "business", "commute", "interview"] as const).map((p) => (
                     <label
                       key={p}
@@ -298,7 +343,7 @@ export function PlannerDashboard() {
               </div>
               <div>
                 <label style={S.fieldLabel}>Preferred Arrival</label>
-                <div style={{ ...S.inputWrap, height: 92 }}>
+                <div style={{ ...S.inputWrap, height: 84 }}>
                   <span className="material-symbols-outlined" style={S.inputIcon}>schedule</span>
                   <input
                     type="time"
@@ -366,8 +411,24 @@ export function PlannerDashboard() {
             </button>
           </form>
 
+          {/* ── Skeleton Loaders ── */}
+          {planning && (
+            <div style={{ marginTop: 64 }} className="stagger-children">
+              <div className="skeleton-card" style={{ height: 200, marginBottom: 32 }}>
+                <div className="skeleton-bar" style={{ height: 24, width: "30%", marginBottom: 16 }}></div>
+                <div className="skeleton-bar" style={{ height: 48, width: "70%", marginBottom: 24 }}></div>
+                <div className="skeleton-bar" style={{ height: 16, width: "50%" }}></div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
+                <div className="skeleton-card" style={{ height: 180 }}></div>
+                <div className="skeleton-card" style={{ height: 180 }}></div>
+                <div className="skeleton-card" style={{ height: 180 }}></div>
+              </div>
+            </div>
+          )}
+
           {/* ── Inspiration Cards ── */}
-          {!result && (
+          {!result && !planning && (
             <div style={S.inspGrid}>
               <div style={S.inspBig}>
                 <img src={COAST_IMG} alt="Chennai Coast" style={S.inspImg} />
@@ -381,29 +442,17 @@ export function PlannerDashboard() {
                   </h3>
                 </div>
               </div>
-              <div style={S.inspSide}>
-                <div style={S.inspInfoCard}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 48, color: "var(--primary)", opacity: 0.3, marginBottom: 16 }}>
-                    history_edu
-                  </span>
-                  <h4 style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--primary)", marginBottom: 8, letterSpacing: "-0.02em" }}>
+              <div style={{ ...S.inspBig, marginTop: 48 }}>
+                <img src="/assets/cities/mahabalipuram_1.jpg" alt="Cultural Heritage" style={S.inspImg} />
+                <div style={S.inspGradient} />
+                <div style={S.inspText}>
+                  <span style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", opacity: 0.85, color: "#fff" }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 16 }}>history_edu</span>
                     Cultural Heritage
-                  </h4>
-                  <p style={{ color: "var(--secondary)", fontWeight: 500, lineHeight: 1.6, opacity: 0.8, fontSize: "0.9rem" }}>
-                    Discover the ancient stone carvings and lake views of
-                    Chengalpattu, a serene escape from the urban pulse.
-                  </p>
-                </div>
-                <div style={S.inspDarkCard}>
-                  <div style={{ position: "relative", zIndex: 10 }}>
-                    <h4 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: 8, letterSpacing: "-0.02em" }}>
-                      Instant Itinerary
-                    </h4>
-                    <p style={{ color: "rgba(255,255,255,0.6)", fontWeight: 500, marginBottom: 24, lineHeight: 1.6, fontSize: "0.9rem" }}>
-                      Our AI generates transport, dining, and stay
-                      recommendations in under 5 seconds.
-                    </p>
-                  </div>
+                  </span>
+                  <h3 style={{ fontSize: "1.75rem", fontWeight: 700, letterSpacing: "-0.02em", marginTop: 12, color: "#fff", lineHeight: 1.3 }}>
+                    Discover the ancient stone carvings of Chengalpattu.
+                  </h3>
                 </div>
               </div>
             </div>
@@ -481,13 +530,7 @@ export function PlannerDashboard() {
                 </div>
               )}
 
-              {/* ── Map ── */}
-              <div>
-                <h3 style={S.sectionTitle}>Route Map</h3>
-                <div style={{ borderRadius: "var(--radius-xl)", overflow: "hidden", border: "1px solid rgba(10,25,49,0.06)" }}>
-                  <TravelMap map={result.map} />
-                </div>
-              </div>
+              {/* Route map removed — now shown inside selected commute card */}
 
               {/* ── Commute ── */}
               <div>
@@ -501,8 +544,19 @@ export function PlannerDashboard() {
                   )}
                 </div>
                 <div style={S.commuteGrid}>
-                  {result.sections.commute.items.map((opt, i) => (
-                    <div key={i} style={S.commuteCard}>
+                  {result.sections.commute.items.map((opt, i) => {
+                    const isSelected = selectedCommuteIdx === i;
+                    return (
+                    <div
+                      key={i}
+                      style={{
+                        ...S.commuteCard,
+                        cursor: "pointer",
+                        borderColor: isSelected ? "var(--primary)" : "rgba(10,25,49,0.06)",
+                        boxShadow: isSelected ? "0 8px 32px rgba(10,25,49,0.12)" : "none",
+                      }}
+                      onClick={() => setSelectedCommuteIdx(isSelected ? null : i)}
+                    >
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div style={S.commuteIconBox}>
                           <span className="material-symbols-outlined" style={{ color: "#fff" }}>
@@ -512,13 +566,26 @@ export function PlannerDashboard() {
                               : "directions_car"}
                           </span>
                         </div>
-                        {opt.duration && (
-                          <span style={S.durationBadge}>{opt.duration}</span>
-                        )}
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          {opt.duration && (
+                            <span style={S.durationBadge}>{opt.duration}</span>
+                          )}
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: 18,
+                              color: "var(--secondary)",
+                              transition: "transform 0.3s ease",
+                              transform: isSelected ? "rotate(180deg)" : "rotate(0deg)",
+                            }}
+                          >
+                            expand_more
+                          </span>
+                        </div>
                       </div>
                       <div>
                         <h4 style={{ fontWeight: 800, fontSize: "1.25rem", color: "var(--primary)", letterSpacing: "-0.01em" }}>
-                          {opt.mode}
+                          {opt.mode.replace(/\*+/g, "")}
                         </h4>
                         {opt.price && (
                           <p style={{ fontSize: "0.85rem", color: "var(--secondary)", fontWeight: 500, marginTop: 4 }}>
@@ -531,8 +598,80 @@ export function PlannerDashboard() {
                           {opt.summary}
                         </p>
                       )}
+                      {/* Show map modal when this card is selected */}
+                      {isSelected && (
+                        <div
+                          style={{
+                            position: "fixed",
+                            inset: 0,
+                            zIndex: 1000,
+                            background: "rgba(10,25,49,0.4)",
+                            backdropFilter: "blur(8px)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "1.5rem",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedCommuteIdx(null);
+                          }}
+                        >
+                          <div
+                            style={{
+                              background: "var(--surface-container-lowest)",
+                              borderRadius: "var(--radius-2xl)",
+                              padding: "2rem",
+                              width: "100%",
+                              maxWidth: 600,
+                              boxShadow: "var(--shadow-xl)",
+                              animation: "slideUp 0.4s var(--ease-out) both",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "1.5rem",
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                               <div>
+                                 <h3 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--primary)", letterSpacing: "-0.02em" }}>
+                                   Route via {opt.mode.replace(/\*+/g, "")}
+                                 </h3>
+                                 <p style={{ fontSize: "0.9rem", color: "var(--secondary)", fontWeight: 500, marginTop: 6 }}>
+                                   {opt.duration && `${opt.duration} • `}{opt.price}
+                                 </p>
+                               </div>
+                               <button 
+                                 onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedCommuteIdx(null);
+                                 }}
+                                 style={{ 
+                                   background: "var(--surface-container)", 
+                                   border: "none", 
+                                   cursor: "pointer", 
+                                   color: "var(--primary)",
+                                   width: 36,
+                                   height: 36,
+                                   borderRadius: "50%",
+                                   display: "flex",
+                                   alignItems: "center",
+                                   justifyContent: "center",
+                                   transition: "background 0.2s"
+                                 }}>
+                                 <span className="material-symbols-outlined" style={{ fontSize: 20 }}>close</span>
+                               </button>
+                            </div>
+                            
+                            <div style={{ borderRadius: "var(--radius-xl)", overflow: "hidden", border: "1px solid rgba(10,25,49,0.08)", background: "var(--surface-container-low)" }}>
+                               <TravelMap map={result.map} transportMode={opt.mode} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -543,32 +682,56 @@ export function PlannerDashboard() {
                   <div style={S.stayGrid}>
                     {result.sections.stay.map((s, i) => (
                       <div key={i} style={S.stayCard}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                          <div>
-                            <h4 style={{ fontWeight: 800, fontSize: "1.2rem", color: "var(--primary)", letterSpacing: "-0.01em" }}>
-                              {s.name}
-                            </h4>
-                            {s.area && (
-                              <p style={{ fontSize: "0.85rem", color: "var(--secondary)", fontWeight: 500, marginTop: 4 }}>
-                                {s.area}
+                        <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+                          <img 
+                            src={`/assets/stays/${result.trip_context.destination.split(",")[0].toLowerCase().replace(/\s+/g, "")}_${
+                              s.type?.toLowerCase().includes("luxury") ? "luxury" :
+                              s.type?.toLowerCase().includes("premium") ? "premium" :
+                              s.type?.toLowerCase().includes("budget") ? "budget" :
+                              s.type?.toLowerCase().includes("hostel") ? "hostel" : "midrange"
+                            }_${(i % 3) + 1}.jpg`} 
+                            alt={s.name}
+                            style={{
+                              width: 120,
+                              height: 120,
+                              objectFit: "cover",
+                              borderRadius: "var(--radius-lg)",
+                              boxShadow: "var(--shadow-sm)"
+                            }}
+                            onError={(e) => {
+                               // Fallback if image not found
+                               e.currentTarget.src = "/assets/stays/chennai_midrange_1.jpg";
+                            }}
+                          />
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                              <div>
+                                <h4 style={{ fontWeight: 800, fontSize: "1.2rem", color: "var(--primary)", letterSpacing: "-0.01em" }}>
+                                  {s.name}
+                                </h4>
+                                {s.area && (
+                                  <p style={{ fontSize: "0.85rem", color: "var(--secondary)", fontWeight: 500, marginTop: 4 }}>
+                                    {s.area} • {s.type || "General"}
+                                  </p>
+                                )}
+                              </div>
+                              {s.rating && (
+                                <span style={S.ratingBadge}><StarRating rating={s.rating} /></span>
+                              )}
+                            </div>
+                            {s.details && (
+                              <p style={{ color: "var(--on-surface-variant)", fontSize: "0.85rem", lineHeight: 1.6, fontWeight: 500, marginTop: 12 }}>
+                                {s.details}
+                              </p>
+                            )}
+                            {s.price && (
+                              <p style={{ fontWeight: 800, fontSize: "1.1rem", color: "var(--primary)", marginTop: 12 }}>
+                                ₹{s.price}
+                                <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--secondary)", marginLeft: 4 }}>/night</span>
                               </p>
                             )}
                           </div>
-                          {s.rating && (
-                            <span style={S.ratingBadge}>{s.rating} ★</span>
-                          )}
                         </div>
-                        {s.details && (
-                          <p style={{ color: "var(--on-surface-variant)", fontSize: "0.85rem", lineHeight: 1.6, fontWeight: 500 }}>
-                            {s.details}
-                          </p>
-                        )}
-                        {s.price && (
-                          <p style={{ fontWeight: 800, fontSize: "1.1rem", color: "var(--primary)" }}>
-                            ₹{s.price}
-                            <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--secondary)", marginLeft: 4 }}>/night</span>
-                          </p>
-                        )}
                       </div>
                     ))}
                   </div>
@@ -694,6 +857,31 @@ export function PlannerDashboard() {
         </div>
       </footer>
       </div>
+      </div>{/* close sidebar flex */}
+    </div>
+  );
+}
+
+
+
+function StarRating({ rating }: { rating: string }) {
+  const num = parseFloat(rating);
+  if (isNaN(num)) return <span>{rating} ★</span>;
+  
+  const fullStars = Math.floor(num);
+  const hasHalfStar = num % 1 >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+  
+  return (
+    <div className="star-rating" title={rating}>
+      <span style={{ marginRight: 6 }}>{rating}</span>
+      {Array.from({ length: fullStars }).map((_, i) => (
+        <span key={`f-${i}`} className="material-symbols-outlined star">star</span>
+      ))}
+      {hasHalfStar && <span className="material-symbols-outlined star">star_half</span>}
+      {Array.from({ length: emptyStars }).map((_, i) => (
+        <span key={`e-${i}`} className="material-symbols-outlined star-empty">star</span>
+      ))}
     </div>
   );
 }
@@ -704,37 +892,30 @@ export function PlannerDashboard() {
 
 const S: Record<string, React.CSSProperties> = {
   pageWrapper: { position: "relative", minHeight: "100vh", overflow: "hidden", background: "var(--background)" },
-  filmRollContainer: { position: "fixed", top: 0, bottom: 0, width: "clamp(120px, 15vw, 240px)", zIndex: 0, overflow: "hidden", pointerEvents: "none", boxShadow: "inset 0 0 20px rgba(0,0,0,0.02)" },
-  filmRollInner: { display: "flex", flexDirection: "column", gap: 16, padding: "16px 0" },
-  filmFrame: { width: "100%", padding: "0 16px" },
-  filmImage: { width: "100%", aspectRatio: "3/4", objectFit: "cover", borderRadius: "10px", border: "5px solid rgba(255,255,255,0.7)", boxShadow: "var(--shadow-md)" },
-  
-  page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", position: "relative", zIndex: 1, padding: "0 clamp(120px, 15vw, 240px)" },
 
-  /* header */
-  header: {
-    position: "fixed", top: 0, width: "100%", zIndex: 50, height: 80,
-    display: "flex", alignItems: "center", justifyContent: "center",
-    background: "rgba(253,251,247,0.8)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-    borderBottom: "1px solid rgba(10,25,49,0.05)",
-  },
-  headerInner: { width: "100%", maxWidth: 1440, padding: "0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center" },
-  headerLeft: { display: "flex", alignItems: "center", gap: 40 },
-  logo: { fontSize: "1.25rem", fontWeight: 800, color: "var(--primary)", letterSpacing: "-0.03em", textTransform: "uppercase" },
-  nav: { display: "flex", gap: 32 },
-  navItem: { fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--secondary)", cursor: "pointer", transition: "color var(--transition-fast)" },
-  headerRight: { display: "flex", alignItems: "center", gap: 16 },
-  userPill: { display: "flex", alignItems: "center", gap: 10, background: "var(--surface-container)", borderRadius: "var(--radius-full)", padding: "6px 16px 6px 6px", border: "1px solid rgba(10,25,49,0.05)" },
-  avatar: { width: 36, height: 36, borderRadius: "50%", background: "var(--primary)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.85rem" },
-  logoutBtn: { padding: 8, color: "var(--secondary)", cursor: "pointer", borderRadius: "var(--radius-sm)", transition: "all var(--transition-fast)" },
+  /* film roll */
+  filmRollContainer: { position: "absolute", top: 0, bottom: 0, width: "22vw", overflow: "hidden", zIndex: 0, opacity: 0.85, pointerEvents: "none" as const },
+  filmRollInner: { display: "flex", flexDirection: "column", gap: 24, padding: 24 },
+  filmFrame: { width: "100%", aspectRatio: "4/3", borderRadius: 16, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.12)", border: "1px solid rgba(0,0,0,0.06)" },
+  filmImage: { width: "100%", height: "100%", objectFit: "cover" as const },
+
+  /* sidebar */
+  sidebar: { width: 240, borderRight: "1px solid var(--surface-container)", background: "var(--surface-container-lowest)", position: "fixed", top: 72, left: 0, bottom: 0, zIndex: 40 },
+  sidebarInner: { display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", padding: "24px 16px" },
+  sideNavBtn: { display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderRadius: 8, fontSize: "0.9375rem", color: "var(--on-surface-variant)", cursor: "pointer", transition: "all 0.2s", width: "100%", textAlign: "left" },
+  sideNewBtn: { display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px 16px", background: "var(--primary)", color: "#fff", borderRadius: 12, fontWeight: 600, fontSize: "0.9375rem", cursor: "pointer", boxShadow: "var(--shadow-md)" },
+
+  page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", position: "relative", zIndex: 1, marginLeft: 240, flex: 1 },
+
+  /* header handled by SharedHeader */
 
   /* main */
-  main: { flexGrow: 1, paddingTop: 128, paddingBottom: 96 },
-  container: { maxWidth: 900, margin: "0 auto", padding: "0 1.5rem" },
+  main: { flexGrow: 1, paddingTop: 96, paddingBottom: 96 },
+  container: { maxWidth: 820, margin: "0 auto", padding: "0 1.5rem", marginRight: "24vw" },
 
   /* hero */
   heroWrap: { textAlign: "center", marginBottom: 48 },
-  heroLabel: { fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--secondary)", marginBottom: 16, display: "block" },
+  heroLabel: { fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--secondary)", marginBottom: 16, display: "block" },
   heroTitle: { fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--primary)", marginBottom: 24 },
   heroSub: { fontSize: "1.1rem", color: "var(--secondary)", fontWeight: 500, maxWidth: 580, margin: "0 auto", lineHeight: 1.6, opacity: 0.8 },
 
@@ -744,7 +925,7 @@ const S: Record<string, React.CSSProperties> = {
     boxShadow: "var(--shadow-xl)", border: "1px solid rgba(10,25,49,0.04)", display: "flex", flexDirection: "column", gap: 40,
   },
   formGrid2: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 32 },
-  fieldLabel: { display: "block", fontSize: "0.625rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--secondary)", marginBottom: 10, marginLeft: 4 },
+  fieldLabel: { display: "block", fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--secondary)", marginBottom: 10, marginLeft: 4 },
   inputWrap: {
     display: "flex", alignItems: "center", background: "var(--surface-container)", borderRadius: "var(--radius-lg)",
     padding: "0 20px", border: "2px solid transparent", transition: "all var(--transition-fast)", boxShadow: "var(--shadow-sm)",
@@ -756,11 +937,11 @@ const S: Record<string, React.CSSProperties> = {
   },
   purposeChip: {
     flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-    padding: 20, borderRadius: "var(--radius-lg)", border: "2px solid transparent",
+    padding: 16, borderRadius: "var(--radius-lg)", border: "2px solid transparent",
     cursor: "pointer", transition: "all var(--transition-fast)", boxShadow: "var(--shadow-sm)",
   },
   rangeInput: { width: "100%", accentColor: "var(--primary)", cursor: "pointer" },
-  rangeLabel: { fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--outline-variant)" },
+  rangeLabel: { fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--outline-variant)" },
   textareaWrap: {
     background: "var(--surface-container)", borderRadius: "var(--radius-lg)", padding: 24,
     border: "2px solid transparent", transition: "all var(--transition-fast)", boxShadow: "var(--shadow-sm)",
@@ -774,7 +955,7 @@ const S: Record<string, React.CSSProperties> = {
   },
 
   /* inspiration */
-  inspGrid: { marginTop: 96, display: "grid", gridTemplateColumns: "7fr 5fr", gap: 32, alignItems: "start" },
+  inspGrid: { marginTop: 96, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: 32, alignItems: "start" },
   inspBig: { position: "relative", borderRadius: "var(--radius-2xl)", overflow: "hidden", height: 420, boxShadow: "var(--shadow-lg)", border: "1px solid rgba(10,25,49,0.04)" },
   inspImg: { width: "100%", height: "100%", objectFit: "cover", transition: "transform var(--transition-glacial)" },
   inspGradient: { position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,25,49,0.88) 0%, rgba(10,25,49,0.15) 50%, transparent 100%)" },

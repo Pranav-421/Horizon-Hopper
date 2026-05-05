@@ -1,0 +1,87 @@
+city,attraction_name,category,entry_fee_inr,food_estimate_inr,transport_estimate_inr,total_budget_inr,duration_hours,best_time,notes
+chennai,Marina Beach,Beach,0,200,80,280,2,Oct-Mar,World's longest urban beach; street food available
+chennai,Kapaleeshwarar Temple,Temple,0,150,60,210,1.5,Early Morning,No entry fee; dress code required
+chennai,Fort St. George,Heritage,25,200,80,305,2,Morning,Museum inside; oldest British fort in India
+chennai,Valluvar Kottam,Monument,10,100,60,170,1,Morning,Chariot-shaped monument; poetry inscribed
+chennai,Arignar Anna Zoological Park,Zoo,60,300,120,480,4,Morning,One of largest zoos in Asia
+tambaram,St. Thomas Mount,Religious,0,100,50,150,1.5,Morning,Ancient church; panoramic city view
+tambaram,Pallavaram Lake,Nature,0,150,40,190,1,Evening,Peaceful local spot; good for walks
+tambaram,Chromepet Market,Shopping,0,200,30,230,2,Morning,Local street shopping experience
+chengalpattu,Vedanthangal Bird Sanctuary,Wildlife,40,150,100,290,3,Nov-Feb,Best Nov-Feb; migratory birds season
+chengalpattu,Crocodile Bank,Wildlife,50,100,150,300,2,Morning,Largest croc sanctuary in Asia
+chengalpattu,Alamparai Fort,Heritage,0,100,120,220,1.5,Morning,Ruined Mughal-era fort near beach
+chengalpattu,Mahabalipuram Beach,Beach,0,200,100,300,2,Oct-Mar,Adjacent to UNESCO monuments
+mahabalipuram,Shore Temple,Heritage,40,150,50,240,1.5,Sunrise/Sunset,UNESCO World Heritage Site
+mahabalipuram,Pancha Rathas,Heritage,40,150,50,240,2,Morning,Rock-cut monolithic temples
+mahabalipuram,Arjuna's Penance,Heritage,40,200,50,290,1.5,Morning,Largest bas-relief in world
+mahabalipuram,Tiger Cave,Heritage,25,100,60,185,1,Morning,Ancient rock-cut shrine
+mahabalipuram,Krishna's Butterball,Heritage,0,100,50,150,0.5,Anytime,Giant balancing boulder; free entry
+kanchipuram,Ekambareswarar Temple,Temple,0,150,60,210,1.5,Morning,Massive Shiva temple; mango tree inside
+kanchipuram,Kailasanathar Temple,Heritage,25,100,60,185,1.5,Morning,Oldest temple in Kanchipuram
+kanchipuram,Kamakshi Amman Temple,Temple,0,200,60,260,1.5,Morning,Important Shakti shrine
+kanchipuram,Varadharaja Perumal Temple,Temple,0,150,60,210,1.5,Morning,Famous Vishnu temple
+kanchipuram,Silk Weaving Units,Culture,0,100,80,180,1.5,Morning,Watch live silk saree weaving
+coimbatore,Marudamalai Temple,Temple,0,200,80,280,2,Morning,Hill temple; good city views
+coimbatore,Gedee Car Museum,Museum,100,150,80,330,2,Morning,Vintage car collection
+coimbatore,VOC Park and Zoo,Zoo,30,200,60,290,3,Morning,Good for families
+coimbatore,Siruvani Waterfalls,Nature,10,200,150,360,3,Jul-Oct,Clean water; entry by permit
+coimbatore,Dhyanalinga Yoga Center,Spiritual,0,150,100,250,2,Morning,Isha Foundation; meditative experience
+madurai,Meenakshi Amman Temple,Temple,0,200,60,260,2.5,Morning/Evening,Largest temple complex in TN; evening aarti unmissable
+madurai,Thirumalai Nayakkar Palace,Heritage,50,150,60,260,1.5,Morning,Impressive Dravidian architecture
+madurai,Gandhi Memorial Museum,Museum,5,100,60,165,1.5,Morning,Houses Gandhi's blood-stained cloth
+madurai,Vaigai River,Nature,0,150,50,200,1,Evening,Evening walks; local food stalls
+madurai,Alagar Kovil,Temple,0,200,100,300,2,Morning,Temple on hill; 21km from city
+tiruchirappalli,Rockfort Temple,Heritage/Temple,5,200,60,265,2,Morning,Ancient rock-cut temple; 417 steps
+tiruchirappalli,Ranganathaswamy Temple Srirangam,Temple,0,200,80,280,2.5,Morning,Largest functioning Hindu temple
+tiruchirappalli,Jambukeswarar Temple,Temple,0,150,80,230,1.5,Morning,One of Pancha Bhuta Stalas
+tiruchirappalli,Kallanai Dam,Heritage,0,100,80,180,1,Morning,2000-year-old ancient dam
+tiruchirappalli,Mukkombu,Nature,0,200,80,280,2,Oct-Mar,River island; boating available
+salem,Yercaud Lake,Nature,0,200,150,350,2,Oct-Mar,Boating available; pleasant weather
+salem,Shevaroy Temple,Temple,0,150,150,300,2,Morning,Hilltop temple; scenic trek
+salem,Mettur Dam,Heritage,0,200,100,300,1.5,Jul-Sep,Largest dam in TN; best post-monsoon
+salem,Kiliyur Falls,Nature,0,150,150,300,2,Jul-Oct,Inside Yercaud; seasonal waterfall
+salem,Anna Park Yercaud,Nature,10,150,150,310,1.5,Morning,Viewpoint; rose garden
+tirunelveli,Nellaiappar Temple,Temple,0,150,60,210,1.5,Morning,Famous for temple corridor length
+tirunelveli,Krishnapuram Palace,Heritage,10,100,100,210,1.5,Morning,Travancore-era palace with murals
+tirunelveli,Manimuthar Dam,Nature,0,200,120,320,2,Jul-Oct,Scenic dam; picnic spot
+tirunelveli,Halwa Shops Iruttu Kadai,Food,0,100,50,150,0.5,Evening,Famous century-old halwa shop
+tirunelveli,Tamirabarani River,Nature,0,150,60,210,1,Evening,Sacred river; riverside ghats
+tiruppur,Sivanmalai,Temple/Trek,0,150,100,250,2.5,Morning,Hill with Murugan temple; scenic trek
+tiruppur,Amaravathi Dam,Nature,0,200,100,300,2,Jul-Oct,Water sports available
+tiruppur,Noyyal River,Nature,0,100,60,160,1,Evening,Local riverside walks
+tiruppur,Textile Park,Culture,0,100,60,160,1.5,Morning,See knitwear manufacturing units
+vellore,Vellore Fort,Heritage,25,150,60,235,2,Morning,16th century fort; museum inside
+vellore,Sripuram Golden Temple,Temple,0,150,80,230,1.5,Early Morning,Gold-covered temple; serene atmosphere
+vellore,Jalakandeswarar Temple,Temple,0,100,60,160,1,Morning,Inside Vellore Fort complex
+vellore,Yelagiri Hills,Nature,0,300,200,500,4,Oct-Mar,Trekking; boating; rose garden
+vellore,Amirthi Zoological Park,Zoo,20,200,150,370,3,Morning,Forest park with zoo; good for families
+erode,Bhavani Sangamam,Religious,0,150,80,230,1.5,Morning,Confluence of 3 rivers; sacred spot
+erode,Kodiveri Dam,Nature,0,200,100,300,2,Jul-Oct,Picnic spot; fish feeding popular
+erode,Bannari Amman Temple,Temple,0,150,150,300,1.5,Morning,Famous hilltop goddess temple
+erode,Thindal Murugan Temple,Temple,0,100,60,160,1,Morning,Popular local temple
+erode,Chithirai Nagar Cauvery Bank,Nature,0,150,60,210,1,Evening,Evening riverside stroll
+ooty,Government Botanical Garden,Nature,30,200,80,310,2.5,Morning,150-year-old garden; flower show in May
+ooty,Nilgiri Mountain Railway,Experience,35,200,0,235,3,Morning,UNESCO heritage toy train ride
+ooty,Ooty Lake,Nature,0,200,60,260,1.5,Morning,Boating available; scenic
+ooty,Doddabetta Peak,Nature,15,150,100,265,1.5,Morning,Highest peak in Nilgiris; telescope house
+ooty,Rose Garden,Nature,15,150,80,245,1.5,Morning,Terrace garden with 2800+ varieties
+kodaikanal,Kodaikanal Lake,Nature,0,200,60,260,2,Morning,Star-shaped lake; boating and cycling
+kodaikanal,Silver Cascade Falls,Nature,0,150,60,210,1,Morning,60-ft waterfall; on Kodai road
+kodaikanal,Pillar Rocks,Nature,5,150,80,235,1.5,Morning,Gigantic rock pillars; misty views
+kodaikanal,Coaker's Walk,Nature,5,150,60,215,1,Evening,Scenic walking path; valley views
+kodaikanal,Bear Shola Falls,Nature,0,100,60,160,1,Morning,Forested waterfall; peaceful
+kanyakumari,Vivekananda Rock Memorial,Monument,20,200,100,320,2,Morning,Rock island; ferry ride included
+kanyakumari,Thiruvalluvar Statue,Monument,30,200,100,330,1.5,Morning,133-ft statue on rocky island
+kanyakumari,Kumari Amman Temple,Temple,0,150,50,200,1,Morning,Southernmost tip temple
+kanyakumari,Sunrise/Sunset Point,Nature,0,100,50,150,1,Sunrise/Sunset,Unique tri-ocean view; unmissable
+kanyakumari,Padmanabhapuram Palace,Heritage,20,150,150,320,2,Morning,Well-preserved wooden palace; 17km away
+rameswaram,Ramanathaswamy Temple,Temple,0,200,60,260,2.5,Morning,22 sacred corridors; ritual bath required
+rameswaram,Pamban Bridge,Heritage,0,100,80,180,1,Morning,India's first sea bridge; scenic
+rameswaram,Dhanushkodi,Heritage,0,200,200,400,3,Morning,Ghost town at land's end; jeep safari
+rameswaram,Agnitheertham,Religious,0,100,50,150,0.5,Morning,Sacred sea beach; ritual bathing
+rameswaram,APJ Abdul Kalam Memorial,Monument,50,100,80,230,1.5,Morning,Memorial of former president; born here
+thanjavur,Brihadeeswarar Temple,Heritage,0,150,60,210,2,Morning,UNESCO World Heritage; 1000-year-old temple
+thanjavur,Thanjavur Palace,Heritage,50,150,60,260,2,Morning,Maratha palace with art gallery
+thanjavur,Saraswathi Mahal Library,Museum,0,100,60,160,1.5,Morning,One of oldest libraries in Asia
+thanjavur,Thanjavur Art Gallery,Museum,20,100,60,180,1.5,Morning,Chola bronze collection
+thanjavur,Schwartz Church,Heritage,0,100,60,160,1,Morning,18th century Danish church

@@ -1,9 +1,33 @@
-station_name,line,latitude,longitude,interchange
-Chennai Central,Blue Line,13.0827,80.2785,Yes
-Egmore,Blue Line,13.0785,80.2660,No
-Guindy,Blue Line,13.0069,80.2206,Yes
-Alandur,Blue/Green Line,13.0010,80.2085,Yes
-Airport,Green Line,12.9941,80.1709,No
-Koyambedu,Blue Line,13.0694,80.1948,Yes
-St. Thomas Mount,Green Line,13.0045,80.2044,No
-Little Mount,Green Line,13.0145,80.2144,No
+station_name,line,latitude,longitude,interchange,city,nearest_horizon_hopper_city,nearby_attractions,nearby_stays_category,connects_to_railway_station,railway_station_name,notes
+Wimco Nagar,Blue Line,13.1360,80.2939,No,Chennai,chennai,Wimco Nagar Beach,Budget,No,NA,Northern terminus of Blue Line
+Tiruvottiyur,Blue Line,13.1569,80.3013,No,Chennai,chennai,Tiruvottiyur Temple,Budget,No,NA,Coastal suburb
+Thiruvotriyur Theradi,Blue Line,13.1498,80.2979,No,Chennai,chennai,NA,Budget,No,NA,NA
+Kaladipet,Blue Line,13.1415,80.2961,No,Chennai,chennai,NA,Budget,No,NA,NA
+Tollgate,Blue Line,13.1350,80.2912,No,Chennai,chennai,NA,Budget,No,NA,NA
+Kolathur,Blue Line,13.1240,80.2768,No,Chennai,chennai,Kolathur Market,Budget,No,NA,NA
+Sembiam,Blue Line,13.1151,80.2710,No,Chennai,chennai,NA,Budget,No,NA,NA
+Perambur,Blue Line,13.1061,80.2470,No,Chennai,chennai,Perambur Railway Workshop,Budget,Yes,Perambur Railway Station,Near railway workshop area
+Korukkupet,Blue Line,13.1027,80.2670,No,Chennai,chennai,NA,Budget,No,NA,NA
+New Washermanpet,Blue Line,13.1069,80.2895,No,Chennai,chennai,NA,Budget,No,NA,NA
+Washermanpet,Blue Line,13.0980,80.2837,No,Chennai,chennai,NA,Budget,No,NA,NA
+Sir Theagaraya College,Blue Line,13.0890,80.2793,No,Chennai,chennai,NA,Mid-range,No,NA,NA
+Chennai Central,Blue Line,13.0827,80.2785,Yes,Chennai,chennai,Fort St. George/Egmore Museum,Luxury/Premium,Yes,Chennai Central,Major interchange; connects to all Tamil Nadu express trains
+Egmore,Blue Line,13.0785,80.2660,No,Chennai,chennai,Government Museum/Egmore Park,Premium,Yes,Chennai Egmore,Key hub for trains to Madurai/Tirunelveli/Rameswaram
+Nehru Park,Blue Line,13.0735,80.2605,No,Chennai,chennai,Nehru Park,Mid-range,No,NA,NA
+Kilpauk Medical College,Blue Line,13.0834,80.2344,No,Chennai,chennai,Kilpauk Garden,Mid-range,No,NA,NA
+Ashok Nagar,Blue Line,13.0353,80.2156,No,Chennai,chennai,Ashok Nagar Market,Mid-range,No,NA,NA
+CMBT,Blue Line,13.0694,80.1948,No,Chennai,chennai,Koyambedu Market,Mid-range,Yes,NA,Koyambedu bus terminus; buses to all TN cities
+Koyambedu,Blue Line,13.0694,80.1978,Yes,Chennai,chennai,Koyambedu Wholesale Market,Mid-range,No,NA,Major bus interchange for TN cities
+Arumbakkam,Blue Line,13.0710,80.2125,No,Chennai,chennai,NA,Mid-range,No,NA,NA
+Vadapalani,Blue Line,13.0514,80.2122,No,Chennai,chennai,Vadapalani Murugan Temple/Malls,Mid-range,No,NA,Shopping and temple area
+Ashok Nagar,Blue Line,13.0353,80.2156,No,Chennai,chennai,Forum Vijaya Mall,Mid-range,No,NA,NA
+Ekkattuthangal,Blue Line,13.0135,80.2144,No,Chennai,chennai,NA,Budget,No,NA,NA
+Guindy,Blue Line,13.0069,80.2206,Yes,Chennai,chennai,Guindy National Park/Snake Park,Premium,Yes,Guindy Railway Station,Near IT corridor; connects green line
+Alandur,Blue/Green Line,13.0010,80.2085,Yes,Chennai,chennai,NA,Premium,No,NA,Key interchange between Blue and Green lines
+Nanganallur Road,Green Line,12.9970,80.1906,No,Chennai,chennai,NA,Mid-range,No,NA,NA
+Meenambakkam,Green Line,12.9941,80.1709,No,Chennai,chennai,NA,Mid-range,Yes,NA,Near airport area
+Airport,Green Line,12.9900,80.1725,No,Chennai,chennai,Chennai International Airport,Luxury,Yes,NA,Southern terminus; direct airport access
+St. Thomas Mount,Green Line,13.0045,80.2044,No,Chennai,tambaram,St. Thomas Mount Church,Mid-range,No,NA,Near Tambaram; historic church
+Little Mount,Green Line,13.0145,80.2144,No,Chennai,tambaram,Little Mount Church,Mid-range,No,NA,NA
+Kathipara Junction,Green Line,13.0090,80.2090,Yes,Chennai,tambaram,NA,Mid-range,No,NA,Interchange junction
+Chennai Central,Green Line,13.0827,80.2785,Yes,Chennai,chennai,Fort St. George/Marina Beach,Luxury,Yes,Chennai Central,Northern terminus of Green Line; same as Blue Line interchange

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#341100",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-highest": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "inverse-surface": "#2d3133",
+                    "on-primary-fixed": "#00201d",
+                    "primary": "#00685f",
+                    "surface-tint": "#006a61",
+                    "on-tertiary-fixed": "#111c2d",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "on-surface-variant": "#3d4947",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#89f5e7",
+                    "secondary-fixed-dim": "#ffb690",
+                    "on-surface": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#fd761a",
+                    "tertiary-container": "#6a758a",
+                    "background": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "outline": "#6d7a77",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed-variant": "#005049",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-container": "#fefcff",
+                    "tertiary-fixed": "#d8e3fb",
+                    "outline-variant": "#bcc9c6",
+                    "on-error": "#ffffff",
+                    "secondary": "#9d4300",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#6bd8cb",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eceef0",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary": "#515c71",
+                    "tertiary-fixed-dim": "#bcc7de",
+                    "on-secondary-fixed-variant": "#783200",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary-container": "#5c2400",
+                    "on-primary-container": "#f4fffc",
+                    "primary-container": "#008378",
+                    "secondary-fixed": "#ffdbca",
+                    "on-primary": "#ffffff",
+                    "surface": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "lg": "40px",
+                    "base": "4px",
+                    "md": "24px",
+                    "margin": "32px",
+                    "sm": "16px",
+                    "gutter": "24px",
+                    "xl": "64px"
+            },
+            "fontFamily": {
+                    "h1": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h2": ["Inter"],
+                    "h3": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                    "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-sm": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .travel-gradient {
+            background: linear-gradient(135deg, #f7f9fb 0%, #e6f2f1 50%, #d1e8e6 100%);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen flex items-center justify-center p-gutter travel-gradient relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-primary/5 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[35vw] h-[35vw] rounded-full bg-secondary/5 blur-[100px]"></div>
+<!-- Main Content Canvas (Transactional/Focused) -->
+<main class="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 gap-xl items-center relative z-10">
+<!-- Brand Side -->
+<div class="hidden lg:flex flex-col gap-md pr-xl">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[40px]">explore</span>
+<h1 class="font-h1 text-h1 text-primary tracking-tighter">Horizon Hopper</h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                Experience the art of effortless travel. curate your journey with precision and rediscover the joy of exploring the unknown.
+            </p>
+<!-- Hero Image for Brand Context -->
+<div class="mt-lg relative rounded-[2rem] overflow-hidden shadow-2xl">
+<img class="w-full h-[400px] object-cover" data-alt="Ultra-high-end travel photography, a serene coastal landscape of Tamil Nadu at sunrise, soft teal ocean water, golden morning light on ancient stone structures, minimalist composition, vast horizon, editorial travel magazine style, 8k resolution, serene and aspirational." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLwGCQZ_IyLgeoBC-wUSpAOJeOKf6QuMERQ_1b-ZTqePma_i90dXqc_vWYs69TJUwFL_lMYL5laLiB_fqtoXAlTRMVGHSLMBmI3Alyj2cICBNYA0nkGT7gKI6HX40-gy1M4ShrBWksPmw5HHwDUI3iz23HmqKoIuL5izalV5DxHFznRv5v32JM5koJMb7tPXVStH3MXeXWuTI7yZnTpA6YPSio9m_5JFqR2yfFHdRuAbZ7WLByfbZ8Pde7y0dm4RQ2j7-ivFA61rE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-md left-md text-white">
+<p class="font-h3 text-h3">Tamil Nadu, India</p>
+<p class="font-label-sm text-label-sm opacity-90 uppercase tracking-widest">Premium Destination</p>
+</div>
+</div>
+</div>
+<!-- Login Card Section -->
+<div class="w-full flex justify-center">
+<div class="glass-card w-full max-w-[480px] rounded-[2rem] p-lg shadow-[0_32px_64px_-16px_rgba(0,106,97,0.1)] border border-white/50">
+<!-- Logo for Mobile -->
+<div class="lg:hidden flex items-center justify-center gap-xs mb-lg">
+<span class="material-symbols-outlined text-primary text-[32px]">explore</span>
+<span class="font-h2 text-h3 text-primary tracking-tighter">Horizon Hopper</span>
+</div>
+<div class="mb-lg">
+<h2 class="font-h2 text-h2 text-on-surface mb-xs">Welcome back</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Choose your traveler profile to continue.</p>
+</div>
+<!-- Select Profile Grid -->
+<div class="grid grid-cols-3 gap-md mb-xl">
+<!-- Business Traveler -->
+<button class="flex flex-col items-center gap-xs group transition-all">
+<div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-transparent group-hover:border-primary group-hover:scale-105 transition-all shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a sophisticated traveler in business attire, looking confident and composed. The setting is a modern, high-key airport lounge with soft ambient lighting and a clean, minimalist aesthetic. The image utilizes a professional and polished visual style with subtle teal accents to match the Horizon Hopper brand." src="https://lh3.googleusercontent.com/aida/ADBb0uizziXM0kO8XWRPT60HSXKrn1fpoLNPbpuMBGvYNVsoJ1LKrEtOOsho21eyPikZN8OEA1WJtiMidBxOmQ-8TXHcx9giOqREVt0p8F8o5gROhJ9RygwqSKQT91BI9JX6LIJtICdGKkrcByMQa8_uYfS9Mn9KrSwnWgyXUsqDfGT4Ex8acuUV9bZe8AVa-FZL7s-mu3L_9Um_S9ISaj9WFwuX4OFxAULW7ZSUXuhcs3Pif_wW5aimIBe5UtlimwyU3QglqAdMPndsOQ"/>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant group-hover:text-primary text-center">Business</span>
+</button>
+<!-- Backpacker -->
+<button class="flex flex-col items-center gap-xs group transition-all">
+<div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-primary ring-4 ring-primary/10 scale-105 transition-all shadow-md">
+<img class="w-full h-full object-cover" data-alt="A portrait of an adventurous backpacker with a warm smile, set against a stunning mountain backdrop during a clear morning. The lighting is crisp and natural, emphasizing an outdoor, restorative travel experience. The colors are vibrant yet balanced, maintaining the brand's airy and high-contrast minimalism." src="https://lh3.googleusercontent.com/aida/ADBb0uj8ziQII20vD7gHHkGjXCA_-tKLHyeayIASijx52jARH8bwIDwHibke_SEYmkGkMmMZ5xsrTVyFx17oUa3b7pbjUPY2S5DjcXxgGglpfQi5YlWtUK6tvfTwUL8rtZQGS82ZCReX1wssEZggopw-0QULWEF2-x7Fppo84XC-4_WiMAaoIAchZtb25AxZVM1tFsAayLbeQqPH9majEF4L4velpRMfzcUdczg8B3LlHy__ZIvl4OAj7tQR2YvqHC1yLwImEq1T8D4pGQ"/>
+</div>
+<span class="font-label-sm text-[11px] text-primary text-center">Backpacker</span>
+</button>
+<!-- Leisure Explorer -->
+<button class="flex flex-col items-center gap-xs group transition-all">
+<div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-transparent group-hover:border-primary group-hover:scale-105 transition-all shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A candid, stylish photograph of a leisure traveler enjoying a coastal sunset. The mood is deeply restorative and calm, featuring soft, diffused warm lighting. The aesthetic is high-end and intentional, with a color palette that subtly integrates the brand's teal and sunset tones for a cohesive look." src="https://lh3.googleusercontent.com/aida/ADBb0ug9MJ0LGuq4PawgCq30TyBDv27HdN6rM0JoHVXRaA64PDuLRwie96b6qbSgye-sM2z6Yz74zc-LoYV8Dg-8-DZNsSdPOMMvGF9pHIhMWDdfeE5PICQ_crN8t74q-kxOWCQ8Et9vLFzqxafN_PcRm4cF_8GHKy4aBTEyGj1nRD5IjGRD7EPDSsukpBUNTIElsQdb_8Rpl2l-Ldi1tbmcGlZwnjtMoUkv9AV6Arj88HmbDtivZ5tsQKkxwIQ4XhnKZgAEkq7rvCbR"/>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant group-hover:text-primary text-center">Leisure</span>
+</button>
+</div>
+<!-- Input Fields -->
+<form class="space-y-md">
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full h-14 pl-12 pr-4 bg-white/50 border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md" placeholder="alex@horizonhopper.com" type="email"/>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center px-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Password</label>
+<a class="text-[12px] font-semibold text-primary hover:underline" href="#">Forgot?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full h-14 pl-12 pr-4 bg-white/50 border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full h-14 bg-primary text-white font-h3 text-body-lg rounded-xl shadow-lg shadow-primary/20 hover:bg-on-primary-fixed-variant transition-all mt-md flex items-center justify-center gap-xs" type="submit">
+                        Sign In
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+<div class="mt-lg flex items-center gap-md">
+<div class="flex-1 h-[1px] bg-outline-variant"></div>
+<span class="text-[12px] font-bold text-outline-variant uppercase tracking-widest">Or continue with</span>
+<div class="flex-1 h-[1px] bg-outline-variant"></div>
+</div>
+<div class="mt-lg grid grid-cols-2 gap-md">
+<button class="h-12 border border-outline-variant rounded-xl flex items-center justify-center gap-xs hover:bg-surface-container-low transition-all">
+<svg class="w-5 h-5" viewbox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="currentColor"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="currentColor"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="currentColor"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="currentColor"></path></svg>
+<span class="font-label-sm text-on-surface">Google</span>
+</button>
+<button class="h-12 border border-outline-variant rounded-xl flex items-center justify-center gap-xs hover:bg-surface-container-low transition-all">
+<svg class="w-5 h-5" viewbox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z" fill="currentColor"></path></svg>
+<span class="font-label-sm text-on-surface">Facebook</span>
+</button>
+</div>
+<p class="mt-xl text-center font-body-md text-[14px] text-on-surface-variant">
+                    Don't have an account? <a class="text-primary font-bold hover:underline" href="#">Join the hopper</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Success Pop-up Element (Hidden by default, used for design depth) -->
+<div class="fixed top-gutter right-gutter glass-card rounded-2xl p-sm border border-white/50 flex items-center gap-sm shadow-xl max-w-xs opacity-0 pointer-events-none translate-y-[-20px]">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface">Authenticated!</p>
+<p class="text-[12px] text-on-surface-variant">Syncing your itinerary...</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,109 @@
+city,hotel_name,category,per_night_inr,amenities,meals_included,breakfast_cost_inr,dinner_cost_inr,rating,total_per_night_inr,location_area,notes
+chennai,The Leela Palace Chennai,Luxury,18000,Pool/Spa/Gym/WiFi/Parking/Concierge,No,800,1200,4.8,20000,Adyar,Best luxury hotel in Chennai; near IT corridor
+chennai,ITC Grand Chola,Luxury,15000,Pool/Spa/Gym/WiFi/Multiple Restaurants,No,700,1100,4.7,16800,Guindy,Heritage-themed luxury; close to airport
+chennai,Hyatt Regency Chennai,Premium,8000,Pool/Gym/WiFi/Bar/Restaurant,No,600,900,4.5,9500,Anna Salai,Central location; good for business travelers
+chennai,Hotel Sangeetha Residency,Mid-range,2500,WiFi/AC/TV/Room Service,No,200,350,4.0,3050,T Nagar,Popular mid-range; near shopping areas
+chennai,Hotel Chennai Gate,Budget,1200,WiFi/AC/TV,No,150,250,3.7,1600,Egmore,Close to Central Station; basic amenities
+chennai,Zostel Chennai,Hostel,500,WiFi/Common Kitchen/Lounge,No,120,200,4.2,820,Mylapore,Good for backpackers; social atmosphere
+tambaram,Hotel Palmgrove,Mid-range,2200,WiFi/AC/TV/Restaurant,Yes,0,300,4.0,2500,Tambaram West,Breakfast included; near railway station
+tambaram,Hotel Shenbaga,Budget,1100,WiFi/AC/TV,No,120,220,3.6,1440,Tambaram East,Clean budget option; good connectivity
+tambaram,Hotel Accord,Mid-range,1800,WiFi/AC/TV/Parking,No,180,280,3.8,2260,Pallavaram,Near airport; quiet locality
+tambaram,OYO Rooms Tambaram,Budget,800,WiFi/AC/TV,No,100,180,3.4,1080,Tambaram,Basic stay; ideal for transit
+tambaram,Hotel Regal,Mid-range,1500,WiFi/AC/TV/Restaurant,No,150,250,3.7,1900,Chromepet,Family-friendly; local restaurant attached
+tambaram,Treebo Trend Pallavaram,Budget,1200,WiFi/AC/TV/Parking,No,130,200,3.8,1530,Pallavaram,Clean and modern budget stay
+chengalpattu,Hotel Jayaram Residency,Mid-range,1800,WiFi/AC/TV/Restaurant,No,180,300,3.9,2280,Chengalpattu Town,Central location; near bus stand
+chengalpattu,OYO Hotel Sree Matha,Budget,900,WiFi/AC/TV,No,120,200,3.5,1220,Chengalpattu,Decent budget option; basic amenities
+chengalpattu,Hotel Greenfields,Mid-range,2000,WiFi/AC/TV/Parking/Restaurant,Yes,0,300,4.0,2300,Mahabalipuram Road,Good for Mahabalipuram day trips
+chengalpattu,Radisson Blu Resort Mahabalipuram,Luxury,9000,Pool/Spa/Gym/WiFi/Beach Access,No,700,1000,4.6,10700,ECR Road,Resort feel; 20km from Chengalpattu
+chengalpattu,Hotel Mamalla Heritage,Mid-range,2500,WiFi/AC/Pool/Restaurant,No,200,350,4.1,3050,Mahabalipuram,Heritage property; near monuments
+chengalpattu,Ideal Beach Resort,Premium,4500,Pool/WiFi/AC/Restaurant/Beach,Yes,0,600,4.3,5100,Mahabalipuram,Beachfront resort; popular with families
+mahabalipuram,Radisson Blu Resort,Luxury,9000,Pool/Spa/Gym/WiFi/Beach,No,700,1000,4.6,10700,ECR Road,Top luxury option in Mahabalipuram
+mahabalipuram,Hotel Mamalla Heritage,Premium,3500,Pool/WiFi/AC/Restaurant,No,250,400,4.2,4150,Near Shore Temple,Walking distance to monuments
+mahabalipuram,Ideal Beach Resort,Premium,4500,Pool/WiFi/Beach Access/Restaurant,Yes,0,500,4.3,5000,Beach Road,Beachfront; great sunset views
+mahabalipuram,Blue Elephant,Mid-range,2200,WiFi/AC/TV/Restaurant,No,200,300,4.0,2700,Town Area,Good mid-range; near Five Rathas
+mahabalipuram,Hotel Sea Breeze,Budget,1200,WiFi/AC/TV,No,150,250,3.6,1600,Beach Road,Budget beach-side stay
+mahabalipuram,Tina Blue View Lodge,Hostel,600,WiFi/Common Area/Fan,No,100,180,3.5,880,Town Area,Backpacker favourite; very cheap
+kanchipuram,Hotel Saravana Bhavan,Mid-range,2000,WiFi/AC/TV/Restaurant,Yes,0,300,4.0,2300,Town Center,South Indian meals included; central
+kanchipuram,GRT Regency Kanchipuram,Premium,3500,Pool/WiFi/AC/Gym/Restaurant,No,300,450,4.3,4250,Kanchipuram,Best premium option in city
+kanchipuram,Hotel Vijayalakshmi,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Near Bus Stand,Budget option; near main temples
+kanchipuram,Hotel Tamil Nadu (TTDC),Budget,1200,WiFi/AC/TV/Restaurant,Yes,0,250,3.7,1450,Town Center,Government hotel; reliable and cheap
+kanchipuram,Baboo Soorya Hotel,Mid-range,1800,WiFi/AC/TV/Parking,No,180,280,3.8,2260,Silk Weaver Area,Near silk weaving units
+kanchipuram,OYO Kanchipuram Stay,Budget,800,WiFi/AC/TV,No,100,180,3.4,1080,Town Area,Basic budget stay
+coimbatore,Taj Coimbatore,Luxury,10000,Pool/Spa/Gym/WiFi/Multiple Restaurants,No,700,1000,4.7,11700,Race Course Road,Top luxury property in Coimbatore
+coimbatore,Hotel Residency Coimbatore,Premium,4000,Pool/WiFi/AC/Gym/Restaurant,No,400,600,4.3,5000,Avinashi Road,Business hotel; near IT zone
+coimbatore,Hotel Sri Balaji,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,4.0,2500,RS Puram,Central area; clean and comfortable
+coimbatore,Hotel City Tower,Mid-range,1800,WiFi/AC/TV/Restaurant,No,180,280,3.9,2260,Town Hall Road,Good value; near city center
+coimbatore,Hotel Park View,Budget,1200,WiFi/AC/TV,No,150,220,3.6,1570,Gandhipuram,Budget friendly; near bus stand
+coimbatore,OYO Coimbatore Central,Budget,900,WiFi/AC/TV,No,120,180,3.5,1200,Central,Basic amenities; good location
+madurai,Heritage Madurai,Luxury,12000,Pool/Spa/WiFi/AC/Heritage Property,No,800,1200,4.8,14000,KK Nagar,Colonial-era heritage property; stunning
+madurai,Hotel Germanus,Premium,4500,Pool/WiFi/AC/Gym/Restaurant,No,400,600,4.4,5500,Town Hall Road,Best views of Meenakshi Temple
+madurai,Hotel Supreme,Premium,3500,Pool/WiFi/AC/Rooftop Restaurant,No,350,550,4.3,4400,West Perumal Maistry St,Rooftop with temple view; iconic
+madurai,Hotel Sangam,Mid-range,2500,Pool/WiFi/AC/Restaurant,No,250,400,4.1,3150,Alagarkoyil Road,Good pool; family-friendly
+madurai,Hotel Prem Nivas,Budget,1200,WiFi/AC/TV,No,150,250,3.7,1600,West Masi Street,Walking distance to Meenakshi Temple
+madurai,Railway Retiring Rooms,Budget,600,AC/TV/Basic,No,80,150,3.2,830,Madurai Junction,Ultra-budget; inside railway station
+tiruchirappalli,Femina Hotel Trichy,Premium,4000,Pool/WiFi/AC/Restaurant/Gym,No,400,600,4.4,5000,Junction Road,Best hotel in Trichy; near Rock Fort
+tiruchirappalli,Hotel Sangam Trichy,Premium,3500,Pool/WiFi/AC/Restaurant,No,350,500,4.3,4350,Collector's Office Road,Good pool and restaurant
+tiruchirappalli,Hotel Mathura,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,4.0,2500,Royal Road,Central location; decent amenities
+tiruchirappalli,Hotel Aristo,Mid-range,1800,WiFi/AC/TV/Parking,No,180,280,3.8,2260,Junction Road,Budget business hotel
+tiruchirappalli,Hotel Anand,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Singarathope,Near bus stand; basic amenities
+tiruchirappalli,TTDC Hotel Tamil Nadu,Budget,1200,WiFi/AC/TV/Restaurant,Yes,0,250,3.7,1450,McDonald's Road,Government hotel; reliable budget option
+salem,Hotel Salem Castle,Premium,4000,Pool/Spa/WiFi/AC/Restaurant/Gym,No,400,600,4.4,5000,Junction Main Road,Best hotel in Salem
+salem,Hotel Sri Venkateshwara,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,4.0,2500,Four Roads,Central Salem; clean rooms
+salem,Hotel Geetha Bhavan,Mid-range,1800,WiFi/AC/TV/Parking,No,180,280,3.8,2260,Omalur Road,Family-friendly; decent service
+salem,Yercaud Hills Resort,Premium,5000,Pool/WiFi/AC/Views/Restaurant,Yes,0,700,4.5,5700,Yercaud,Hill station resort; stunning valley views
+salem,Hotel Sheela,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Bus Stand Area,Budget option; close to bus stand
+salem,OYO Salem Central,Budget,800,WiFi/AC/TV,No,100,180,3.4,1080,Town Center,Basic but clean
+tirunelveli,Hotel Arun,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,4.0,2500,Junction Road,Most popular mid-range in Tirunelveli
+tirunelveli,Hotel Maya,Mid-range,1800,WiFi/AC/TV/Parking/Restaurant,No,180,280,3.9,2260,Palayamkottai Road,Good service; near railway station
+tirunelveli,Hotel Bhimas Paradise,Premium,3500,Pool/WiFi/AC/Restaurant/Gym,No,350,500,4.3,4350,Trivandrum Road,Best premium option in city
+tirunelveli,Manimuthar River Resort,Premium,4000,Pool/WiFi/AC/Nature/Restaurant,Yes,0,600,4.4,4600,Manimuthar,Near dam; nature resort feel
+tirunelveli,Hotel Janakiram,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Town Center,Budget friendly; central location
+tirunelveli,TTDC Hotel Tamil Nadu,Budget,1200,WiFi/AC/Restaurant,Yes,0,220,3.7,1420,Tirunelveli Junction,Government hotel; reliable
+tiruppur,Hotel Royal Residency,Premium,3500,Pool/WiFi/AC/Gym/Restaurant,No,350,500,4.3,4350,Avinashi Road,Best hotel in Tiruppur
+tiruppur,Hotel Vels Park,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,4.0,2500,Tiruppur Town,Clean and comfortable
+tiruppur,Hotel Rathna,Mid-range,1800,WiFi/AC/TV/Parking,No,180,280,3.8,2260,Kumaran Road,Good for business travelers
+tiruppur,Sivanmalai Hill Resort,Premium,4500,WiFi/AC/Nature Views/Restaurant,Yes,0,600,4.4,5100,Sivanmalai,Hilltop resort; stunning views
+tiruppur,Hotel City Park,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Bus Stand,Budget; near bus stand
+tiruppur,OYO Tiruppur Stay,Budget,800,WiFi/AC/TV,No,100,180,3.4,1080,Town Area,Basic amenities
+vellore,Hotel Prince Manor,Premium,4000,Pool/WiFi/AC/Gym/Restaurant,No,400,600,4.4,5000,Katpadi Road,Best hotel in Vellore
+vellore,Hotel River View,Mid-range,2500,WiFi/AC/TV/Restaurant/River View,No,250,380,4.1,3130,Palar River Side,River-facing rooms; peaceful
+vellore,Hotel Darling Residency,Mid-range,2000,WiFi/AC/TV/Parking,No,200,300,4.0,2500,Gandhi Nagar,Near CMC Hospital; clean
+vellore,Hotel Palmvilla,Mid-range,1800,WiFi/AC/TV/Restaurant,No,180,280,3.8,2260,VIT Road,Close to VIT University
+vellore,Hotel Anand Bhavan,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Near Fort,Walking distance to Vellore Fort
+vellore,OYO Vellore Central,Budget,800,WiFi/AC/TV,No,100,180,3.4,1080,Town Center,Budget option; basic amenities
+erode,Hotel Erode Raja,Premium,3500,Pool/WiFi/AC/Restaurant/Gym,No,350,500,4.3,4350,Brough Road,Best hotel in Erode
+erode,Hotel Aravind Residency,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,4.0,2500,Town Center,Clean; central Erode
+erode,Hotel Sri Vasantha Bhavan,Mid-range,1800,WiFi/AC/TV/Parking,No,180,280,3.8,2260,Perundurai Road,Family-friendly; decent food
+erode,Cauvery River Resort,Premium,5000,Pool/WiFi/AC/River View/Restaurant,Yes,0,700,4.5,5700,Bhavani,On Cauvery bank; scenic
+erode,Hotel Bhavani,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Bus Stand,Budget option near bus stand
+erode,OYO Erode Stay,Budget,800,WiFi/AC/TV,No,100,180,3.4,1080,Town Area,Basic but clean
+ooty,Savoy Hotel Ooty (CGH),Luxury,14000,Garden/Fireplace/WiFi/Heritage/Restaurant,Yes,0,1200,4.8,15200,Sylks Road,Colonial heritage hotel; 150 years old
+ooty,Sterling Ooty Fern Hill,Luxury,10000,Pool/Spa/WiFi/AC/Garden/Restaurant,Yes,0,1000,4.7,11000,Fern Hill,Palace property; stunning views
+ooty,Hotel Lakeview,Premium,5000,WiFi/AC/Lake View/Restaurant,No,500,700,4.4,6200,Ooty Lake,Beautiful lake-facing rooms
+ooty,TTDC Hotel Tamil Nadu Ooty,Mid-range,2500,WiFi/AC/TV/Restaurant,Yes,0,400,4.0,2900,Charing Cross,Government hotel; great location
+ooty,Hotel Welbeck Residency,Mid-range,3000,WiFi/AC/TV/Garden/Restaurant,No,300,450,4.1,3750,Commercial Road,Well-maintained; central Ooty
+ooty,YHA Youth Hostel Ooty,Hostel,700,WiFi/Dorm/Common Area,No,100,180,3.8,980,Ettines Road,Budget dorm; great for backpackers
+kodaikanal,Carlton Hotel Kodaikanal,Luxury,12000,Lake View/Boating/WiFi/Restaurant/Garden,Yes,0,1100,4.7,13100,Lake Road,Best hotel; lake-facing heritage property
+kodaikanal,Club Mahindra Kodaikanal,Luxury,10000,Pool/Spa/WiFi/AC/Multiple Activities,Yes,0,1000,4.6,11000,Coaker's Walk Road,Family resort; lots of activities
+kodaikanal,Hotel Le Poshe,Premium,5000,WiFi/AC/Valley View/Restaurant,No,500,700,4.4,6200,Upper Shola Road,Valley view rooms; cozy
+kodaikanal,Hill Country Resort,Mid-range,3000,WiFi/AC/Garden/Restaurant,No,300,450,4.1,3750,Gym Road,Good mid-range in Kodai
+kodaikanal,Hotel Jewel,Mid-range,2000,WiFi/AC/TV/Restaurant,No,200,300,3.9,2500,PT Road,Central; near lake; good value
+kodaikanal,Snooze Inn,Hostel,600,WiFi/Dorm/Common Kitchen,No,100,180,3.7,880,Bazaar Road,Backpacker spot; close to lake
+kanyakumari,Hotel Maadhini,Premium,4500,Sea View/Pool/WiFi/AC/Restaurant,No,400,600,4.4,5500,Main Road,Best views of tri-ocean confluence
+kanyakumari,Hotel Sangam Kanyakumari,Premium,4000,Sea View/WiFi/AC/Restaurant,No,350,550,4.3,4900,Beach Road,Sea-facing rooms; walking distance to temple
+kanyakumari,Hotel Tamil Nadu (TTDC),Mid-range,2500,WiFi/AC/TV/Restaurant/Sea View,Yes,0,400,4.0,2900,Beach Road,Government hotel; good sea views
+kanyakumari,Hotel Sparsa,Mid-range,3000,Pool/WiFi/AC/Restaurant,No,300,450,4.2,3750,Near Temple,Good pool; family-friendly
+kanyakumari,Hotel Tiruvallam,Budget,1200,WiFi/AC/TV,No,150,250,3.6,1600,Town Area,Budget option; central location
+kanyakumari,Youth Hostel Kanyakumari,Hostel,500,WiFi/Dorm/Common Area,No,100,150,3.5,750,Near Beach,Cheapest option; great location
+rameswaram,Hotel Daiwik,Premium,5000,Pool/WiFi/AC/Temple View/Restaurant,Yes,0,700,4.5,5700,Near Temple,Best hotel; pilgrimage-focused amenities
+rameswaram,Hotel Royal Park,Mid-range,2500,WiFi/AC/TV/Restaurant,No,250,380,4.1,3130,Bazaar Road,Central location; good service
+rameswaram,Hotel Maharaja,Mid-range,2000,WiFi/AC/TV/Parking,No,200,300,4.0,2500,Near Temple,Walking distance to Ramanathaswamy Temple
+rameswaram,TTDC Hotel Tamil Nadu,Mid-range,2200,WiFi/AC/Restaurant,Yes,0,350,3.9,2550,Beach Road,Government hotel; near beach
+rameswaram,Hotel Sri Saravana,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Town Center,Budget pilgrim-friendly stay
+rameswaram,Agni Theertham Lodge,Budget,700,Fan/TV/Basic,No,80,150,3.3,930,Temple Street,Ultra-budget; very basic
+thanjavur,Ideal River View Resort,Premium,6000,Pool/WiFi/AC/River View/Restaurant,Yes,0,800,4.5,6800,Grand Anicut Canal,Stunning river views; best in Thanjavur
+thanjavur,Hotel Sangam Thanjavur,Premium,4000,Pool/WiFi/AC/Gym/Restaurant,No,400,600,4.3,5000,Trichy Road,Business hotel; good amenities
+thanjavur,Hotel Parisutham,Mid-range,3000,Pool/WiFi/AC/Restaurant,No,300,450,4.2,3750,Grand Anicut Road,Good pool; near Big Temple
+thanjavur,Hotel Tamil Nadu (TTDC),Mid-range,2000,WiFi/AC/Restaurant,Yes,0,350,3.9,2350,Gandhi Road,Government hotel; central
+thanjavur,Hotel Gnanam,Mid-range,2500,WiFi/AC/TV/Restaurant,No,250,380,4.0,3130,South Rampart Street,Walking distance to Big Temple
+thanjavur,Hotel Valli,Budget,1000,WiFi/AC/TV,No,120,200,3.6,1320,Bus Stand Area,Budget option; near bus stand
